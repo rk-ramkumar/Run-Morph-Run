@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=9 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Texture2D" uid="uid://wnwa5odxska5" path="res://Assets/sky.hdr" id="1_dn64q"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Material" uid="uid://xkd6km3ludn4" path="res://Resources/red_scifi_metal.tres" id="2_y7swq"]
 [ext_resource type="PackedScene" uid="uid://drkyy8mfydll3" path="res://Scenes/cr_7.tscn" id="3_k64vc"]
 
@@ -14,13 +15,13 @@ sky_material = SubResource("PanoramaSkyMaterial_v3k3f")
 background_mode = 2
 background_energy_multiplier = 0.52
 sky = SubResource("Sky_ttv35")
-sky_rotation = Vector3(0, -5.57982, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_0h1s2"]
 material = ExtResource("2_y7swq")
 size = Vector3(10, 1, 50)
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_tndel")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -34,8 +35,5 @@ environment = SubResource("Environment_tyf8s")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = SubResource("BoxMesh_0h1s2")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 5, -30)
-
-[node name="CR7" parent="." instance=ExtResource("3_k64vc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23.56)
+[node name="cr7" parent="." instance=ExtResource("3_k64vc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23)
