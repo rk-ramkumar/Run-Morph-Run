@@ -15,19 +15,19 @@ func _ready():
 
 func _process(delta):
 	world_environment.environment.sky_rotation.y += rotation_speed * delta
-	move_platform(delta)
+	move_platforms(delta)
 	add_platform()
 
 func add_platform():
 	if platforms.size() == 2:
 		return
 
-func move_platform(delta):
-	var current_platform = platforms.front()
-	if (current_platform.mesh.size.z) < abs(current_platform.position.z):
-		platforms.append(platforms.pop_front())
-		var pos = platforms.reduce(func (acc, cur): return acc + abs(cur.position.z), 0)
-		platforms.back().position.z = pos
-
+func move_platforms(delta):
 	for platform in platforms:
 		platform.position.z -= player.speed * delta
+
+	var current_platform = platforms.front()
+	if current_platform.position.z < -current_platform.get_aabb().size.z:
+		var recycled_platform = platforms.pop_front()
+		recycled_platform.position.z = platforms.back().position.z + recycled_platform.get_aabb().size.z
+		platforms.append(recycled_platform)
