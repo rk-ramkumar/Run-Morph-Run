@@ -6,5 +6,5 @@ var speed = 15
 func _ready():
 	animation_player.play("Running")
 
-func _process(delta):
+func _process(_delta):
 	pass
