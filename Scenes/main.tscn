@@ -35,5 +35,9 @@ environment = SubResource("Environment_tyf8s")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = SubResource("BoxMesh_0h1s2")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 50)
+mesh = SubResource("BoxMesh_0h1s2")
+
 [node name="cr7" parent="." instance=ExtResource("3_k64vc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23)
