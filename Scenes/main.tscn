@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=10 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/sky_2.png" id="2_05x5l"]
 [ext_resource type="PackedScene" uid="uid://drkyy8mfydll3" path="res://Scenes/cr_7.tscn" id="3_k64vc"]
 [ext_resource type="Material" uid="uid://xkd6km3ludn4" path="res://Resources/Materials/red_scifi_metal.tres" id="3_v084o"]
 [ext_resource type="PackedScene" uid="uid://ch8rddbbdijvo" path="res://Scenes/water.tscn" id="5_a02u8"]
-[ext_resource type="PackedScene" uid="uid://diemd3ahp6s31" path="res://Scenes/Platform/platform.tscn" id="6_f5xan"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
 panorama = ExtResource("2_05x5l")
@@ -58,7 +57,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23)
 
 [node name="Water" parent="." instance=ExtResource("5_a02u8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 50)
-
-[node name="platform" parent="." instance=ExtResource("6_f5xan")]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
-visible = false
