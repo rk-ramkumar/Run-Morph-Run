@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://ksxhyklch4lj"]
 
-[ext_resource type="Texture2D" uid="uid://wnwa5odxska5" path="res://Assets/sky.hdr" id="1_dn64q"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
+[ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/sky_2.png" id="2_05x5l"]
 [ext_resource type="PackedScene" uid="uid://drkyy8mfydll3" path="res://Scenes/cr_7.tscn" id="3_k64vc"]
 [ext_resource type="Material" uid="uid://xkd6km3ludn4" path="res://Resources/Materials/red_scifi_metal.tres" id="3_v084o"]
 [ext_resource type="PackedScene" uid="uid://ch8rddbbdijvo" path="res://Scenes/water.tscn" id="5_a02u8"]
 [ext_resource type="PackedScene" uid="uid://diemd3ahp6s31" path="res://Scenes/Platform/platform.tscn" id="6_f5xan"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
-panorama = ExtResource("1_dn64q")
+panorama = ExtResource("2_05x5l")
 
 [sub_resource type="Sky" id="Sky_ttv35"]
 sky_material = SubResource("PanoramaSkyMaterial_v3k3f")
@@ -17,6 +17,14 @@ sky_material = SubResource("PanoramaSkyMaterial_v3k3f")
 background_mode = 2
 background_energy_multiplier = 0.52
 sky = SubResource("Sky_ttv35")
+fog_density = 0.0325
+fog_aerial_perspective = 1.0
+fog_sky_affect = 0.0
+fog_height = -744.03
+fog_height_density = 16.0
+volumetric_fog_density = 0.5818
+volumetric_fog_temporal_reprojection_amount = 0.595
+adjustment_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_0h1s2"]
 material = ExtResource("3_v084o")
@@ -41,6 +49,10 @@ mesh = SubResource("BoxMesh_0h1s2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 50)
 mesh = SubResource("BoxMesh_0h1s2")
 
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 100)
+mesh = SubResource("BoxMesh_0h1s2")
+
 [node name="cr7" parent="." instance=ExtResource("3_k64vc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23)
 
@@ -49,3 +61,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 50)
 
 [node name="platform" parent="." instance=ExtResource("6_f5xan")]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+visible = false
