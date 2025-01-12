@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=9 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/sky_2.png" id="2_05x5l"]
 [ext_resource type="PackedScene" uid="uid://drkyy8mfydll3" path="res://Scenes/cr_7.tscn" id="3_k64vc"]
-[ext_resource type="Material" uid="uid://xkd6km3ludn4" path="res://Resources/Materials/red_scifi_metal.tres" id="3_v084o"]
 [ext_resource type="PackedScene" uid="uid://ch8rddbbdijvo" path="res://Scenes/water.tscn" id="5_a02u8"]
+[ext_resource type="PackedScene" uid="uid://dq2f3x63nlemj" path="res://Scenes/fantasy_island.tscn" id="6_yrujt"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
 panorama = ExtResource("2_05x5l")
@@ -14,20 +14,16 @@ sky_material = SubResource("PanoramaSkyMaterial_v3k3f")
 
 [sub_resource type="Environment" id="Environment_tyf8s"]
 background_mode = 2
-background_energy_multiplier = 0.52
+background_energy_multiplier = 0.5
 sky = SubResource("Sky_ttv35")
-fog_density = 0.0325
-fog_aerial_perspective = 1.0
+tonemap_mode = 2
+glow_strength = 2.0
+fog_light_energy = 0.1
+fog_density = 0.0212
 fog_sky_affect = 0.0
-fog_height = -744.03
-fog_height_density = 16.0
 volumetric_fog_density = 0.5818
 volumetric_fog_temporal_reprojection_amount = 0.595
 adjustment_enabled = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_0h1s2"]
-material = ExtResource("3_v084o")
-size = Vector3(10, 1, 50)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_tndel")
@@ -40,20 +36,10 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tyf8s")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-mesh = SubResource("BoxMesh_0h1s2")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 50)
-mesh = SubResource("BoxMesh_0h1s2")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 100)
-mesh = SubResource("BoxMesh_0h1s2")
-
 [node name="cr7" parent="." instance=ExtResource("3_k64vc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.56548, 25)
 
 [node name="Water" parent="." instance=ExtResource("5_a02u8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 50)
+
+[node name="fantasy_island" parent="." instance=ExtResource("6_yrujt")]

@@ -1,28 +1,29 @@
 extends Node3D
 
-
-var rotation_speed = 0.025
 @onready var world_environment = $WorldEnvironment
-@onready var mesh_instance = $MeshInstance3D
-@onready var mesh_instance_2 = $MeshInstance3D2
-@onready var mesh_instance_3 = $MeshInstance3D3
-
 @onready var player = $cr7
-var platforms = []
+@onready var fantasy_island = $fantasy_island
+var rotation_speed = 0.025
+var platform_scene = preload("res://Scenes/Blocks/Grass/low_large.tscn")
+var platforms: Array = []
 
 func _ready():
-	platforms.append(mesh_instance)
-	platforms.append(mesh_instance_2)
-	platforms.append(mesh_instance_3)
+	add_platform()
+	var tween = get_tree().create_tween()
+	tween.tween_property(fantasy_island, "position:z", -20, 3)
+	tween.tween_callback(func(): fantasy_island.visible = false)
 
 func _process(delta):
 	world_environment.environment.sky_rotation.y += rotation_speed * delta
 	move_platforms(delta)
-	add_platform()
 
 func add_platform():
-	if platforms.size() == 2:
-		return
+	for i in 50:
+		var platform = platform_scene.instantiate()
+		if !platforms.is_empty():
+			platform.position.z = platforms.back().position.z + 1
+		add_child(platform)
+		platforms.append(platform)
 
 func move_platforms(delta):
 	for platform in platforms:

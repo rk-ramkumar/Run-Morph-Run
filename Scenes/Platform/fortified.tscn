@@ -42,13 +42,12 @@ shadow_mesh = SubResource("ArrayMesh_hk8lv")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2oftg"]
 points = PackedVector3Array(0.487328, 0.194525, 0.487328, -0.507937, 0.119029, -0.507937, -0.507937, 0.166636, -0.507937, -0.507937, 0.166636, 0.507937, 0.353718, -1.38778e-17, 0.471748, 0.507937, 0.119029, -0.507937, -0.353718, -1.38778e-17, -0.471748, -0.353718, -1.38778e-17, 0.471748, 0.349093, 0.205, -0.465579, 0.353718, -1.38778e-17, -0.471748, -0.349093, 0.205, 0.465579, -0.349093, 0.205, -0.465579, 0.507937, 0.119029, 0.507937, 0.487328, 0.194525, -0.487328, -0.487328, 0.194525, -0.334967, 0.349093, 0.205, 0.465579, -0.494163, 0.118599, 0.494163, -0.487328, 0.194525, 0.334967)
 
-[node name="platform-fortified" type="Node3D"]
-
-[node name="platform-fortified2" type="MeshInstance3D" parent="."]
+[node name="platform-fortified2" type="MeshInstance3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.2, 0)
 mesh = SubResource("ArrayMesh_lx38x")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="platform-fortified2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="platform-fortified2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_2oftg")

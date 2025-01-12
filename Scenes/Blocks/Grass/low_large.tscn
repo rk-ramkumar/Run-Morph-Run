@@ -44,13 +44,11 @@ shadow_mesh = SubResource("ArrayMesh_3ktqf")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_veaa6"]
 points = PackedVector3Array(-0.960434, 2.77556e-17, -0.712559, 1.02223, 0.375557, 0.798532, 0.925031, 0.343498, -0.956858, -0.976924, 0.5, 0.756384, 0.805487, 2.77556e-17, 0.929375, -0.756194, 0.5, -0.976922, -0.867266, 0, 0.898512, 0.867405, 0, -0.898512, 0.756337, 0.5, 0.976922, 0.976869, 0.5, -0.756384, -0.798507, 0.375552, 1.02224, -0.712374, -2.77556e-17, -0.960431, -1.02207, 0.407545, -0.766549, 0.960379, -2.77556e-17, -0.712559, 0.733003, 0.439122, -1.02, -1.02224, 0.375552, 0.798501, 0.960379, 2.77556e-17, 0.712559, 0.798465, 0.375554, 1.02226, -0.712374, -2.77556e-17, 0.960431, -0.798507, 0.375552, -1.02224, -0.960434, 2.77556e-17, 0.712559, 0.712513, -5.55112e-17, -0.960431, 1.02223, 0.375557, -0.798532, 0.976869, 0.5, 0.756384, -0.756194, 0.5, 0.976922, -0.976924, 0.5, -0.756384, 0.756337, 0.5, -0.976922, -0.956843, 0.343496, -0.925065, 0.712513, -5.55112e-17, 0.960431)
 
-[node name="block-grass-low-large" type="Node3D"]
-
-[node name="block-grass-low-large2" type="MeshInstance3D" parent="."]
+[node name="block-grass-low-large" type="MeshInstance3D"]
 mesh = SubResource("ArrayMesh_loy0n")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="block-grass-low-large2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-low-large2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_veaa6")
