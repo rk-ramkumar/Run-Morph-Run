@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://8gf4baewu4a1"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_4edoq"]
-[ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/attack_titan.tscn" id="2_omidm"]
+[ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="2_omidm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_36xu4"]
 height = 4.0

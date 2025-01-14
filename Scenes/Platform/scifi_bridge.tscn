@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://s3wdgs8q4uu3"]
 
 [ext_resource type="Script" path="res://Scripts/platform.gd" id="1_3keix"]
-[ext_resource type="Texture2D" uid="uid://bkh70u1i44pso" path="res://Assets/Models/scifi_bridge_0.png" id="1_ttmgj"]
-[ext_resource type="Texture2D" uid="uid://cr3rqtoml13li" path="res://Assets/Models/scifi_bridge_1.png" id="2_vpgim"]
-[ext_resource type="Texture2D" uid="uid://d202xvjql65xv" path="res://Assets/Models/scifi_bridge_2.png" id="3_cue78"]
+[ext_resource type="Texture2D" uid="uid://bkh70u1i44pso" path="res://Assets/Textures/scifi_bridge_0.png" id="2_bygjp"]
+[ext_resource type="Texture2D" uid="uid://cr3rqtoml13li" path="res://Assets/Textures/scifi_bridge_1.png" id="3_iowbt"]
+[ext_resource type="Texture2D" uid="uid://d202xvjql65xv" path="res://Assets/Textures/scifi_bridge_2.png" id="4_taght"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2hip"]
 resource_name = "bridge_glass"
@@ -47,10 +47,10 @@ shadow_mesh = SubResource("ArrayMesh_pl6he")
 resource_name = "bridge_surface_1"
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_ttmgj")
+albedo_texture = ExtResource("2_bygjp")
 roughness = 0.169143
 emission_enabled = true
-emission_texture = ExtResource("2_vpgim")
+emission_texture = ExtResource("3_iowbt")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_hubik"]
 _surfaces = [{
@@ -89,7 +89,7 @@ points = PackedVector3Array(7.8094, 0.807051, 32.6968, 7.8094, -0.807052, 32.696
 resource_name = "bridge_surface_2"
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_cue78")
+albedo_texture = ExtResource("4_taght")
 roughness = 0.6
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_mvcya"]

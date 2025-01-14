@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
-[ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/sky_2.png" id="2_05x5l"]
+[ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/Textures/sky_2.png" id="2_ol28g"]
 [ext_resource type="PackedScene" uid="uid://8gf4baewu4a1" path="res://Scenes/Player.tscn" id="3_ynjlx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
-panorama = ExtResource("2_05x5l")
+panorama = ExtResource("2_ol28g")
 
 [sub_resource type="Sky" id="Sky_ttv35"]
 sky_material = SubResource("PanoramaSkyMaterial_v3k3f")

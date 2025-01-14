@@ -1,6 +1,6 @@
 [gd_resource type="MeshLibrary" load_steps=8 format=3 uid="uid://dqix4qek6fbr1"]
 
-[ext_resource type="Texture2D" uid="uid://drsji1pc1tnvc" path="res://Assets/Models/Textures/colormap.png" id="1_7xbyy"]
+[ext_resource type="Texture2D" uid="uid://drsji1pc1tnvc" path="res://Assets/Textures/colormap.png" id="1_7xbyy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6oni"]
 resource_name = "colormap"

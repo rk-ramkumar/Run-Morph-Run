@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c5unn0tc6whde"]
 
-[ext_resource type="Texture2D" uid="uid://drsji1pc1tnvc" path="res://Assets/Models/Textures/colormap.png" id="1_cfpct"]
+[ext_resource type="Texture2D" uid="uid://drsji1pc1tnvc" path="res://Assets/Textures/colormap.png" id="1_cfpct"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5ypx"]
 resource_name = "colormap"

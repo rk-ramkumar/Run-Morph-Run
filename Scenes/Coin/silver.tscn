@@ -1,12 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://nmi1a2rjkp18"]
-
-[ext_resource type="Texture2D" uid="uid://drsji1pc1tnvc" path="res://Assets/Models/Textures/colormap.png" id="1_2xe3a"]
+[gd_scene load_steps=5 format=3 uid="uid://nmi1a2rjkp18"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwbdx"]
 resource_name = "colormap"
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_2xe3a")
 texture_filter = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_pmjcl"]
@@ -45,6 +42,7 @@ shadow_mesh = SubResource("ArrayMesh_pmjcl")
 points = PackedVector3Array(0.166796, 0.294476, 0.075, -0.168152, 0.0970826, -0.0744719, -0.053053, 0.0306302, -0.0743999, 0.166015, 0.303636, -0.075, -0.164, 0.300397, 0.075, 0.00729128, 0.0109736, 0.075, -0.0107198, 0.393811, -0.0744873, 0.172132, 0.102476, -0.075, -0.164, 0.0996029, 0.075, 0.00729128, 0.389026, 0.075, -0.168152, 0.302917, -0.0744719, 0.166796, 0.105524, 0.075, 0.00748139, 0.004876, -0.075, 0.00748139, 0.395124, -0.075, -0.0104207, 0.0109736, 0.075, -0.0104207, 0.389026, 0.075, 0.143159, 0.087798, 0.075, 0.172132, 0.297524, -0.075, 0.143159, 0.312202, 0.075)
 
 [node name="coin-silver" type="Node3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="coin-silver2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_s3ww1")

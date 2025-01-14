@@ -1,11 +1,11 @@
 [gd_resource type="StandardMaterial3D" load_steps=7 format=3 uid="uid://xkd6km3ludn4"]
 
-[ext_resource type="Texture2D" uid="uid://dq2v7jgmhok0q" path="res://Assets/red-scifi-metal-bl/red-scifi-metal_albedo.png" id="1_x280q"]
-[ext_resource type="Texture2D" uid="uid://ckybyib6sc0lf" path="res://Assets/red-scifi-metal-bl/red-scifi-metal_ao.png" id="2_ggc7s"]
-[ext_resource type="Texture2D" uid="uid://ku60jras86di" path="res://Assets/red-scifi-metal-bl/red-scifi-metal_height.png" id="3_m4iwy"]
-[ext_resource type="Texture2D" uid="uid://d0o6c0jkp6kbr" path="res://Assets/red-scifi-metal-bl/red-scifi-metal_metallic.png" id="4_gkch6"]
-[ext_resource type="Texture2D" uid="uid://bkc7w085f726c" path="res://Assets/red-scifi-metal-bl/red-scifi-metal_normal-ogl.png" id="5_squld"]
-[ext_resource type="Texture2D" uid="uid://dyw6s5k5h3gyp" path="res://Assets/red-scifi-metal-bl/red-scifi-metal_roughness.png" id="6_116qn"]
+[ext_resource type="Texture2D" uid="uid://dq2v7jgmhok0q" path="res://Assets/Textures/red-scifi-metal-bl/red-scifi-metal_albedo.png" id="1_x280q"]
+[ext_resource type="Texture2D" uid="uid://ckybyib6sc0lf" path="res://Assets/Textures/red-scifi-metal-bl/red-scifi-metal_ao.png" id="2_ggc7s"]
+[ext_resource type="Texture2D" uid="uid://ku60jras86di" path="res://Assets/Textures/red-scifi-metal-bl/red-scifi-metal_height.png" id="3_m4iwy"]
+[ext_resource type="Texture2D" uid="uid://d0o6c0jkp6kbr" path="res://Assets/Textures/red-scifi-metal-bl/red-scifi-metal_metallic.png" id="4_gkch6"]
+[ext_resource type="Texture2D" uid="uid://bkc7w085f726c" path="res://Assets/Textures/red-scifi-metal-bl/red-scifi-metal_normal-ogl.png" id="5_squld"]
+[ext_resource type="Texture2D" uid="uid://dyw6s5k5h3gyp" path="res://Assets/Textures/red-scifi-metal-bl/red-scifi-metal_roughness.png" id="6_116qn"]
 
 [resource]
 resource_name = "mossy_cobblestone"
