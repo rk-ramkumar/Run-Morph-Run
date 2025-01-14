@@ -2,27 +2,23 @@ extends Node3D
 
 @onready var world_environment = $WorldEnvironment
 @onready var player = $cr7
-@onready var fantasy_island = $fantasy_island
+@export var platform_scene = preload("res://Scenes/Platform/scifi_bridge.tscn")
 var rotation_speed = 0.025
-var platform_scene = preload("res://Scenes/Blocks/Grass/low_large.tscn")
 var platforms: Array = []
 
 func _ready():
 	add_platform()
-	var tween = get_tree().create_tween()
-	tween.tween_property(fantasy_island, "position:z", -20, 3)
-	tween.tween_callback(func(): fantasy_island.visible = false)
 
 func _process(delta):
 	world_environment.environment.sky_rotation.y += rotation_speed * delta
 	move_platforms(delta)
 
 func add_platform():
-	for i in 50:
+	for i in 5:
 		var platform = platform_scene.instantiate()
-		if !platforms.is_empty():
-			platform.position.z = platforms.back().position.z + 1
 		add_child(platform)
+		if !platforms.is_empty():
+			platform.position.z = platform.get_aabb().size.z + platforms.back().position.z
 		platforms.append(platform)
 
 func move_platforms(delta):
