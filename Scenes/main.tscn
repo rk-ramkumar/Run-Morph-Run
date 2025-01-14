@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/sky_2.png" id="2_05x5l"]
-[ext_resource type="PackedScene" uid="uid://drkyy8mfydll3" path="res://Scenes/cr_7.tscn" id="3_k64vc"]
+[ext_resource type="PackedScene" uid="uid://8gf4baewu4a1" path="res://Scenes/Player.tscn" id="3_ynjlx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
 panorama = ExtResource("2_05x5l")
@@ -33,4 +33,4 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tyf8s")
 
-[node name="cr7" parent="." instance=ExtResource("3_k64vc")]
+[node name="Player" parent="." instance=ExtResource("3_ynjlx")]

@@ -1,18 +1,24 @@
 class_name Player extends CharacterBody3D
 
-@onready var animation_player = $AnimationPlayer
-var speed = 15
-const jumpVelocity = 20.0
+@export var armature_scene: PackedScene
 
+const jumpVelocity = 20.0
 const lerpSpeed = 15.0
+
+var animation_player: AnimationPlayer
+var speed = 15
 var direction = Vector3.ZERO
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	if !armature_scene:
+		print("Armature is empty")
+		set_physics_process(false)
+		return
+	var armature = armature_scene.instantiate()
+	add_child(armature)
+	animation_player = armature.get_node("AnimationPlayer")
 	animation_player.play("Running")
-
-func _process(_delta):
-	pass
 
 func _physics_process(delta):
 	# Add the gravity.
