@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4q18xng0tqn7"]
+
+[ext_resource type="Texture2D" uid="uid://qmf35qk8mout" path="res://Assets/Images/Coin.png" id="1_5el0x"]
+[ext_resource type="StyleBox" uid="uid://cwag0usy3g7d6" path="res://Resources/StyleBox/panel_bg.tres" id="1_cb4b2"]
+[ext_resource type="Script" path="res://Scripts/Control_coin.gd" id="2_t3q7q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iu5pc"]
+font_size = 28
+
+[node name="GameHUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoinContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_top = 50.0
+offset_right = -27.0
+offset_bottom = 182.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("1_cb4b2")
+script = ExtResource("2_t3q7q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CoinContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/CoinContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_iu5pc")
+uppercase = true
+
+[node name="Coin" type="TextureRect" parent="Control/CoinContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("1_5el0x")
+stretch_mode = 2
