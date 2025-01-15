@@ -2,6 +2,8 @@ class_name Player extends CharacterBody3D
 
 @export var armature_scene: PackedScene
 
+@onready var collision_shape = $CollisionShape3D
+
 const jumpVelocity = 20.0
 const lerpSpeed = 15.0
 
@@ -28,8 +30,10 @@ func _physics_process(delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = lerp(velocity.y, jumpVelocity, delta * lerpSpeed)
+		collision_shape.position.y += 1
 		animation_player.play("Jump")
 		await animation_player.animation_finished
 		animation_player.play("Running")
+		collision_shape.position.y -= 1
 
 	move_and_slide()
