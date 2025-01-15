@@ -1,4 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxq8pb6mwlj48"]
+[gd_scene load_steps=10 format=3 uid="uid://dxq8pb6mwlj48"]
+
+[ext_resource type="Script" path="res://Scripts/Coin.gd" id="1_nks5s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tev82"]
 resource_name = "Power_Coin"
@@ -90,16 +92,27 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3xbdw")
 
-[node name="Powercoin" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_dslfh"]
+radius = 0.936744
 
-[node name="Root" type="Node3D" parent="."]
+[node name="Powercoin" type="Area3D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_nks5s")
+
+[node name="Mesh" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="Object_4" type="MeshInstance3D" parent="Root"]
+[node name="Object_4" type="MeshInstance3D" parent="Mesh"]
 mesh = SubResource("ArrayMesh_061rs")
 skeleton = NodePath("")
 
-[node name="Object_5" type="MeshInstance3D" parent="Root"]
+[node name="Object_5" type="MeshInstance3D" parent="Mesh"]
 material_override = SubResource("StandardMaterial3D_2cljj")
 mesh = SubResource("ArrayMesh_m3gor")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_dslfh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
