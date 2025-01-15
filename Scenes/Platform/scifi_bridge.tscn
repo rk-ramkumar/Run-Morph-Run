@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://s3wdgs8q4uu3"]
+[gd_scene load_steps=18 format=3 uid="uid://s3wdgs8q4uu3"]
 
 [ext_resource type="Script" path="res://Scripts/platform.gd" id="1_3keix"]
 [ext_resource type="Texture2D" uid="uid://bkh70u1i44pso" path="res://Assets/Textures/scifi_bridge_0.png" id="2_bygjp"]
 [ext_resource type="Texture2D" uid="uid://cr3rqtoml13li" path="res://Assets/Textures/scifi_bridge_1.png" id="3_iowbt"]
 [ext_resource type="Texture2D" uid="uid://d202xvjql65xv" path="res://Assets/Textures/scifi_bridge_2.png" id="4_taght"]
+[ext_resource type="PackedScene" uid="uid://dxq8pb6mwlj48" path="res://Scenes/Coin/powerCoin.tscn" id="5_xq43x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2hip"]
 resource_name = "bridge_glass"
@@ -157,7 +158,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_x8kxk")
 
 [node name="scifi_bridge" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 1.99114)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 script = ExtResource("1_3keix")
 
 [node name="bridge" type="Node3D" parent="."]
@@ -200,3 +201,9 @@ light_color = Color(0, 1, 1, 1)
 light_energy = 16.0
 distance_fade_enabled = true
 spot_range = 82.1124
+
+[node name="Powercoin" parent="." instance=ExtResource("5_xq43x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.04269, 0)
+
+[node name="Powercoin2" parent="." instance=ExtResource("5_xq43x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.04269, -4.15873)
