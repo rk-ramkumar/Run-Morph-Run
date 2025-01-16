@@ -7,4 +7,4 @@ func _ready():
 	_update_label(GameManager.coin)
 
 func _update_label(value):
-	label.text = str(value)
+	label.text = str(value).pad_zeros(6)
