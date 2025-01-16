@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://7n50xybu1pnb"
 path.s3tc="res://.godot/imported/deur_test_lambert1_Normal.png-a89edc082452328735e09007b11fc684.s3tc.ctex"
+path.etc2="res://.godot/imported/deur_test_lambert1_Normal.png-a89edc082452328735e09007b11fc684.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/deur_test_lambert1_Normal.png"
-dest_files=["res://.godot/imported/deur_test_lambert1_Normal.png-a89edc082452328735e09007b11fc684.s3tc.ctex"]
+dest_files=["res://.godot/imported/deur_test_lambert1_Normal.png-a89edc082452328735e09007b11fc684.s3tc.ctex", "res://.godot/imported/deur_test_lambert1_Normal.png-a89edc082452328735e09007b11fc684.etc2.ctex"]
 
 [params]
 

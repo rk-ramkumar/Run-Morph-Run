@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c01ia1ui3swqr"
 path.s3tc="res://.godot/imported/AttackTitan-91bcf7d615fac3bb5a29468ff8784d8c_prop_tip_punch_skill01_body_D.png-c4b5cab942df2142bf4d8a604057ecac.s3tc.ctex"
+path.etc2="res://.godot/imported/AttackTitan-91bcf7d615fac3bb5a29468ff8784d8c_prop_tip_punch_skill01_body_D.png-c4b5cab942df2142bf4d8a604057ecac.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://Assets/Models/Characters/Titan/AttackTitan-91bcf7d615fac3bb5a29468ff8784d8c_prop_tip_punch_skill01_body_D.png"
-dest_files=["res://.godot/imported/AttackTitan-91bcf7d615fac3bb5a29468ff8784d8c_prop_tip_punch_skill01_body_D.png-c4b5cab942df2142bf4d8a604057ecac.s3tc.ctex"]
+dest_files=["res://.godot/imported/AttackTitan-91bcf7d615fac3bb5a29468ff8784d8c_prop_tip_punch_skill01_body_D.png-c4b5cab942df2142bf4d8a604057ecac.s3tc.ctex", "res://.godot/imported/AttackTitan-91bcf7d615fac3bb5a29468ff8784d8c_prop_tip_punch_skill01_body_D.png-c4b5cab942df2142bf4d8a604057ecac.etc2.ctex"]
 
 [params]
 

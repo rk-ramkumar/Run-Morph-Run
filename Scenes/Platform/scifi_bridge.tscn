@@ -195,13 +195,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0437613, 3.48319, 0)
 mesh = SubResource("ArrayMesh_br0k7")
 skeleton = NodePath("")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.203351, 0.979106, 0, -0.979106, -0.203351, 0, 39.0756, 0)
-light_color = Color(0, 1, 1, 1)
-light_energy = 16.0
-distance_fade_enabled = true
-spot_range = 82.1124
-
 [node name="Powercoin" parent="." instance=ExtResource("5_xq43x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.04269, 0)
 

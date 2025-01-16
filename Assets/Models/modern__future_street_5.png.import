@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5krhcb6o5vob"
-path.s3tc="res://.godot/imported/cr7_Ch38_1001_Normal.png-e9ee93b00f40b6c257fe05158aa57eba.s3tc.ctex"
-path.etc2="res://.godot/imported/cr7_Ch38_1001_Normal.png-e9ee93b00f40b6c257fe05158aa57eba.etc2.ctex"
+uid="uid://dlu3jloi6ew8t"
+path.s3tc="res://.godot/imported/modern__future_street_5.png-f888d81fe4d1b2c82ddc0c211a49ec33.s3tc.ctex"
+path.etc2="res://.godot/imported/modern__future_street_5.png-f888d81fe4d1b2c82ddc0c211a49ec33.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://Assets/Models/Characters/CR7/cr7_Ch38_1001_Normal.png"
-dest_files=["res://.godot/imported/cr7_Ch38_1001_Normal.png-e9ee93b00f40b6c257fe05158aa57eba.s3tc.ctex", "res://.godot/imported/cr7_Ch38_1001_Normal.png-e9ee93b00f40b6c257fe05158aa57eba.etc2.ctex"]
+source_file="res://Assets/Models/modern__future_street_5.png"
+dest_files=["res://.godot/imported/modern__future_street_5.png-f888d81fe4d1b2c82ddc0c211a49ec33.s3tc.ctex", "res://.godot/imported/modern__future_street_5.png-f888d81fe4d1b2c82ddc0c211a49ec33.etc2.ctex"]
 
 [params]
 
@@ -27,7 +27,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://Assets/Models/cr7_Ch38_1001_Normal.png"
+roughness/src_normal="res://Assets/Models/modern__future_street_5.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

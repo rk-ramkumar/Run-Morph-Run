@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr3rqtoml13li"
 path.s3tc="res://.godot/imported/scifi_bridge_1.png-bb26f45a94941461550d59a75111aa75.s3tc.ctex"
+path.etc2="res://.godot/imported/scifi_bridge_1.png-bb26f45a94941461550d59a75111aa75.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://Assets/Textures/scifi_bridge_1.png"
-dest_files=["res://.godot/imported/scifi_bridge_1.png-bb26f45a94941461550d59a75111aa75.s3tc.ctex"]
+dest_files=["res://.godot/imported/scifi_bridge_1.png-bb26f45a94941461550d59a75111aa75.s3tc.ctex", "res://.godot/imported/scifi_bridge_1.png-bb26f45a94941461550d59a75111aa75.etc2.ctex"]
 
 [params]
 

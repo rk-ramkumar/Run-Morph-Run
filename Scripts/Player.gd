@@ -2,7 +2,8 @@ class_name Player extends CharacterBody3D
 
 @export var armature_scene: PackedScene
 
-@onready var collision_shape = $CollisionShape3D
+@onready var leg_hitbox = $LegHitbox
+@onready var head_hitbox = $HeadHitbox
 
 const jumpVelocity = 20.0
 const lerpSpeed = 15.0
@@ -32,12 +33,7 @@ func _physics_process(delta):
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = lerp(velocity.y, jumpVelocity, delta * lerpSpeed)
-		collision_shape.position.y += 1
-		animation_player.play("Jump")
-		await animation_player.animation_finished
-		animation_player.play("Running")
-		collision_shape.position.y -= 1
+		_move_up()
 
 	move_and_slide()
 
@@ -59,28 +55,34 @@ func _handle_movement():
 	if abs(swipe_vector.x) > abs(swipe_vector.y):
 	# Horizontal swipe
 		if swipe_vector.x > 0:
-			print("Swiped Right")
 			_move_right()
 		else:
-			print("Swiped Left")
 			_move_left()
 	else:
 		# Vertical swipe
 		if swipe_vector.y > 0:
-			print("Swiped Down")
 			_move_down()
 		else:
-			print("Swiped Up")
 			_move_up()
 
 func _move_right():
-	pass
+	var new_pos = clamp(position.x - 2.5, -2.5, 0)
+	position.x = new_pos
 
 func _move_left():
-	pass
+	var new_pos = position.x + 2.5
+	position.x = clamp(new_pos, 0, 2.5)
 
 func _move_down():
 	pass
 
 func _move_up():
-	pass
+	if not is_on_floor():
+		return
+
+	velocity.y = lerp(velocity.y, jumpVelocity, get_physics_process_delta_time() * lerpSpeed)
+	leg_hitbox.position.y += 1
+	animation_player.play("Jump")
+	await animation_player.animation_finished
+	animation_player.play("Running")
+	leg_hitbox.position.y -= 1

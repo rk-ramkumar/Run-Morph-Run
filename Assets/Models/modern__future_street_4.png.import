@@ -2,18 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyw6s5k5h3gyp"
-path.s3tc="res://.godot/imported/red-scifi-metal_roughness.png-259681f1c27da379cc77fc017d7fc1da.s3tc.ctex"
-path.etc2="res://.godot/imported/red-scifi-metal_roughness.png-259681f1c27da379cc77fc017d7fc1da.etc2.ctex"
+uid="uid://bjlji0wnlo3hi"
+path.s3tc="res://.godot/imported/modern__future_street_4.png-8cb1bdb746466edca74293f0b506c650.s3tc.ctex"
+path.etc2="res://.godot/imported/modern__future_street_4.png-8cb1bdb746466edca74293f0b506c650.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 
-source_file="res://Assets/Textures/red-scifi-metal-bl/red-scifi-metal_roughness.png"
-dest_files=["res://.godot/imported/red-scifi-metal_roughness.png-259681f1c27da379cc77fc017d7fc1da.s3tc.ctex", "res://.godot/imported/red-scifi-metal_roughness.png-259681f1c27da379cc77fc017d7fc1da.etc2.ctex"]
+source_file="res://Assets/Models/modern__future_street_4.png"
+dest_files=["res://.godot/imported/modern__future_street_4.png-8cb1bdb746466edca74293f0b506c650.s3tc.ctex", "res://.godot/imported/modern__future_street_4.png-8cb1bdb746466edca74293f0b506c650.etc2.ctex"]
 
 [params]
 

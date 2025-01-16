@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cosa2mtu1chiq"
 path.s3tc="res://.godot/imported/cube_Mixed_AO_1001.png-a6ad2441a186c918541e3c4345233237.s3tc.ctex"
+path.etc2="res://.godot/imported/cube_Mixed_AO_1001.png-a6ad2441a186c918541e3c4345233237.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/cube_Mixed_AO_1001.png"
-dest_files=["res://.godot/imported/cube_Mixed_AO_1001.png-a6ad2441a186c918541e3c4345233237.s3tc.ctex"]
+dest_files=["res://.godot/imported/cube_Mixed_AO_1001.png-a6ad2441a186c918541e3c4345233237.s3tc.ctex", "res://.godot/imported/cube_Mixed_AO_1001.png-a6ad2441a186c918541e3c4345233237.etc2.ctex"]
 
 [params]
 

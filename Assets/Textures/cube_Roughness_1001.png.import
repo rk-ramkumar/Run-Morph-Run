@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvvs5j0bfqexj"
 path.s3tc="res://.godot/imported/cube_Roughness_1001.png-b3eea9d1ddbceff48e5fdfed29f18d73.s3tc.ctex"
+path.etc2="res://.godot/imported/cube_Roughness_1001.png-b3eea9d1ddbceff48e5fdfed29f18d73.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/cube_Roughness_1001.png"
-dest_files=["res://.godot/imported/cube_Roughness_1001.png-b3eea9d1ddbceff48e5fdfed29f18d73.s3tc.ctex"]
+dest_files=["res://.godot/imported/cube_Roughness_1001.png-b3eea9d1ddbceff48e5fdfed29f18d73.s3tc.ctex", "res://.godot/imported/cube_Roughness_1001.png-b3eea9d1ddbceff48e5fdfed29f18d73.etc2.ctex"]
 
 [params]
 

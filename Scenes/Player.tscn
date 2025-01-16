@@ -1,9 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://8gf4baewu4a1"]
+[gd_scene load_steps=5 format=3 uid="uid://8gf4baewu4a1"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_4edoq"]
 [ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="2_omidm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad2cv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bii7a"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -11,13 +13,10 @@ collision_mask = 5
 script = ExtResource("1_4edoq")
 armature_scene = ExtResource("2_omidm")
 
-[node name="Spring" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -8)
-
-[node name="Camera3D" type="Camera3D" parent="Spring"]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
-current = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="LegHitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_ad2cv")
+
+[node name="HeadHitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("SphereShape3D_bii7a")

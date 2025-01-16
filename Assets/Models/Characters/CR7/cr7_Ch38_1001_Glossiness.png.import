@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cn02xd8uudbkx"
 path.s3tc="res://.godot/imported/cr7_Ch38_1001_Glossiness.png-571616b80468b8e7dc6bcbe83fe034ee.s3tc.ctex"
+path.etc2="res://.godot/imported/cr7_Ch38_1001_Glossiness.png-571616b80468b8e7dc6bcbe83fe034ee.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://Assets/Models/Characters/CR7/cr7_Ch38_1001_Glossiness.png"
-dest_files=["res://.godot/imported/cr7_Ch38_1001_Glossiness.png-571616b80468b8e7dc6bcbe83fe034ee.s3tc.ctex"]
+dest_files=["res://.godot/imported/cr7_Ch38_1001_Glossiness.png-571616b80468b8e7dc6bcbe83fe034ee.s3tc.ctex", "res://.godot/imported/cr7_Ch38_1001_Glossiness.png-571616b80468b8e7dc6bcbe83fe034ee.etc2.ctex"]
 
 [params]
 
