@@ -31,6 +31,9 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	if is_on_floor() and leg_hitbox.disabled:
+		leg_hitbox.disabled = false
+
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		_move_up()
@@ -74,15 +77,20 @@ func _move_left():
 	position.x = clamp(new_pos, 0, 2.5)
 
 func _move_down():
-	pass
+	if not is_on_floor():
+		return
+
+	play_animation("Slide")
 
 func _move_up():
 	if not is_on_floor():
 		return
 
 	velocity.y = lerp(velocity.y, jumpVelocity, get_physics_process_delta_time() * lerpSpeed)
-	leg_hitbox.position.y += 1
-	animation_player.play("Jump")
-	await animation_player.animation_finished
-	animation_player.play("Running")
-	leg_hitbox.position.y -= 1
+	leg_hitbox.disabled = true
+	play_animation("Jump")
+
+func play_animation(anim_name):
+	animation_player.play(anim_name)
+	animation_player.animation_set_next(anim_name, "Running")
+	

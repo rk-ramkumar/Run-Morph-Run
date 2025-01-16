@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=10 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/Textures/sky_2.png" id="2_ol28g"]
 [ext_resource type="PackedScene" uid="uid://8gf4baewu4a1" path="res://Scenes/Player.tscn" id="3_ynjlx"]
+[ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="4_26tcl"]
 [ext_resource type="PackedScene" uid="uid://c4q18xng0tqn7" path="res://Scenes/game_hui.tscn" id="4_okbqe"]
 [ext_resource type="PackedScene" uid="uid://dkjuo2ealalbp" path="res://Scenes/camera_spring.tscn" id="5_yh11r"]
 
@@ -36,6 +37,7 @@ shadow_enabled = true
 environment = SubResource("Environment_tyf8s")
 
 [node name="Player" parent="." instance=ExtResource("3_ynjlx")]
+armature_scene = ExtResource("4_26tcl")
 
 [node name="GameHUI" parent="." instance=ExtResource("4_okbqe")]
 
