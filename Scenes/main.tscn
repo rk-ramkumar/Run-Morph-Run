@@ -46,4 +46,5 @@ armature_scene = ExtResource("4_26tcl")
 
 [node name="CoinSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("7_u8660")
+spawn_interval = 2.0
 player = NodePath("../Player")
