@@ -8,6 +8,7 @@ enum PATTERNS {
 
 func _ready():
 	object_scene = preload("res://Scenes/Coin/powerCoin.tscn")
+	super._ready()
 
 func _spwan_object():
 	var pattern = randi() % 3

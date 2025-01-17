@@ -5,7 +5,7 @@ class_name Spawner extends Node
 @export var spawn_distance: float = 100.0
 @export var player: Player
 @export var object_scene: PackedScene
-@export var rand_spawn_interval: Dictionary = {
+@export var spawn_interval_limit: Dictionary = {
 	"min": 1.0,
 	"max": 5.0
 }
@@ -28,7 +28,7 @@ func _process(delta):
 	spawn_timer += delta
 	if spawn_timer > spawn_interval:
 		spawn_timer = 0.0
-		spawn_interval = randf_range(rand_spawn_interval.min, rand_spawn_interval.max)
+		spawn_interval = randf_range(spawn_interval_limit.min, spawn_interval_limit.max)
 		_spwan_object()
 	_move_active_object(delta)
 
