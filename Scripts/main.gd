@@ -13,6 +13,8 @@ func _ready():
 func _process(delta):
 	world_environment.environment.sky_rotation.y += rotation_speed * delta
 	move_platforms(delta)
+	var speed_mps = player.speed * (5.0 / 18.0)  # Convert km/h to m/s
+	GameManager.increase_distance(speed_mps * delta)  # Update distance in meters
 
 func add_platform():
 	for i in 5:

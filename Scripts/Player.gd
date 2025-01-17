@@ -44,7 +44,7 @@ func _physics_process(delta):
 		leg_hitbox.disabled = false
 		current_state = STATE.RUNNING
 	
-	if animation_player.current_animation == "Running" and head_hitbox.disabled:
+	if animation_player.current_animation != "Slide" and head_hitbox.disabled:
 		head_hitbox.disabled = false
 		current_state = STATE.RUNNING
 
