@@ -1,0 +1,59 @@
+class_name Spawner extends Node
+
+@export var spawn_pool_size: int = 20
+@export var spawn_interval: float = 3.0
+@export var spawn_distance: float = 100.0
+@export var player: Player
+@export var object_scene: PackedScene
+@export var rand_spawn_interval: Dictionary = {
+	"min": 1.0,
+	"max": 5.0
+}
+var pool: Array = []
+var spawn_timer: float = 0.0
+var lane_offset: float
+
+func _ready():
+	lane_offset = get_parent().lane_offset
+	_add_object()
+
+func _add_object(amount = spawn_pool_size):
+	for _i in amount:
+		var object = object_scene.instantiate()
+		_disable_object(object)
+		add_child(object)
+		pool.append(object)
+
+func _process(delta):
+	spawn_timer += delta
+	if spawn_timer > spawn_interval:
+		spawn_timer = 0.0
+		spawn_interval = randf_range(rand_spawn_interval.min, rand_spawn_interval.max)
+		_spwan_object()
+	_move_active_object(delta)
+
+func _spwan_object():
+	pass
+
+func _move_active_object(delta):
+	for object in _get_active_objects():
+		object.position.z -=  player.speed * delta
+		_recycle_object(object)
+
+func _get_active_objects():
+	return pool.filter(func(object): return object.visible)
+
+func _get_inactive_objects(amount: int):
+	var inactive_objects = pool.filter(func(object): return !object.visible)
+	if inactive_objects.size() < amount:
+		_add_object(amount - inactive_objects.size())
+		inactive_objects = pool.filter(func(object): return !object.visible)
+	return inactive_objects
+
+func _recycle_object(object):
+	if object.position.z < -5:
+		_disable_object(object)
+
+func _disable_object(object):
+	object.position = Vector3(-100, -100, -100)
+	object.visible = false
