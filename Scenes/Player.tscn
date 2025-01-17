@@ -3,17 +3,18 @@
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_4edoq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad2cv"]
+size = Vector3(1, 0.5, 0.5)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bii7a"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
 input_ray_pickable = false
 script = ExtResource("1_4edoq")
 
 [node name="LegHitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_ad2cv")
 
 [node name="HeadHitbox" type="CollisionShape3D" parent="."]

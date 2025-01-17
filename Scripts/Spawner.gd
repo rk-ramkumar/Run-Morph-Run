@@ -57,4 +57,4 @@ func _recycle_object(object):
 
 func _disable_object(object):
 	object.hide()
-	object.position = Vector3.ZERO
+	object.position = Vector3(0, 0, -20)
