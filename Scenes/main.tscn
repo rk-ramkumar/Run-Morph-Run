@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=12 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/Textures/sky_2.png" id="2_ol28g"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c4q18xng0tqn7" path="res://Scenes/game_hui.tscn" id="4_okbqe"]
 [ext_resource type="PackedScene" uid="uid://dkjuo2ealalbp" path="res://Scenes/camera_spring.tscn" id="5_yh11r"]
 [ext_resource type="Script" path="res://Scripts/CoinSpawner.gd" id="7_u8660"]
+[ext_resource type="Script" path="res://Scripts/ObstacleSpawner.gd" id="8_35k5l"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
 panorama = ExtResource("2_ol28g")
@@ -46,5 +47,17 @@ armature_scene = ExtResource("4_26tcl")
 
 [node name="CoinSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("7_u8660")
-spawn_interval = 2.0
+spawn_interval = 1.0
 player = NodePath("../Player")
+
+[node name="ObstacleSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_35k5l")
+spawn_pool_size = 10
+spawn_interval = 1.0
+spawn_distance = 90.0
+player = NodePath("../Player")
+spawn_interval_limit = {
+"max": 2.0,
+"min": 1.0
+}
+lanes = [-3.5, 0, 3.5]

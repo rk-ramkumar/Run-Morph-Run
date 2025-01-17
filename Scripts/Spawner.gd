@@ -13,10 +13,8 @@ class_name Spawner extends Node
 
 var pool: Array = []
 var spawn_timer: float = 0.0
-var lane_offset: float
 
 func _ready():
-	lane_offset = get_parent().lane_offset
 	_add_object()
 	randomize()
 
@@ -48,10 +46,10 @@ func _get_active_objects():
 
 func _get_inactive_objects(amount: int):
 	var inactive_objects = pool.filter(func(object): return !object.visible)
-	if inactive_objects.size() < amount:
+	if pool.size() < 25 and inactive_objects.size() < amount:
 		_add_object(amount - inactive_objects.size())
 		inactive_objects = pool.filter(func(object): return !object.visible)
-	return inactive_objects
+	return inactive_objects.slice(0, min(amount, inactive_objects.size()))
 
 func _recycle_object(object):
 	if object.position.z < -5:
