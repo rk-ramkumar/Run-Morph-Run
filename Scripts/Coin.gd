@@ -16,3 +16,11 @@ func _rotate(delta):
 func _on_body_entered(_body):
 	if visible:
 		GameManager.increase_coins()
+		var tween = create_tween()
+		tween.parallel().tween_property(mesh, "scale", Vector3.ZERO, 0.5)
+		tween.parallel().tween_property(mesh, "position", Vector3(-5, 30, 0), 0.5)
+		tween.tween_callback(func(): 
+			mesh.scale = Vector3.ONE
+			mesh.position = Vector3.ZERO
+			visible = false
+			)
