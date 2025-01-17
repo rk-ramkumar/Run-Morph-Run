@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4q18xng0tqn7"]
+[gd_scene load_steps=9 format=3 uid="uid://c4q18xng0tqn7"]
 
 [ext_resource type="Script" path="res://Scripts/Game_HUI_Control.gd" id="1_3pnah"]
 [ext_resource type="StyleBox" uid="uid://cwag0usy3g7d6" path="res://Resources/StyleBox/panel_bg.tres" id="1_cb4b2"]
+[ext_resource type="Script" path="res://Scripts/game_hui.gd" id="1_povxx"]
 [ext_resource type="Script" path="res://Scripts/Control_coin.gd" id="2_t3q7q"]
 [ext_resource type="Texture2D" uid="uid://cmtduj4gccv5o" path="res://Assets/Images/Coin_64.png" id="3_agslp"]
 [ext_resource type="Texture2D" uid="uid://cvslw0y1y18rw" path="res://Assets/Images/distance.png" id="3_urup2"]
@@ -9,7 +10,11 @@
 [sub_resource type="LabelSettings" id="LabelSettings_iu5pc"]
 font_size = 38
 
+[sub_resource type="LabelSettings" id="LabelSettings_1fjrk"]
+font_size = 24
+
 [node name="GameHUI" type="CanvasLayer"]
+script = ExtResource("1_povxx")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -77,3 +82,22 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("3_agslp")
 stretch_mode = 2
+
+[node name="PlayerSpeed" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -320.0
+offset_right = 84.0
+offset_bottom = -291.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "{speed}KMH"
+label_settings = SubResource("LabelSettings_1fjrk")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

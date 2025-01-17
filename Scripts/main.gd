@@ -2,6 +2,8 @@ extends Node3D
 
 @onready var world_environment = $WorldEnvironment
 @onready var player = $Player
+@onready var game_hui = $GameHUI
+
 @export var platform_scene = preload("res://Scenes/Platform/scifi_bridge.tscn")
 @export var lane_offset: float = 2.5
 var rotation_speed = 0.025
@@ -15,6 +17,7 @@ func _process(delta):
 	move_platforms(delta)
 	var speed_mps = player.speed * (5.0 / 18.0)  # Convert km/h to m/s
 	GameManager.increase_distance(speed_mps * delta)  # Update distance in meters
+	game_hui.update_player_label(player.speed)
 
 func add_platform():
 	for i in 5:

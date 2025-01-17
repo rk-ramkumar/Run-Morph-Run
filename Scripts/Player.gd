@@ -14,7 +14,9 @@ enum STATE {
 	JUMPING
 }
 var animation_player: AnimationPlayer
-var speed = 15
+var speed: float = 30.0
+var max_speed_kmh: float = 100.0          # Maximum speed limit in km/h
+var speed_increase_rate: float = 0.1    # Speed increase per second (km/h)
 var direction = Vector3.ZERO
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var swipe_start_position: Vector2 = Vector2.ZERO
@@ -22,6 +24,7 @@ var swipe_end_position: Vector2 = Vector2.ZERO
 var min_swipe_distance: float = 50.0
 var current_state: STATE = STATE.RUNNING
 var lane_offset: float
+var slide_speed_penalty : float = 0.0
 
 func _ready():
 	if !armature_scene:
@@ -35,6 +38,8 @@ func _ready():
 	lane_offset = get_parent().lane_offset
 
 func _physics_process(delta):
+	_increase_speed(delta)
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -45,6 +50,7 @@ func _physics_process(delta):
 		current_state = STATE.RUNNING
 	
 	if animation_player.current_animation != "Slide" and head_hitbox.disabled:
+		speed += slide_speed_penalty 
 		head_hitbox.disabled = false
 		current_state = STATE.RUNNING
 
@@ -53,6 +59,10 @@ func _physics_process(delta):
 		_move_up()
 
 	move_and_slide()
+
+func _increase_speed(delta):
+	if speed < max_speed_kmh:
+		speed += speed_increase_rate * delta  # Gradual increase
 
 func _input(event):
 	if event is InputEventScreenTouch:
@@ -99,6 +109,8 @@ func _move_down():
 		return
 	current_state = STATE.SLIDING
 	head_hitbox.disabled = true
+	slide_speed_penalty  = speed * 0.20
+	speed -= slide_speed_penalty  # 20% speed reduction during slide
 	play_animation("Slide")
 
 func _move_up():
