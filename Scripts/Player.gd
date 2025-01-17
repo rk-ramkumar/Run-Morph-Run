@@ -23,7 +23,7 @@ var swipe_start_position: Vector2 = Vector2.ZERO
 var swipe_end_position: Vector2 = Vector2.ZERO
 var min_swipe_distance: float = 50.0
 var current_state: STATE = STATE.RUNNING
-var lane_offset: float
+var lane_offset: float = 2.5
 var slide_speed_penalty : float = 0.0
 
 func _ready():
@@ -35,7 +35,6 @@ func _ready():
 	add_child(armature)
 	animation_player = armature.get_node("AnimationPlayer")
 	animation_player.play("Running")
-	lane_offset = get_parent().lane_offset
 
 func _physics_process(delta):
 	_increase_speed(delta)
@@ -111,7 +110,7 @@ func _move_down():
 	head_hitbox.disabled = true
 	slide_speed_penalty = speed * 0.01
 	speed -= slide_speed_penalty  # 20% speed reduction during slide
-	play_animation("Slide")
+	play_animation("Slide", 1.8)
 
 func _move_up():
 	if not is_on_floor():
@@ -121,8 +120,8 @@ func _move_up():
 	leg_hitbox.disabled = true
 	play_animation("Jump")
 
-func play_animation(anim_name):
-	animation_player.play(anim_name)
+func play_animation(anim_name, anim_speed: float = 1, blend: float = -1):
+	animation_player.play(anim_name, blend, anim_speed)
 	animation_player.clear_queue()
 	animation_player.queue("Running")
 	
