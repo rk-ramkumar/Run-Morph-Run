@@ -171,7 +171,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kid5y")
 
 [node name="RuneStone" type="Node3D"]
-transform = Transform3D(0.996286, 0, -0.0861037, 0, 1, 0, 0.0861037, 0, 0.996286, 29.3389, 16.0482, -89.9023)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Object_196" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, -1.49012e-08, -4.44089e-16, 1, -3.55271e-15, 1.49012e-08, 0, 1, 0, 0, 0)

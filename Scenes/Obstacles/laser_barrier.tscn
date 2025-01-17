@@ -5,7 +5,6 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7teo"]
 resource_name = "Scifi_Tunnel_Texture"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("1_hq3o7")
 metallic = 0.4
 roughness = 0.272166
@@ -13,7 +12,6 @@ roughness = 0.272166
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_icda6"]
 resource_name = "Scifi_Tunnel_Texture"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 roughness = 0.272166
 
