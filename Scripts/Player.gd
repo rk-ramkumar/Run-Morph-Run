@@ -105,11 +105,11 @@ func _move_left():
 	position.x = clamp(new_pos, 0, lane_offset)
 
 func _move_down():
-	if not is_on_floor():
-		return
+#	if not is_on_floor():
+#		return
 	current_state = STATE.SLIDING
 	head_hitbox.disabled = true
-	slide_speed_penalty  = speed * 0.20
+	slide_speed_penalty = speed * 0.01
 	speed -= slide_speed_penalty  # 20% speed reduction during slide
 	play_animation("Slide")
 
