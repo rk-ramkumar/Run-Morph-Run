@@ -9,6 +9,8 @@ class_name Spawner extends Node
 	"min": 1.0,
 	"max": 5.0
 }
+@export var lanes: Array = [-2.5, 0, 2.5]
+
 var pool: Array = []
 var spawn_timer: float = 0.0
 var lane_offset: float
@@ -16,6 +18,7 @@ var lane_offset: float
 func _ready():
 	lane_offset = get_parent().lane_offset
 	_add_object()
+	randomize()
 
 func _add_object(amount = spawn_pool_size):
 	for _i in amount:
