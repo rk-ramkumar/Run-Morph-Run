@@ -10,7 +10,7 @@ func _ready():
 	object_scene = preload("res://Scenes/Coin/powerCoin.tscn")
 	super._ready()
 
-func _spwan_object():
+func _spawn_object():
 	var pattern = randi() % 3
 	match  pattern:
 		PATTERNS.LINE:
@@ -27,7 +27,7 @@ func spawn_straight_line(spawn_amount: int = 5):
 	for i in spawn_amount:
 		var coin = coins[i]
 		coin.position = Vector3(lane, 1, spawn_distance + i*2)
-		coin.visible = true
+		coin.show()
 
 func spawn_jump_arc(spawn_amount: int = 7):
 	var lane = [-lane_offset, 0, lane_offset].pick_random()
@@ -40,7 +40,7 @@ func spawn_jump_arc(spawn_amount: int = 7):
 		var z_pos = spawn_distance + i * 1.5
 
 		coin.position = Vector3(lane, y_pos , z_pos)
-		coin.visible = true
+		coin.show()
 
 func spawn_zigzag(spawn_amount: int = 6):
 	var lanes = [-lane_offset, 0, lane_offset]
@@ -49,5 +49,5 @@ func spawn_zigzag(spawn_amount: int = 6):
 		var coin = coins[i]
 		var lane = lanes[i % 3]
 		coin.position = Vector3(lane, 1, spawn_distance + i * 3)
-		coin.visible = true
+		coin.show()
 	

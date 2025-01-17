@@ -29,10 +29,10 @@ func _process(delta):
 	if spawn_timer > spawn_interval:
 		spawn_timer = 0.0
 		spawn_interval = randf_range(spawn_interval_limit.min, spawn_interval_limit.max)
-		_spwan_object()
+		_spawn_object()
 	_move_active_object(delta)
 
-func _spwan_object():
+func _spawn_object():
 	pass
 
 func _move_active_object(delta):
@@ -55,5 +55,5 @@ func _recycle_object(object):
 		_disable_object(object)
 
 func _disable_object(object):
-	object.position = Vector3(-100, -100, -100)
-	object.visible = false
+	object.hide()
+	object.position = Vector3.ZERO

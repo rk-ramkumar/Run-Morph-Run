@@ -10,7 +10,7 @@ resource_name = "bridge_glass"
 transparency = 4
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.0530973, 0.0530973, 0.0530973, 0.614097)
+albedo_color = Color(0.054902, 0.054902, 0.054902, 0.45098)
 roughness = 0.422474
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_pl6he"]
