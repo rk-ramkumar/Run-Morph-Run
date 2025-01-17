@@ -21,7 +21,6 @@ roughness = 0.203705
 resource_name = "decal2"
 transparency = 4
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("1_aqifv")
 metallic = 0.4
 roughness = 0.272166
@@ -32,7 +31,6 @@ emission = Color(1, 1, 0, 1)
 resource_name = "decal1.002"
 transparency = 4
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("2_brrr0")
 metallic = 0.4
 roughness = 0.272166
@@ -134,7 +132,7 @@ shadow_mesh = SubResource("ArrayMesh_8lfpd")
 [node name="obstacles_down" type="Node3D"]
 
 [node name="RootNode" type="Node3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.6, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="down_001" type="MeshInstance3D" parent="RootNode"]
 transform = Transform3D(306.878, 0, 0, 0, -4.37114e-06, 370.198, 0, -100, -1.61819e-05, 0, 5.35392, -0.803421)
