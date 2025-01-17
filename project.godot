@@ -24,7 +24,6 @@ GameManager="*res://AutoLoad/GameManager.gd"
 
 window/size/viewport_width=1080
 window/size/viewport_height=1920
-window/stretch/mode="canvas_items"
 window/handheld/orientation=1
 
 [gui]
@@ -48,6 +47,7 @@ pointing/emulate_touch_from_mouse=true
 3d_physics/layer_1="Floor"
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Coin"
+3d_physics/layer_4="Obstacle"
 
 [rendering]
 
