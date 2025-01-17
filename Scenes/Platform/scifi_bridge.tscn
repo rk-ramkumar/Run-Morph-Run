@@ -172,6 +172,7 @@ skeleton = NodePath("")
 
 [node name="ground" type="StaticBody3D" parent="bridge"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.86601, 0)
+input_ray_pickable = false
 
 [node name="ground_bridge_surface" type="MeshInstance3D" parent="bridge/ground"]
 mesh = SubResource("ArrayMesh_pbmbj")

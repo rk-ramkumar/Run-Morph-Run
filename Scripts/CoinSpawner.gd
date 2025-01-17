@@ -8,6 +8,7 @@ enum PATTERNS {
 @export var spawn_pool_size: int = 20
 @export var coin_scene: PackedScene = preload("res://Scenes/Coin/powerCoin.tscn")
 @export var spawn_interval: float = 3.0
+@export var spawn_distance: float = 100.0
 @export var player: Player
 var pool: Array = []
 var spawn_timer: float = 0.0
@@ -71,7 +72,7 @@ func spawn_straight_line(spawn_amount: int = 5):
 
 	for i in spawn_amount:
 		var coin = coins[i]
-		coin.position = Vector3(lane, 1, 100 + i*2)
+		coin.position = Vector3(lane, 1, spawn_distance + i*2)
 		coin.visible = true
 
 func spawn_jump_arc(spawn_amount: int = 7):
@@ -82,7 +83,7 @@ func spawn_jump_arc(spawn_amount: int = 7):
 		var coin = coins[i]
 		var angle = lerp(-PI / 2, PI / 2, i / float(spawn_amount - 1))
 		var y_pos = sin(angle) * 5  # Smooth arc
-		var z_pos = 100 + i * 1.5
+		var z_pos = spawn_distance + i * 1.5
 
 		coin.position = Vector3(lane, y_pos , z_pos)
 		coin.visible = true
@@ -93,6 +94,6 @@ func spawn_zigzag(spawn_amount: int = 6):
 	for i in spawn_amount:
 		var coin = coins[i]
 		var lane = lanes[i % 3]
-		coin.position = Vector3(lane, 1, 100 + i * 3)
+		coin.position = Vector3(lane, 1, spawn_distance + i * 3)
 		coin.visible = true
 	
