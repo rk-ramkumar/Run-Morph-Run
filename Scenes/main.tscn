@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=11 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/Textures/sky_2.png" id="2_ol28g"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="4_26tcl"]
 [ext_resource type="PackedScene" uid="uid://c4q18xng0tqn7" path="res://Scenes/game_hui.tscn" id="4_okbqe"]
 [ext_resource type="PackedScene" uid="uid://dkjuo2ealalbp" path="res://Scenes/camera_spring.tscn" id="5_yh11r"]
+[ext_resource type="Script" path="res://Scripts/CoinSpawner.gd" id="7_u8660"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
 panorama = ExtResource("2_ol28g")
@@ -42,3 +43,7 @@ armature_scene = ExtResource("4_26tcl")
 [node name="GameHUI" parent="." instance=ExtResource("4_okbqe")]
 
 [node name="CameraSpring" parent="." instance=ExtResource("5_yh11r")]
+
+[node name="CoinSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("7_u8660")
+player = NodePath("../Player")

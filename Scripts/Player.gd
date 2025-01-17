@@ -21,6 +21,7 @@ var swipe_start_position: Vector2 = Vector2.ZERO
 var swipe_end_position: Vector2 = Vector2.ZERO
 var min_swipe_distance: float = 50.0
 var current_state: STATE = STATE.RUNNING
+var lane_offset: float
 
 func _ready():
 	if !armature_scene:
@@ -31,6 +32,7 @@ func _ready():
 	add_child(armature)
 	animation_player = armature.get_node("AnimationPlayer")
 	animation_player.play("Running")
+	lane_offset = get_parent().lane_offset
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -83,14 +85,14 @@ func _handle_movement():
 func _move_right():
 	if current_state == STATE.SLIDING:
 		return
-	var new_pos = clamp(position.x - 2.5, -2.5, 0)
+	var new_pos = clamp(position.x - lane_offset, -lane_offset, 0)
 	position.x = new_pos
 
 func _move_left():
 	if current_state == STATE.SLIDING:
 		return
-	var new_pos = position.x + 2.5
-	position.x = clamp(new_pos, 0, 2.5)
+	var new_pos = position.x + lane_offset
+	position.x = clamp(new_pos, 0, lane_offset)
 
 func _move_down():
 	if not is_on_floor():

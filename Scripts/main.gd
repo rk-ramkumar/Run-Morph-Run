@@ -3,6 +3,7 @@ extends Node3D
 @onready var world_environment = $WorldEnvironment
 @onready var player = $Player
 @export var platform_scene = preload("res://Scenes/Platform/scifi_bridge.tscn")
+@export var lane_offset: float = 2.5
 var rotation_speed = 0.025
 var platforms: Array = []
 

@@ -13,6 +13,6 @@ func _process(delta):
 func _rotate(delta):
 	mesh.rotation_degrees.y -= (rotation_deg * delta) 
 
-
 func _on_body_entered(_body):
-	GameManager.increase_coins()
+	if visible:
+		GameManager.increase_coins()
