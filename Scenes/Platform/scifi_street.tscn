@@ -258,6 +258,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qpf6s")
 
 [node name="FutureStreet" type="Node3D" node_paths=PackedStringArray("ground_surface")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
 script = ExtResource("1_46it7")
 ground_surface = NodePath("Pivot/ground")
 custom_size = Vector3(0, 0, 106.4)

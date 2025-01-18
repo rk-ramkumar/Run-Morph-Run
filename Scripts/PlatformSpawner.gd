@@ -38,7 +38,7 @@ func _add_object(_amount = spawn_pool_size):
 				_disable_object(platform, platform.position)
 			platforms[platform_name].pool.append(platform)
 
-	pool = platforms[current_platform].pool
+	pool = platforms[current_platform].pool.duplicate(true)
 
 func set_z_position(last_platform, platform):
 	platform.position.z = (platform.get_size().z * 0.5 + last_platform.get_size().z * 0.5) + last_platform.position.z
@@ -50,8 +50,7 @@ func _handle_spawn(delta):
 
 func _switch_pattern():
 	var current_pattern = 0
-	for object in pool:
-		object.add_to_group("free")
+	
 	match current_pattern:
 		PATTERN.LINEAR:
 			_spawn_linear()
@@ -61,23 +60,22 @@ func _switch_pattern():
 func _spawn_linear():
 	var keys = platforms.keys()
 	keys.erase("empty")
-	var rand_name = randi() % PATTERN.size()
+	var rand_name = keys.pick_random()
 	if rand_name != current_platform:
 		current_platform = rand_name
-		for i in platforms[current_platform].pool.size():
-			var platform = platforms[current_platform].pool[i]
-			if platform:
+		var filtered_platforms = _get_active_objects(platforms[current_platform].pool, false)
+		if !filtered_platforms.is_empty():
+			_add_to_free()
+			for i in filtered_platforms.size():
+				var platform = filtered_platforms[i]
 				platform.position.x = 0
-				prints(platform.position, pool.back().position)
 				set_z_position(pool.back(), platform)
 				platform.show()
 				pool.append(platform)
-	else:
-		remove_group()
 
-func remove_group():
-	for object in pool:
-		object.remove_from_group("free")
+func _add_to_free(objects: Array = pool):
+	for object in objects:
+		object.add_to_group("free")
 
 func _spawn_alternate():
 	for i in platforms[current_platform].pool.size():
@@ -87,7 +85,7 @@ func _spawn_alternate():
 				platform.position.x = 0
 				set_z_position(pool.back(), platform)
 		else:
-			var platform =  platforms["empty"].pool[0]
+			var platform = platforms["empty"].pool[0]
 			if platform:
 				platform.position = Vector3.ZERO
 				set_z_position(pool.back(), platform)
@@ -99,6 +97,9 @@ func _recycle():
 	var object = pool.front()
 	if object.position.z < -object.get_size().z:
 		var recycled_platform = pool.pop_front()
-		if !recycled_platform.is_in_group("free"):
+		if recycled_platform.is_in_group("free"):
+			_disable_object(recycled_platform, recycled_platform.position)
+			recycled_platform.remove_from_group("free")
+		else:
 			set_z_position(pool.back(), recycled_platform)
 			pool.append(recycled_platform)

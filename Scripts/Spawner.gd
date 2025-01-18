@@ -48,8 +48,8 @@ func _move_active_object(delta):
 		object.position.z -=  player.speed * delta
 		_recycle_object(object)
 
-func _get_active_objects():
-	return pool.filter(func(object): return object.visible)
+func _get_active_objects(objects: Array = pool, visible: bool = true):
+	return objects.filter(func(object): return object.visible == visible)
 
 func _get_inactive_objects(amount: int):
 	var inactive_objects = pool.filter(func(object): return !object.visible)
