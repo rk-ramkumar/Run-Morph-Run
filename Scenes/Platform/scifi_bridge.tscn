@@ -156,41 +156,42 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_x8kxk")
 
-[node name="scifi_bridge" type="Node3D"]
+[node name="scifi_bridge" type="Node3D" node_paths=PackedStringArray("ground_surface")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 script = ExtResource("1_3keix")
+ground_surface = NodePath("Pivot/ground/ground_bridge_surface")
 
-[node name="bridge" type="Node3D" parent="."]
+[node name="Pivot" type="Node3D" parent="."]
 
-[node name="glass1" type="Node3D" parent="bridge"]
+[node name="glass1" type="Node3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.993047, -0.00847681, 0.679027, 0.1)
 
-[node name="glass1_bridge_glass_0" type="MeshInstance3D" parent="bridge/glass1"]
+[node name="glass1_bridge_glass_0" type="MeshInstance3D" parent="Pivot/glass1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0803566, 0.0373402, 0.0786431)
 mesh = SubResource("ArrayMesh_5kjir")
 skeleton = NodePath("")
 
-[node name="ground" type="StaticBody3D" parent="bridge"]
+[node name="ground" type="StaticBody3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.86601, 0)
 input_ray_pickable = false
 
-[node name="ground_bridge_surface" type="MeshInstance3D" parent="bridge/ground"]
+[node name="ground_bridge_surface" type="MeshInstance3D" parent="Pivot/ground"]
 mesh = SubResource("ArrayMesh_pbmbj")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="bridge/ground"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/ground"]
 shape = SubResource("ConvexPolygonShape3D_5frjn")
 
-[node name="pillars" type="Node3D" parent="bridge"]
+[node name="pillars" type="Node3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.044075, 0.25803, -0.234644)
 
-[node name="pillars_bridge_surface_2_0" type="MeshInstance3D" parent="bridge/pillars"]
+[node name="pillars_bridge_surface_2_0" type="MeshInstance3D" parent="Pivot/pillars"]
 mesh = SubResource("ArrayMesh_q7lw2")
 skeleton = NodePath("")
 
-[node name="Top" type="Node3D" parent="bridge"]
+[node name="Top" type="Node3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0437613, 3.48319, 0)
 
-[node name="Top_bridge_surface_1_0" type="MeshInstance3D" parent="bridge/Top"]
+[node name="Top_bridge_surface_1_0" type="MeshInstance3D" parent="Pivot/Top"]
 mesh = SubResource("ArrayMesh_br0k7")
 skeleton = NodePath("")

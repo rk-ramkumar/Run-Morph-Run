@@ -1,6 +1,10 @@
 extends Node3D
 
-@onready var ground_bridge_surface = $bridge/ground/ground_bridge_surface
+@export var ground_surface: MeshInstance3D
+@export var custom_size: Vector3 = Vector3.ZERO
+@export var has_custom_size: bool = false
 
-func get_aabb():
-	return ground_bridge_surface.get_aabb()
+func get_size():
+	if has_custom_size:
+		return custom_size
+	return ground_surface.get_aabb().size

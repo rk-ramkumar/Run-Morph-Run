@@ -1,5 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://dhyvyigdh5va4"]
+[gd_scene load_steps=27 format=3 uid="uid://dhyvyigdh5va4"]
 
+[ext_resource type="Script" path="res://Scripts/platform.gd" id="1_46it7"]
 [ext_resource type="Texture2D" uid="uid://dhb1ivan5ala5" path="res://Assets/Models/modern__future_street_0.png" id="1_jgnk2"]
 [ext_resource type="Texture2D" uid="uid://dl1ixwc3erenw" path="res://Assets/Models/modern__future_street_1.png" id="2_jsn0f"]
 [ext_resource type="Texture2D" uid="uid://ddbkrb7geara0" path="res://Assets/Models/modern__future_street_2.png" id="3_5jpr2"]
@@ -135,6 +136,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tcxng")
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0kffd"]
+points = PackedVector3Array(-7, 0, 1, -7, 0, 5, 21, 0, 1, 21, 0, 5)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_115br"]
 resource_name = "Glass"
 transparency = 4
@@ -253,31 +257,47 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qpf6s")
 
-[node name="FutureStreet" type="Node3D"]
+[node name="FutureStreet" type="Node3D" node_paths=PackedStringArray("ground_surface")]
+script = ExtResource("1_46it7")
+ground_surface = NodePath("Pivot/ground")
+custom_size = Vector3(0, 0, 106.4)
+has_custom_size = true
 
-[node name="Cube" type="Node3D" parent="."]
-transform = Transform3D(-1.5299e-07, 0, 3.8, 0, 3.5, 0, -3.5, 0, -1.66103e-07, -11.2, -0.6, 0)
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.8, 0, 0, 0)
 
-[node name="Object_4" type="MeshInstance3D" parent="Cube"]
+[node name="Object_4" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -7)
 mesh = SubResource("ArrayMesh_h4g4a")
 skeleton = NodePath("")
 
-[node name="Object_5" type="MeshInstance3D" parent="Cube"]
+[node name="Object_5" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -7)
 mesh = SubResource("ArrayMesh_w4bj8")
 skeleton = NodePath("")
 
-[node name="Object_6" type="MeshInstance3D" parent="Cube"]
+[node name="ground" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -7)
 mesh = SubResource("ArrayMesh_lgcud")
 skeleton = NodePath("")
 
-[node name="Object_7" type="MeshInstance3D" parent="Cube"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Pivot/ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/ground/StaticBody3D"]
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0kffd")
+
+[node name="Object_7" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -7)
 mesh = SubResource("ArrayMesh_33e51")
 skeleton = NodePath("")
 
-[node name="Object_8" type="MeshInstance3D" parent="Cube"]
+[node name="Object_8" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -7)
 mesh = SubResource("ArrayMesh_qwy0i")
 skeleton = NodePath("")
 
-[node name="Object_9" type="MeshInstance3D" parent="Cube"]
+[node name="Object_9" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -7)
 mesh = SubResource("ArrayMesh_a5ql8")
 skeleton = NodePath("")
