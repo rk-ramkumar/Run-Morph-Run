@@ -24,7 +24,8 @@ func add_platform():
 		var platform = platform_scene.instantiate()
 		add_child(platform)
 		if !platforms.is_empty():
-			platform.position.z = platform.get_aabb().size.z + platforms.back().position.z
+			var last_platform = platforms.back()
+			platform.position.z = ( platform.get_size().z * 0.5 + last_platform.get_size().z * 0.5)  + last_platform.position.z
 		platforms.append(platform)
 
 func move_platforms(delta):
@@ -32,7 +33,7 @@ func move_platforms(delta):
 		platform.position.z -= player.speed * delta
 
 	var current_platform = platforms.front()
-	if current_platform.position.z < -current_platform.get_aabb().size.z:
+	if current_platform.position.z < -current_platform.get_size().z:
 		var recycled_platform = platforms.pop_front()
-		recycled_platform.position.z = platforms.back().position.z + recycled_platform.get_aabb().size.z
+		recycled_platform.position.z = platforms.back().position.z + recycled_platform.get_size().z
 		platforms.append(recycled_platform)
