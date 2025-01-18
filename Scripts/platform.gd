@@ -1,4 +1,4 @@
-extends Node3D
+class_name Platform extends Node3D
 
 @export var ground_surface: MeshInstance3D
 @export var custom_size: Vector3 = Vector3.ZERO
