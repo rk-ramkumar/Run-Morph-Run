@@ -156,10 +156,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_x8kxk")
 
-[node name="scifi_bridge" type="Node3D" node_paths=PackedStringArray("ground_surface")]
+[node name="scifi_bridge" type="Node3D" node_paths=PackedStringArray("ground_surface", "collision")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 script = ExtResource("1_3keix")
 ground_surface = NodePath("Pivot/ground/ground_bridge_surface")
+collision = NodePath("Pivot/ground/CollisionShape3D")
 
 [node name="Pivot" type="Node3D" parent="."]
 

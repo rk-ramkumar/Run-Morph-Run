@@ -257,12 +257,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qpf6s")
 
-[node name="FutureStreet" type="Node3D" node_paths=PackedStringArray("ground_surface")]
+[node name="FutureStreet" type="Node3D" node_paths=PackedStringArray("ground_surface", "collision")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
 script = ExtResource("1_46it7")
 ground_surface = NodePath("Pivot/ground")
 custom_size = Vector3(0, 0, 106.4)
 has_custom_size = true
+collision = NodePath("Pivot/ground/StaticBody3D/CollisionShape3D")
 
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.8, 0, 0, 0)

@@ -14,13 +14,13 @@ class_name PlatformSpawner extends Spawner
 		"spawn_size": 2
 	}
 }
-@export_enum("scifi_bridge", "scifi_street", "empty") var current_platform: String = "scifi_street"
+@export_enum("scifi_bridge", "scifi_street", "empty") var current_platform: String = "scifi_bridge"
 
 enum PATTERN {
 	LINEAR,
-	ALTERNATE,
+	GAP,
 }
-var pattern_switch_distance: float = 20.0  # Distance after which the pattern changes
+@export var pattern_switch_distance: float = 500.0  # Distance after which the pattern changes
 var last_switch_distance: float = 0.0
 
 func _add_object(_amount = spawn_pool_size):
@@ -43,52 +43,56 @@ func _add_object(_amount = spawn_pool_size):
 func set_z_position(last_platform, platform):
 	platform.position.z = (platform.get_size().z * 0.5 + last_platform.get_size().z * 0.5) + last_platform.position.z
 
-func _handle_spawn(delta):
+func _handle_spawn(_delta):
 	if GameManager.distance - last_switch_distance > pattern_switch_distance:
 		_switch_pattern()
+		pattern_switch_distance =  randf_range(spawn_interval_limit.min, spawn_interval_limit.max)
 		last_switch_distance = GameManager.distance
 
 func _switch_pattern():
-	var current_pattern = 0
+	var current_pattern = randi() % PATTERN.size()
 	
 	match current_pattern:
 		PATTERN.LINEAR:
 			_spawn_linear()
-		PATTERN.ALTERNATE:
-			_spawn_alternate()
+		PATTERN.GAP:
+			_spawn_gap()
 
 func _spawn_linear():
 	var keys = platforms.keys()
 	keys.erase("empty")
 	var rand_name = keys.pick_random()
-	if rand_name != current_platform:
-		current_platform = rand_name
-		var filtered_platforms = _get_active_objects(platforms[current_platform].pool, false)
-		if !filtered_platforms.is_empty():
-			_add_to_free()
-			for i in filtered_platforms.size():
-				var platform = filtered_platforms[i]
-				platform.position.x = 0
-				set_z_position(pool.back(), platform)
-				platform.show()
-				pool.append(platform)
+
+	if rand_name == current_platform:
+		return
+
+	current_platform = rand_name
+	var filtered_platforms = platforms[current_platform].pool
+	if !filtered_platforms.is_empty():
+		_add_to_free()
+		for i in filtered_platforms.size():
+			var platform = filtered_platforms[i]
+			platform.position.x = 0
+			set_z_position(pool.back(), platform)
+			platform.show()
+			pool.append(platform)
 
 func _add_to_free(objects: Array = pool):
 	for object in objects:
 		object.add_to_group("free")
 
-func _spawn_alternate():
-	for i in platforms[current_platform].pool.size():
-		if randi() % 2 == 0:
-			var platform = platforms[current_platform].pool[i]
-			if platform:
-				platform.position.x = 0
-				set_z_position(pool.back(), platform)
-		else:
-			var platform = platforms["empty"].pool[0]
-			if platform:
-				platform.position = Vector3.ZERO
-				set_z_position(pool.back(), platform)
+func _spawn_gap():
+	var filtered_platforms = _get_active_objects(platforms["empty"].pool, false)
+	if filtered_platforms.is_empty():
+		return
+
+	for i in min(filtered_platforms.size(), randi() % 2 + 1):
+		var platform = filtered_platforms[i]
+		platform.position = Vector3.ZERO
+		set_z_position(pool.back(), platform)
+		platform.add_to_group("free")
+		platform.show()
+		pool.append(platform)
 
 func _recycle_object(_object):
 	pass
