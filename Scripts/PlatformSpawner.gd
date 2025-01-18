@@ -50,7 +50,7 @@ func _handle_spawn(_delta):
 		last_switch_distance = GameManager.distance
 
 func _switch_pattern():
-	var current_pattern = randi() % PATTERN.size()
+	var current_pattern =0
 	
 	match current_pattern:
 		PATTERN.LINEAR:
@@ -61,7 +61,7 @@ func _switch_pattern():
 func _spawn_linear():
 	var keys = platforms.keys()
 	keys.erase("empty")
-	var rand_name = keys.pick_random()
+	var rand_name = "scifi_street"
 
 	if rand_name == current_platform:
 		return
@@ -96,6 +96,23 @@ func _spawn_gap():
 
 func _recycle_object(_object):
 	pass
+
+func _handle_pool_reset():
+	pattern_switch_distance = _init_state.pattern_switch_distance
+	last_switch_distance = _init_state.last_switch_distance
+	current_platform = _init_state.current_platform
+	for platform_name in platforms:
+		for i in platforms[platform_name].pool.size():
+			var platform = platforms[platform_name].pool[i]
+			if i == 0:
+				platform.position.z = 0
+			else:
+				set_z_position(platforms[platform_name].pool[i-1], platform)
+			if current_platform != platform_name:
+				_disable_object(platform, platform.position)
+			else:
+				platform.show()
+	pool = platforms[current_platform].pool.duplicate(true)
 
 func _recycle():
 	var object = pool.front()

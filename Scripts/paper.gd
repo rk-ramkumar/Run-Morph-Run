@@ -1,0 +1,29 @@
+extends Node3D
+
+var player: Player
+var gravity = 2.0
+var is_held = false
+# Set a threshold time (in seconds) for detecting a "hold press"
+var hold_threshold = 0.5
+var hold_duration = 0.0
+
+func _ready():
+	player = get_parent()
+
+func handle_process(delta):
+	if !is_held and player.position.y > 0:
+		player.position.y -= gravity * delta
+
+func handle_input(event):
+	if event is InputEventScreenTouch:
+		if event.is_pressed():
+			is_held = true
+		else:
+			is_held = false
+			hold_duration = 0.0
+
+func _physics_process(delta):
+	if is_held:
+		hold_duration += delta
+		if hold_duration >= hold_threshold and player.position.y <= 4:
+			player.position.y += 5 * delta

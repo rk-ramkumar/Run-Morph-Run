@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Game_HUI_Control.gd" id="1_3pnah"]
 [ext_resource type="StyleBox" uid="uid://cwag0usy3g7d6" path="res://Resources/StyleBox/panel_bg.tres" id="1_cb4b2"]
 [ext_resource type="Script" path="res://Scripts/game_hui.gd" id="1_povxx"]
-[ext_resource type="Script" path="res://Scripts/Control_coin.gd" id="2_t3q7q"]
 [ext_resource type="Texture2D" uid="uid://cmtduj4gccv5o" path="res://Assets/Images/Coin_64.png" id="3_agslp"]
 [ext_resource type="Texture2D" uid="uid://cvslw0y1y18rw" path="res://Assets/Images/distance.png" id="3_urup2"]
+[ext_resource type="PackedScene" uid="uid://7m4o0dr46vlo" path="res://Scenes/game_over_hui.tscn" id="6_m0sus"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iu5pc"]
 font_size = 38
@@ -14,6 +14,7 @@ font_size = 38
 font_size = 24
 
 [node name="GameHUI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_povxx")
 
 [node name="Control" type="Control" parent="."]
@@ -25,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3pnah")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="GameScoreContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -38,46 +39,45 @@ grow_horizontal = 0
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="DistanceContainer" type="PanelContainer" parent="Control/VBoxContainer"]
+[node name="DistanceContainer" type="PanelContainer" parent="Control/GameScoreContainer"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("1_cb4b2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/DistanceContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/GameScoreContainer/DistanceContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/DistanceContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Control/GameScoreContainer/DistanceContainer/HBoxContainer"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_iu5pc")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Distance" type="TextureRect" parent="Control/VBoxContainer/DistanceContainer/HBoxContainer"]
+[node name="Distance" type="TextureRect" parent="Control/GameScoreContainer/DistanceContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("3_urup2")
 stretch_mode = 2
 
-[node name="CoinContainer" type="PanelContainer" parent="Control/VBoxContainer"]
+[node name="CoinContainer" type="PanelContainer" parent="Control/GameScoreContainer"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("1_cb4b2")
-script = ExtResource("2_t3q7q")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/CoinContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/GameScoreContainer/CoinContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/CoinContainer/HBoxContainer"]
+[node name="CoinLabel" type="Label" parent="Control/GameScoreContainer/CoinContainer/HBoxContainer"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_iu5pc")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Coin" type="TextureRect" parent="Control/VBoxContainer/CoinContainer/HBoxContainer"]
+[node name="Coin" type="TextureRect" parent="Control/GameScoreContainer/CoinContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("3_agslp")
@@ -101,3 +101,5 @@ label_settings = SubResource("LabelSettings_1fjrk")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="GameOver" parent="." instance=ExtResource("6_m0sus")]

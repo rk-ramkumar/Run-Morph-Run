@@ -13,8 +13,10 @@ class_name Spawner extends Node
 
 var pool: Array = []
 var spawn_timer: float = 0.0
+var _init_state: Dictionary
 
 func _ready():
+	_init_state = inst_to_dict(self)
 	_add_object()
 	randomize()
 
@@ -65,3 +67,20 @@ func _recycle_object(object):
 func _disable_object(object, pos: Vector3 = Vector3(0, 0, -20)):
 	object.hide()
 	object.position = pos
+
+func _reset():
+	spawn_timer = _init_state.spawn_timer
+	spawn_distance = _init_state.spawn_distance
+	spawn_pool_size = _init_state.spawn_pool_size
+	spawn_interval_limit = _init_state.spawn_interval_limit
+
+func _handle_pool_reset():
+	for object in pool:
+		_disable_object(object)
+
+func _notification(what):
+	match what:
+		NOTIFICATION_UNPAUSED:
+			if GameManager.is_game_over:
+				_reset()
+				_handle_pool_reset()

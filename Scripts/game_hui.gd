@@ -4,4 +4,4 @@ extends CanvasLayer
 
 func update_player_label(value):
 	player_speed.text = str(int(value)) + "KMH"
-	
+

@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody3D
 
-@export var armature_scene: PackedScene
+@export var human_scene: PackedScene
+@export var paper_scene: PackedScene
 
 @onready var leg_hitbox = $LegHitbox
 @onready var head_hitbox = $HeadHitbox
@@ -12,6 +13,10 @@ enum STATE {
 	RUNNING,
 	SLIDING,
 	JUMPING
+}
+enum SHAPE {
+	HUMAN,
+	PAPER
 }
 var animation_player: AnimationPlayer
 var speed: float = 30.0
@@ -25,19 +30,34 @@ var min_swipe_distance: float = 50.0
 var current_state: STATE = STATE.RUNNING
 var lane_offset: float = 2.5
 var slide_speed_penalty : float = 0.0
+var current_shape : SHAPE = SHAPE.HUMAN:
+	set(new_shape):
+		current_shape = new_shape
+		_change_mesh()
+var mesh: Dictionary
 
 func _ready():
-	if !armature_scene:
-		print("Armature is empty")
+	if !human_scene:
+		print("Human armature is empty")
 		set_physics_process(false)
 		return
-	var armature = armature_scene.instantiate()
+	var armature = human_scene.instantiate()
+	mesh[SHAPE.HUMAN] = armature
+	var paper = paper_scene.instantiate()
+	mesh[SHAPE.PAPER] = paper
 	add_child(armature)
+	add_child(paper)
+	paper.hide()
 	animation_player = armature.get_node("AnimationPlayer")
 	animation_player.play("Running")
+	GameManager.game_over.connect(_on_game_over)
+	GameManager.game_start.connect(_on_game_start)
 
 func _physics_process(delta):
 	_increase_speed(delta)
+	if current_shape == SHAPE.PAPER:
+		mesh[SHAPE.PAPER].handle_process(delta)
+		return
 
 	# Add the gravity.
 	if not is_on_floor():
@@ -65,6 +85,12 @@ func _increase_speed(delta):
 
 func _input(event):
 	if event is InputEventScreenTouch:
+		if event.double_tap:
+			current_shape = SHAPE.PAPER if current_shape == SHAPE.HUMAN else SHAPE.HUMAN
+
+		if current_shape == SHAPE.PAPER:
+			mesh[SHAPE.PAPER].handle_input(event)
+	
 		if event.is_pressed():
 			swipe_start_position = event.position
 		else:
@@ -85,6 +111,8 @@ func _handle_movement():
 		else:
 			_move_left()
 	else:
+		if current_shape == SHAPE.PAPER:
+			return
 		# Vertical swipe
 		if swipe_vector.y > 0:
 			_move_down()
@@ -124,4 +152,28 @@ func play_animation(anim_name, anim_speed: float = 1, blend: float = -1):
 	animation_player.play(anim_name, blend, anim_speed)
 	animation_player.clear_queue()
 	animation_player.queue("Running")
-	
+
+func _change_mesh():
+	match current_shape:
+		SHAPE.HUMAN:
+			mesh[SHAPE.HUMAN].show()
+			mesh[SHAPE.PAPER].hide()
+			head_hitbox.disabled = false
+		SHAPE.PAPER:
+			mesh[SHAPE.PAPER].show()
+			mesh[SHAPE.HUMAN].hide()
+			head_hitbox.disabled = true
+
+func _on_game_over():
+	animation_player.play("Stunned")
+	set_physics_process(false)
+	set_process_input(false)
+
+func _on_game_start():
+	set_physics_process(true)
+	set_process_input(true)
+	position = Vector3.ZERO
+	speed = 30.0
+	current_state = STATE.RUNNING
+	current_shape = SHAPE.HUMAN
+	animation_player.play("Running")
