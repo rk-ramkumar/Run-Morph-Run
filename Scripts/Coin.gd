@@ -1,6 +1,7 @@
 class_name Coin extends Area3D
 
 @onready var mesh = $Mesh
+@onready var audio_stream_player = $AudioStreamPlayer3D
 
 var rotation_deg: float = 0.0
 
@@ -15,6 +16,7 @@ func _rotate(delta):
 
 func _on_body_entered(_body):
 	if visible:
+		audio_stream_player.play()
 		GameManager.increase_coins()
 		var tween = create_tween()
 		tween.parallel().tween_property(mesh, "scale", Vector3.ZERO, 0.5)
