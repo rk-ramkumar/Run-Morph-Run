@@ -14,6 +14,7 @@ class_name PlatformSpawner extends Spawner
 		"spawn_size": 2
 	}
 }
+@export var light: DirectionalLight3D
 @export_enum("scifi_bridge", "scifi_street", "empty") var current_platform: String = "scifi_bridge"
 
 enum PATTERN {
@@ -39,6 +40,10 @@ func _add_object(_amount = spawn_pool_size):
 			platforms[platform_name].pool.append(platform)
 
 	pool = platforms[current_platform].pool.duplicate(true)
+	if current_platform == "scifi_street":
+		light.rotation.x = -90
+	else:
+		light.rotation.x = 0
 
 func set_z_position(last_platform, platform):
 	platform.position.z = (platform.get_size().z * 0.5 + last_platform.get_size().z * 0.5) + last_platform.position.z
@@ -50,13 +55,18 @@ func _handle_spawn(_delta):
 		last_switch_distance = GameManager.distance
 
 func _switch_pattern():
-	var current_pattern =0
+	var current_pattern = 0
 	
 	match current_pattern:
 		PATTERN.LINEAR:
 			_spawn_linear()
 		PATTERN.GAP:
 			_spawn_gap()
+	
+	if current_platform == "scifi_street":
+		light.rotation.x = -90
+	else:
+		light.rotation.x = 0
 
 func _spawn_linear():
 	var keys = platforms.keys()
