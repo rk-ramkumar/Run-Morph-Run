@@ -39,7 +39,8 @@ environment = SubResource("Environment_tyf8s")
 
 [node name="Player" parent="." instance=ExtResource("3_ynjlx")]
 
-[node name="GameHUI" parent="." instance=ExtResource("4_okbqe")]
+[node name="GameHUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_okbqe")]
+player = NodePath("../Player")
 
 [node name="CameraSpring" parent="." instance=ExtResource("5_yh11r")]
 

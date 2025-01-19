@@ -6,6 +6,7 @@ extends Node3D
 
 var rotation_speed = 0.025
 
+
 func _process(delta):
 	world_environment.environment.sky_rotation.y += rotation_speed * delta
 	var speed_mps = player.speed * (5.0 / 18.0)  # Convert km/h to m/s

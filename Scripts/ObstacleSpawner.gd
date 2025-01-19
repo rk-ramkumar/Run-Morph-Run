@@ -5,6 +5,11 @@ var obstacles_scene: Dictionary = {
 	"obstacle_up": preload("res://Scenes/Obstacles/obstacles_up.tscn")
 }
 
+func _ready():
+	if GameManager.has_training:
+		spawn_interval = 5
+	super._ready()
+
 func _add_object(amount = spawn_pool_size):
 	for _i in amount:
 		for obstacle_name in obstacles_scene:

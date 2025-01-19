@@ -6,6 +6,13 @@ class_name Player extends CharacterBody3D
 @onready var leg_hitbox = $LegHitbox
 @onready var head_hitbox = $HeadHitbox
 
+signal move_left
+signal move_right
+signal move_up
+signal move_down
+signal double_tap
+signal hold_detected
+
 const jumpVelocity = 20.0
 const lerpSpeed = 15.0
 
@@ -86,6 +93,7 @@ func _increase_speed(delta):
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.double_tap:
+			double_tap.emit()
 			current_shape = SHAPE.PAPER if current_shape == SHAPE.HUMAN else SHAPE.HUMAN
 
 		if current_shape == SHAPE.PAPER:
@@ -122,18 +130,21 @@ func _handle_movement():
 func _move_right():
 	if current_state == STATE.SLIDING:
 		return
+	move_right.emit()
 	var new_pos = clamp(position.x - lane_offset, -lane_offset, 0)
 	position.x = new_pos
 
 func _move_left():
 	if current_state == STATE.SLIDING:
 		return
+	move_left.emit()
 	var new_pos = position.x + lane_offset
 	position.x = clamp(new_pos, 0, lane_offset)
 
 func _move_down():
 #	if not is_on_floor():
 #		return
+	move_down.emit()
 	current_state = STATE.SLIDING
 	head_hitbox.disabled = true
 	slide_speed_penalty = speed * 0.01
@@ -143,6 +154,7 @@ func _move_down():
 func _move_up():
 	if not is_on_floor():
 		return
+	move_up.emit()
 	current_state = STATE.JUMPING
 	velocity.y = lerp(velocity.y, jumpVelocity, get_physics_process_delta_time() * lerpSpeed)
 	leg_hitbox.disabled = true
