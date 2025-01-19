@@ -118,6 +118,7 @@ shape = SubResource("SphereShape3D_dslfh")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_b2c1x")
+max_polyphony = 6
 bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
