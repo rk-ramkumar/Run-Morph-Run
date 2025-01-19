@@ -3,9 +3,14 @@ extends Node3D
 @onready var world_environment = $WorldEnvironment
 @onready var player = $Player
 @onready var game_hui = $GameHUI
-
+@export var training_scene: PackedScene
 var rotation_speed = 0.025
 
+func _ready():
+	if GameManager.has_training:
+		var training = training_scene.instantiate()
+		training.player = player
+		add_child(training)
 
 func _process(delta):
 	world_environment.environment.sky_rotation.y += rotation_speed * delta

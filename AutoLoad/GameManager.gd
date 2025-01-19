@@ -10,6 +10,7 @@ signal coins_changed(new_amount: int)  # Emits the updated coin amount
 signal distance_increased(new_distance: int)
 signal game_over
 signal game_start
+signal training_finish
 
 func _ready():
 	var err = config.load(config_path)
@@ -18,8 +19,9 @@ func _ready():
 	if err != OK:
 		config.set_value("player", "best_score", int(distance))
 		config.set_value("player", "coin", coin)
+		config.set_value("player", "has_training", has_training)
 		return
-	has_training = false
+	has_training = config.get_value("player", "has_training")
 
 func increase_coins(amount: int = 1):
 	coin += amount
@@ -55,3 +57,8 @@ func start():
 	coin = 0
 	get_tree().set_pause(false)
 	is_game_over= false
+
+func set_training(value):
+	has_training = value
+	config.set_value("player", "has_training", has_training)
+	training_finish.emit()

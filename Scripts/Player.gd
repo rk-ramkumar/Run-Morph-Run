@@ -25,6 +25,14 @@ enum SHAPE {
 	HUMAN,
 	PAPER
 }
+var actions: Dictionary = {
+	"can_left": true,
+	"can_right": true,
+	"can_down": true,
+	"can_up": true,
+	"can_double_tap": true,
+	"can_hold": true,
+}
 var animation_player: AnimationPlayer
 var speed: float = 30.0
 var max_speed_kmh: float = 100.0          # Maximum speed limit in km/h
@@ -62,13 +70,14 @@ func _ready():
 
 func _physics_process(delta):
 	_increase_speed(delta)
-	if current_shape == SHAPE.PAPER:
-		mesh[SHAPE.PAPER].handle_process(delta)
-		return
 
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+
+	if current_shape == SHAPE.PAPER:
+		mesh[SHAPE.PAPER].handle_process(delta)
+		return
 
 	# Enable collision when player land
 	if is_on_floor() and leg_hitbox.disabled:
@@ -92,7 +101,7 @@ func _increase_speed(delta):
 
 func _input(event):
 	if event is InputEventScreenTouch:
-		if event.double_tap:
+		if actions.can_double_tap and event.double_tap:
 			double_tap.emit()
 			current_shape = SHAPE.PAPER if current_shape == SHAPE.HUMAN else SHAPE.HUMAN
 
@@ -128,22 +137,22 @@ func _handle_movement():
 			_move_up()
 
 func _move_right():
-	if current_state == STATE.SLIDING:
+	if current_state == STATE.SLIDING or !actions.can_right:
 		return
 	move_right.emit()
 	var new_pos = clamp(position.x - lane_offset, -lane_offset, 0)
 	position.x = new_pos
 
 func _move_left():
-	if current_state == STATE.SLIDING:
+	if current_state == STATE.SLIDING or !actions.can_left:
 		return
 	move_left.emit()
 	var new_pos = position.x + lane_offset
 	position.x = clamp(new_pos, 0, lane_offset)
 
 func _move_down():
-#	if not is_on_floor():
-#		return
+	if !actions.can_down:
+		return
 	move_down.emit()
 	current_state = STATE.SLIDING
 	head_hitbox.disabled = true
@@ -152,7 +161,7 @@ func _move_down():
 	play_animation("Slide", 1.8)
 
 func _move_up():
-	if not is_on_floor():
+	if not is_on_floor() or !actions.can_up:
 		return
 	move_up.emit()
 	current_state = STATE.JUMPING
@@ -189,3 +198,5 @@ func _on_game_start():
 	current_state = STATE.RUNNING
 	current_shape = SHAPE.HUMAN
 	animation_player.play("Running")
+	for action in actions:
+		actions[action] = true

@@ -21,6 +21,9 @@ func _add_object(amount = spawn_pool_size):
 	pool.shuffle()
 
 func _spawn_object():
+	if GameManager.has_training:
+		return
+
 	var obstacles = _get_inactive_objects(10)
 	var values = rand_lanes()
 	for i in values.size():
