@@ -12,21 +12,22 @@ func _ready():
 
 func _spawn_object():
 	var pattern = randi() % 3
+	spawn_distance = _init_state.spawn_distance + randf_range(-10, 10)
 	match  pattern:
 		PATTERNS.LINE:
-			spawn_straight_line()
+			spawn_straight_line(randi_range(5, 10))
 		PATTERNS.ARC:
-			spawn_jump_arc()
+			spawn_jump_arc(randi_range(3, 7))
 		PATTERNS.ZIGZAG:
-			spawn_zigzag()
+			spawn_zigzag(randi_range(6, 12))
 
 func spawn_straight_line(spawn_amount: int = 5):
 	var lane = lanes.pick_random()
 	var coins = _get_inactive_objects(spawn_amount)
-
+	var y_pos = randi() % 4
 	for i in coins.size():
 		var coin = coins[i]
-		coin.position = Vector3(lane, 0, spawn_distance + i*2)
+		coin.position = Vector3(lane, y_pos, spawn_distance + i*2)
 		coin.show()
 
 func spawn_jump_arc(spawn_amount: int = 7):

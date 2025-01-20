@@ -57,7 +57,7 @@ func _handle_spawn(_delta):
 		last_switch_distance = GameManager.distance
 
 func _switch_pattern():
-	var current_pattern = 1
+	var current_pattern = 0
 	
 	match current_pattern:
 		PATTERN.LINEAR:
@@ -72,26 +72,31 @@ func _adjust_light():
 		"scifi_street":
 			light.rotation_degrees.x = -90
 		_:
-			light.rotation_degrees.x = 0
+			if light.rotation_degrees.x != 0:
+				var tween = create_tween()
+				tween.tween_property(light, "rotation:x", 0, 4.0)
 
 func _spawn_linear():
 	var keys = platforms.keys()
 	keys.erase("empty")
-	var rand_name = "scifi_street"
+	var rand_name = keys.pick_random()
 
 	if rand_name == current_platform:
 		return
 
 	current_platform = rand_name
 	var filtered_platforms = platforms[current_platform].pool
-	if !filtered_platforms.is_empty():
-		_add_to_free()
-		for i in filtered_platforms.size():
-			var platform = filtered_platforms[i]
-			platform.position.x = 0
-			set_z_position(pool.back(), platform)
-			platform.show()
-			pool.append(platform)
+
+	if filtered_platforms.is_empty():
+		return
+
+	_add_to_free()
+	for i in filtered_platforms.size():
+		var platform = filtered_platforms[i]
+		platform.position.x = 0
+		set_z_position(pool.back(), platform)
+		platform.show()
+		pool.append(platform)
 
 func _add_to_free(objects: Array = pool):
 	for object in objects:
@@ -104,12 +109,7 @@ func _spawn_gap():
 
 	for i in max(filtered_platforms.size(), randi() % 2 + 1):
 		var platform = filtered_platforms[i]
-		_add_temporary_platform(platform, randf_range(2, pool.size()))
-
-	for i in pool.size():
-		if i == 0:
-			continue
-		set_z_position(pool[i-1], pool[i])
+		_add_temporary_platform(platform)
 
 func _add_temporary_platform(platform, position: int = pool.size()):
 	if pool.size() < position:

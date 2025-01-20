@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://danytplqsdjgj" path="res://Scenes/Characters/paper_airplane.tscn" id="3_mdjun"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad2cv"]
-size = Vector3(1, 1, 0.5)
+size = Vector3(1, 1, 0.25)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bii7a"]
 
@@ -27,7 +27,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_ad2cv")
 
 [node name="HeadHitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("SphereShape3D_bii7a")
 
 [node name="PaperHitbox" type="CollisionShape3D" parent="."]

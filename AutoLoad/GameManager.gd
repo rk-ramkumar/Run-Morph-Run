@@ -2,6 +2,7 @@ extends Node
 
 var coin: int = 0
 var distance: float = 0.0
+var best_distance: float = 0.0
 var is_game_over: bool = false
 var config_path = "user://scores.cfg"
 var config = ConfigFile.new()
@@ -17,11 +18,12 @@ func _ready():
 
 	# If the file didn't load, ignore it.
 	if err != OK:
-		config.set_value("player", "best_score", int(distance))
+		config.set_value("player", "best_score", int(best_distance))
 		config.set_value("player", "coin", coin)
 		config.set_value("player", "has_training", has_training)
 		return
 	has_training = config.get_value("player", "has_training")
+	best_distance = config.get_value("player", "best_score")
 
 func increase_coins(amount: int = 1):
 	coin += amount
@@ -53,6 +55,7 @@ func is_best_score():
 
 func start():
 	game_start.emit()
+	best_distance = config.get_value("player", "best_score")
 	distance = 0.0
 	coin = 0
 	get_tree().set_pause(false)

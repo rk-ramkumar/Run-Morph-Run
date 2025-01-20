@@ -1,11 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4q18xng0tqn7"]
+[gd_scene load_steps=11 format=3 uid="uid://c4q18xng0tqn7"]
 
 [ext_resource type="Script" path="res://Scripts/Game_HUI_Control.gd" id="1_3pnah"]
 [ext_resource type="StyleBox" uid="uid://cwag0usy3g7d6" path="res://Resources/StyleBox/panel_bg.tres" id="1_cb4b2"]
 [ext_resource type="Script" path="res://Scripts/game_hui.gd" id="1_povxx"]
 [ext_resource type="Texture2D" uid="uid://cmtduj4gccv5o" path="res://Assets/Images/Coin_64.png" id="3_agslp"]
 [ext_resource type="Texture2D" uid="uid://cvslw0y1y18rw" path="res://Assets/Images/distance.png" id="3_urup2"]
+[ext_resource type="Texture2D" uid="uid://djffvwro32swa" path="res://Assets/Images/best-score.png" id="4_hs51f"]
 [ext_resource type="PackedScene" uid="uid://7m4o0dr46vlo" path="res://Scenes/game_over_hui.tscn" id="6_m0sus"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7sjjg"]
+font_size = 38
+font_color = Color(0.223529, 1, 0.0784314, 1)
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_iu5pc"]
 font_size = 38
@@ -38,6 +45,28 @@ offset_bottom = 386.0
 grow_horizontal = 0
 theme_override_constants/separation = 50
 alignment = 1
+
+[node name="BestContainer" type="PanelContainer" parent="Control/GameScoreContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_cb4b2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/GameScoreContainer/BestContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Control/GameScoreContainer/BestContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_7sjjg")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="BestDistance" type="TextureRect" parent="Control/GameScoreContainer/BestContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_hs51f")
+expand_mode = 1
 
 [node name="DistanceContainer" type="PanelContainer" parent="Control/GameScoreContainer"]
 layout_mode = 2

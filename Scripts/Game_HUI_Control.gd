@@ -2,6 +2,7 @@ extends Control
 
 @onready var distance_label = $GameScoreContainer/DistanceContainer/HBoxContainer/Label
 @onready var coin_label = $GameScoreContainer/CoinContainer/HBoxContainer/CoinLabel
+@onready var best_distance_label = $GameScoreContainer/BestContainer/HBoxContainer/Label
 
 func _ready():
 	GameManager.distance_increased.connect(_update_distance_label)
@@ -13,6 +14,7 @@ func _ready():
 func _on_game_start():
 	_update_coin_label(GameManager.coin)
 	_update_distance_label(GameManager.distance)
+	_update_best_distance_label(GameManager.best_distance)
 	show()
 
 func _on_game_over():
@@ -23,3 +25,6 @@ func _update_distance_label(value):
 
 func _update_coin_label(value):
 	coin_label.text = str(value).pad_zeros(6)
+
+func _update_best_distance_label(value):
+	best_distance_label.text = str(int(value)).pad_zeros(6)
