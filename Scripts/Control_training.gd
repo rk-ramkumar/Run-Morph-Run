@@ -37,6 +37,7 @@ var player: Player
 var complete_list:Array = []
 var keys = gestures.keys()
 var actions = ["move_left", "move_right", "move_down", "move_up", "double_tap", "hold_detected"]
+var restart = false
 
 func _ready():
 	GameManager.game_over.connect(_on_game_over)
@@ -44,7 +45,7 @@ func _ready():
 	set_physics_process(false)
 	change_actions()
 	hide()
-	await get_tree().create_timer(0.5, false).timeout
+	await get_tree().create_timer(0.8, false).timeout
 	show()
 	set_physics_process(true)
 	_connect_signal()
@@ -60,7 +61,6 @@ func _physics_process(_delta):
 		set_physics_process(false)
 		change_actions(true)
 		hide()
-		queue_free()
 		return
 
 	var gesture = keys.front()
@@ -81,7 +81,7 @@ func _physics_process(_delta):
 		label.text = gestures[gesture].text
 		animation_player.play(gesture)
 		complete_list.append(gesture)
-		Engine.time_scale = 0.8 if gesture == "hold" else 0.2
+		Engine.time_scale = 0.2
 	
 	if gestures[gesture].done:
 		keys.pop_front()
@@ -89,7 +89,7 @@ func _physics_process(_delta):
 		set_physics_process(false)
 		hide()
 		await get_tree().create_timer(1, false).timeout
-		if !GameManager.is_game_over:
+		if !GameManager.is_game_over and !restart:
 			set_physics_process(true)
 			show()
 
@@ -97,6 +97,7 @@ func _mark_done(event):
 	var gesture = keys.front()
 	player[event].disconnect(_mark_done.bind(event))
 	gestures[gesture].done = true
+	print(event)
 	player.actions["can_"+gesture] = false
 
 func change_actions(value = false):
@@ -112,12 +113,13 @@ func _on_game_start():
 	if GameManager.has_training:
 		set_physics_process(false)
 		change_actions()
-		hide()
 		keys = gestures.keys()
 		complete_list = []
 		for key in gestures:
 			gestures[key].done = false
-		await get_tree().create_timer(0.5, false).timeout
+		restart = true
+		await get_tree().create_timer(0.8, false).timeout
 		show()
 		set_physics_process(true)
 		_connect_signal()
+		restart = false

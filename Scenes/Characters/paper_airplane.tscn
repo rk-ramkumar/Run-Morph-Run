@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://danytplqsdjgj"]
+[gd_scene load_steps=5 format=3 uid="uid://danytplqsdjgj"]
 
-[ext_resource type="Script" path="res://Scripts/paper.gd" id="1_lt424"]
 [ext_resource type="Texture2D" uid="uid://cgw0oq2esp253" path="res://Assets/Models/paper_airplane_0.png" id="1_qjcge"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_12ldk"]
@@ -44,7 +43,6 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_r2q77")
 
 [node name="PaperAirplane" type="Node3D"]
-script = ExtResource("1_lt424")
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 0, 0, 0)

@@ -26,7 +26,7 @@ var last_switch_distance: float = 0.0
 
 func _add_object(_amount = spawn_pool_size):
 	for platform_name in platforms:
-		for _i in platforms[platform_name].spawn_size:
+		for i in platforms[platform_name].spawn_size:
 			var platform = platforms[platform_name].scene.instantiate()
 			add_child(platform)
 			if !platforms[platform_name].has("pool"):
@@ -40,10 +40,12 @@ func _add_object(_amount = spawn_pool_size):
 			platforms[platform_name].pool.append(platform)
 
 	pool = platforms[current_platform].pool.duplicate(true)
-	if current_platform == "scifi_street":
-		light.rotation.x = -90
-	else:
-		light.rotation.x = 0
+
+	if GameManager.has_training:
+		var platform = platforms["empty"].pool[0]
+		_add_temporary_platform(platform)
+
+	_adjust_light()
 
 func set_z_position(last_platform, platform):
 	platform.position.z = (platform.get_size().z * 0.5 + last_platform.get_size().z * 0.5) + last_platform.position.z
@@ -55,7 +57,7 @@ func _handle_spawn(_delta):
 		last_switch_distance = GameManager.distance
 
 func _switch_pattern():
-	var current_pattern = 0
+	var current_pattern = 1
 	
 	match current_pattern:
 		PATTERN.LINEAR:
@@ -63,10 +65,14 @@ func _switch_pattern():
 		PATTERN.GAP:
 			_spawn_gap()
 	
-	if current_platform == "scifi_street":
-		light.rotation.x = -90
-	else:
-		light.rotation.x = 0
+	_adjust_light()
+
+func _adjust_light():
+	match current_platform:
+		"scifi_street":
+			light.rotation_degrees.x = -90
+		_:
+			light.rotation_degrees.x = 0
 
 func _spawn_linear():
 	var keys = platforms.keys()
@@ -96,13 +102,24 @@ func _spawn_gap():
 	if filtered_platforms.is_empty():
 		return
 
-	for i in min(filtered_platforms.size(), randi() % 2 + 1):
+	for i in max(filtered_platforms.size(), randi() % 2 + 1):
 		var platform = filtered_platforms[i]
-		platform.position = Vector3.ZERO
-		set_z_position(pool.back(), platform)
-		platform.add_to_group("free")
-		platform.show()
-		pool.append(platform)
+		_add_temporary_platform(platform, randf_range(2, pool.size()))
+
+	for i in pool.size():
+		if i == 0:
+			continue
+		set_z_position(pool[i-1], pool[i])
+
+func _add_temporary_platform(platform, position: int = pool.size()):
+	if pool.size() < position:
+		print("Size exceed.")
+		return
+	platform.position = Vector3.ZERO
+	set_z_position(pool[position - 1], platform)
+	platform.add_to_group("free")
+	platform.show()
+	pool.insert(position, platform)
 
 func _recycle_object(_object):
 	pass

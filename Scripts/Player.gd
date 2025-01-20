@@ -5,6 +5,7 @@ class_name Player extends CharacterBody3D
 
 @onready var leg_hitbox = $LegHitbox
 @onready var head_hitbox = $HeadHitbox
+@onready var paper_hitbox = $PaperHitbox
 
 signal move_left
 signal move_right
@@ -13,8 +14,8 @@ signal move_down
 signal double_tap
 signal hold_detected
 
-const jumpVelocity = 20.0
-const lerpSpeed = 15.0
+const jumpVelocity = 25.0
+const lerpSpeed = 25.0
 
 enum STATE {
 	RUNNING,
@@ -38,7 +39,7 @@ var speed: float = 30.0
 var max_speed_kmh: float = 100.0          # Maximum speed limit in km/h
 var speed_increase_rate: float = 0.1    # Speed increase per second (km/h)
 var direction = Vector3.ZERO
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = 25.5
 var swipe_start_position: Vector2 = Vector2.ZERO
 var swipe_end_position: Vector2 = Vector2.ZERO
 var min_swipe_distance: float = 50.0
@@ -50,6 +51,8 @@ var current_shape : SHAPE = SHAPE.HUMAN:
 		current_shape = new_shape
 		_change_mesh()
 var mesh: Dictionary
+var is_held = false
+var signal_emited: bool = false
 
 func _ready():
 	if !human_scene:
@@ -74,24 +77,35 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-
-	if current_shape == SHAPE.PAPER:
-		mesh[SHAPE.PAPER].handle_process(delta)
-		return
-
-	# Enable collision when player land
-	if is_on_floor() and leg_hitbox.disabled:
-		leg_hitbox.disabled = false
-		current_state = STATE.RUNNING
 	
-	if animation_player.current_animation != "Slide" and head_hitbox.disabled:
-		speed += slide_speed_penalty 
-		head_hitbox.disabled = false
-		current_state = STATE.RUNNING
+	match current_shape:
+		SHAPE.HUMAN:
+			if not is_on_floor() and animation_player.current_animation != "FallingIdle":
+				animation_player.play("FallingIdle", 0.2)
+			if velocity.y < -3:
+				play_animation("JumpingDown", 1,  0.2)
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		_move_up()
+			# Enable collision when player land
+			if velocity.y < -3 and leg_hitbox.disabled:
+				leg_hitbox.disabled = false
+				current_state = STATE.RUNNING
+			
+			if animation_player.current_animation != "Slide" and head_hitbox.disabled:
+				speed += slide_speed_penalty 
+				head_hitbox.disabled = false
+				current_state = STATE.RUNNING
+
+			# Handle Jump.
+			if Input.is_action_just_pressed("jump") and is_on_floor():
+				_move_up()
+		SHAPE.PAPER:
+			if is_held: # Handle Paper movement
+#				_change_mesh()
+				if !signal_emited:
+					hold_detected.emit()
+					signal_emited = true
+				if !(position.y > 4):
+					velocity.y = 3.2
 
 	move_and_slide()
 
@@ -105,12 +119,12 @@ func _input(event):
 			double_tap.emit()
 			current_shape = SHAPE.PAPER if current_shape == SHAPE.HUMAN else SHAPE.HUMAN
 
-		if current_shape == SHAPE.PAPER:
-			mesh[SHAPE.PAPER].handle_input(event)
-	
-		if event.is_pressed():
+		elif event.is_pressed():
 			swipe_start_position = event.position
+			is_held = true
+			signal_emited = false
 		else:
+			is_held = false
 			swipe_end_position = event.position
 			_handle_movement()
 
@@ -167,7 +181,9 @@ func _move_up():
 	current_state = STATE.JUMPING
 	velocity.y = lerp(velocity.y, jumpVelocity, get_physics_process_delta_time() * lerpSpeed)
 	leg_hitbox.disabled = true
-	play_animation("Jump")
+#	play_animation("Jump", 1, 0.2)
+	animation_player.play("JumpingUp", 0.2)
+	animation_player.queue("FallingIdle")
 
 func play_animation(anim_name, anim_speed: float = 1, blend: float = -1):
 	animation_player.play(anim_name, blend, anim_speed)
@@ -177,13 +193,17 @@ func play_animation(anim_name, anim_speed: float = 1, blend: float = -1):
 func _change_mesh():
 	match current_shape:
 		SHAPE.HUMAN:
+			head_hitbox.disabled = false
+			leg_hitbox.disabled = false
+			paper_hitbox.disabled = true
 			mesh[SHAPE.HUMAN].show()
 			mesh[SHAPE.PAPER].hide()
-			head_hitbox.disabled = false
 		SHAPE.PAPER:
+			head_hitbox.disabled = true
+			leg_hitbox.disabled = true
+			paper_hitbox.disabled = false
 			mesh[SHAPE.PAPER].show()
 			mesh[SHAPE.HUMAN].hide()
-			head_hitbox.disabled = true
 
 func _on_game_over():
 	animation_player.play("Stunned")
@@ -195,6 +215,7 @@ func _on_game_start():
 	set_process_input(true)
 	position = Vector3.ZERO
 	speed = 30.0
+	velocity.y = 0
 	current_state = STATE.RUNNING
 	current_shape = SHAPE.HUMAN
 	animation_player.play("Running")
