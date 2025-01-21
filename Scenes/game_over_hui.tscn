@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://7m4o0dr46vlo"]
+[gd_scene load_steps=13 format=3 uid="uid://7m4o0dr46vlo"]
 
 [ext_resource type="Script" path="res://Scripts/Control_game_over.gd" id="1_6lvo5"]
 [ext_resource type="StyleBox" uid="uid://dh7i2pnui71mq" path="res://Resources/StyleBox/popup_panel.tres" id="2_aaiut"]
@@ -7,6 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bta4pbl4nby3c" path="res://Assets/Images/play-button.png" id="5_27gcj"]
 [ext_resource type="Texture2D" uid="uid://ck6nja0qw4g3y" path="res://Assets/Images/play-button (1).png" id="6_q13mc"]
 [ext_resource type="AudioStream" uid="uid://brh4aa6qb1j1d" path="res://Assets/Audio/gameOver.mp3" id="7_r6w46"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_30oln"]
+font_size = 80
+font_color = Color(0.866667, 0.180392, 0.180392, 1)
+outline_size = 21
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 21
+shadow_color = Color(0, 0, 0, 0.352941)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0en8m"]
 font_size = 38
@@ -133,6 +141,14 @@ layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_30oln")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
 [node name="DistanceContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -149,6 +165,7 @@ layout_mode = 2
 text = "Distance: "
 label_settings = SubResource("LabelSettings_0en8m")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CoinContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -166,6 +183,7 @@ layout_mode = 2
 text = "coin: "
 label_settings = SubResource("LabelSettings_0en8m")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

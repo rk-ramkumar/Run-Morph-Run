@@ -206,6 +206,7 @@ func _change_mesh():
 			mesh[SHAPE.HUMAN].hide()
 
 func _on_game_over():
+	position.y = 0
 	animation_player.play("Stunned")
 	set_physics_process(false)
 	set_process_input(false)
