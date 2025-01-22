@@ -2,6 +2,7 @@
 
 [ext_resource type="LabelSettings" uid="uid://c356v0xwg8mtl" path="res://Resources/header_label_setting.tres" id="1_7k7ag"]
 [ext_resource type="Script" path="res://Scripts/pause_control.gd" id="1_jdfdy"]
+[ext_resource type="StyleBox" uid="uid://imu35jes28em" path="res://Resources/StyleBox/button.tres" id="3_nrg62"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jdbmy"]
 bg_color = Color(0.08, 0.08, 0.12, 0.9)
@@ -19,16 +20,6 @@ expand_margin_top = 20.0
 expand_margin_right = 20.0
 expand_margin_bottom = 20.0
 shadow_size = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vy3dw"]
-bg_color = Color(0.14902, 0.133333, 0.133333, 1)
-skew = Vector2(0.1, 0)
-border_width_left = 6
-border_width_right = 6
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
 
 [node name="PauseControl" type="Control"]
 process_mode = 2
@@ -83,11 +74,12 @@ vertical_alignment = 1
 [node name="Panel" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vy3dw")
+theme_override_styles/panel = ExtResource("3_nrg62")
 
 [node name="ResumeButton" type="Button" parent="PanelContainer/VBoxContainer/Panel"]
 texture_filter = 1
 layout_mode = 2
+focus_mode = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 38
@@ -98,7 +90,7 @@ icon_alignment = 1
 [node name="Panel2" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vy3dw")
+theme_override_styles/panel = ExtResource("3_nrg62")
 
 [node name="RestartButton" type="Button" parent="PanelContainer/VBoxContainer/Panel2"]
 texture_filter = 1
@@ -112,7 +104,7 @@ flat = true
 [node name="Panel3" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vy3dw")
+theme_override_styles/panel = ExtResource("3_nrg62")
 
 [node name="ExitButton" type="Button" parent="PanelContainer/VBoxContainer/Panel3"]
 layout_mode = 2

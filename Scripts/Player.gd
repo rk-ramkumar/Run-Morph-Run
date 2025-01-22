@@ -84,6 +84,7 @@ func _physics_process(delta):
 		SHAPE.HUMAN:
 			if not is_on_floor() and animation_player.current_animation != "FallingIdle":
 				animation_player.play("FallingIdle", 0.2)
+		
 			if velocity.y < -3:
 				play_animation("JumpingDown", 1,  0.2)
 
@@ -93,16 +94,16 @@ func _physics_process(delta):
 				current_state = STATE.RUNNING
 			
 			if animation_player.current_animation != "Slide" and head_hitbox.disabled:
-				speed += slide_speed_penalty 
+#				speed += slide_speed_penalty 
 				head_hitbox.disabled = false
 				current_state = STATE.RUNNING
 
 			# Handle Jump.
 			if Input.is_action_just_pressed("jump") and is_on_floor():
 				_move_up()
+
 		SHAPE.PAPER:
 			if is_held: # Handle Paper movement
-#				_change_mesh()
 				if !signal_emited:
 					hold_detected.emit()
 					signal_emited = true
@@ -154,14 +155,14 @@ func _handle_movement():
 			_move_up()
 
 func _move_right():
-	if current_state == STATE.SLIDING or !actions.can_right:
+	if !actions.can_right:
 		return
 	move_right.emit()
 	var new_pos = clamp(position.x - lane_offset, -lane_offset, 0)
 	position.x = new_pos
 
 func _move_left():
-	if current_state == STATE.SLIDING or !actions.can_left:
+	if !actions.can_left:
 		return
 	move_left.emit()
 	var new_pos = position.x + lane_offset
@@ -173,8 +174,10 @@ func _move_down():
 	move_down.emit()
 	current_state = STATE.SLIDING
 	head_hitbox.disabled = true
-	slide_speed_penalty = speed * 0.01
-	speed -= slide_speed_penalty  # 20% speed reduction during slide
+	if not is_on_floor():
+		velocity.y -= 10.0
+#	slide_speed_penalty = speed * 0.2
+#	speed -= slide_speed_penalty  # 20% speed reduction during slide
 	play_animation("Slide", 1.8)
 
 func _move_up():
