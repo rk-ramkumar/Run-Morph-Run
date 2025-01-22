@@ -28,3 +28,7 @@ func _update_coin_label(value):
 
 func _update_best_distance_label(value):
 	best_distance_label.text = str(int(value)).pad_zeros(6)
+
+
+func _on_pause_button_pressed():
+	GameManager.pause()

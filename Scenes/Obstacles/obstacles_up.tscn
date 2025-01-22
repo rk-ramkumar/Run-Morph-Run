@@ -130,8 +130,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_t3re0")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_co6kw"]
-size = Vector3(2, 1, 0.5)
+[sub_resource type="SphereShape3D" id="SphereShape3D_clp8m"]
+radius = 1.5
 
 [node name="obstacles_up" type="Area3D"]
 collision_layer = 8
@@ -148,8 +148,8 @@ mesh = SubResource("ArrayMesh_oheyw")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
-shape = SubResource("BoxShape3D_co6kw")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+shape = SubResource("SphereShape3D_clp8m")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 

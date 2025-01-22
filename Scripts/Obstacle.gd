@@ -1,5 +1,6 @@
 extends Area3D
 
 
-func _on_body_entered(_body):
-	GameManager.register_collision()
+func _on_body_entered(body):
+	if body is Player:
+		GameManager.register_collision()

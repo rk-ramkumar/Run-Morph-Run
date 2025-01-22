@@ -57,8 +57,8 @@ light = NodePath("../DirectionalLight3D")
 pattern_switch_distance = 200.0
 player = NodePath("../Player")
 spawn_interval_limit = {
-"max": 700.0,
-"min": 500.0
+"max": 500.0,
+"min": 200.0
 }
 
 [node name="CoinSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]

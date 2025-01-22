@@ -16,7 +16,6 @@ run/main_scene="res://Scenes/splash_screen.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/bg_color=Color(0.0392157, 0.0392157, 0.0392157, 1)
 boot_splash/show_image=false
-boot_splash/image="res://Assets/Images/app_icon_432.png"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -53,6 +52,10 @@ pointing/emulate_touch_from_mouse=true
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Coin"
 3d_physics/layer_4="Obstacle"
+
+[physics]
+
+3d/run_on_separate_thread=true
 
 [rendering]
 

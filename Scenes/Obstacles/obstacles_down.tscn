@@ -130,12 +130,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8lfpd")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rmsou"]
-size = Vector3(2, 1.5, 0.5)
+[sub_resource type="SphereShape3D" id="SphereShape3D_82uo0"]
+radius = 1.5
 
 [node name="obstacles_down" type="Area3D"]
 collision_layer = 8
 collision_mask = 2
+input_ray_pickable = false
 script = ExtResource("1_nx7ym")
 
 [node name="RootNode" type="Node3D" parent="."]
@@ -147,8 +148,8 @@ mesh = SubResource("ArrayMesh_b5rws")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3.7, 0)
-shape = SubResource("BoxShape3D_rmsou")
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3.5, 0)
+shape = SubResource("SphereShape3D_82uo0")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 

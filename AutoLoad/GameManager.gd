@@ -12,6 +12,8 @@ signal distance_increased(new_distance: int)
 signal game_over
 signal game_start
 signal training_finish
+signal game_pause
+signal game_resume
 
 func _ready():
 	var err = config.load(config_path)
@@ -54,14 +56,22 @@ func is_best_score():
 	return int(distance) > best_score
 
 func start():
-	game_start.emit()
 	best_distance = config.get_value("player", "best_score")
 	distance = 0.0
 	coin = 0
-	get_tree().set_pause(false)
 	is_game_over= false
+	game_start.emit()
+	get_tree().set_pause(false)
 
 func set_training(value):
 	has_training = value
 	config.set_value("player", "has_training", has_training)
 	training_finish.emit()
+
+func pause():
+	game_pause.emit()
+	get_tree().set_pause(true)
+
+func resume():
+	game_resume.emit()
+	get_tree().set_pause(false)

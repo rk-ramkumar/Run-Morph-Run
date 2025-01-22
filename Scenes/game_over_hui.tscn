@@ -2,19 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/Control_game_over.gd" id="1_6lvo5"]
 [ext_resource type="StyleBox" uid="uid://dh7i2pnui71mq" path="res://Resources/StyleBox/popup_panel.tres" id="2_aaiut"]
+[ext_resource type="LabelSettings" uid="uid://c356v0xwg8mtl" path="res://Resources/header_label_setting.tres" id="3_0yfo8"]
 [ext_resource type="Texture2D" uid="uid://cvslw0y1y18rw" path="res://Assets/Images/distance.png" id="3_8vv2f"]
 [ext_resource type="Texture2D" uid="uid://cmtduj4gccv5o" path="res://Assets/Images/Coin_64.png" id="4_uk6qu"]
 [ext_resource type="Texture2D" uid="uid://bta4pbl4nby3c" path="res://Assets/Images/play-button.png" id="5_27gcj"]
 [ext_resource type="Texture2D" uid="uid://ck6nja0qw4g3y" path="res://Assets/Images/play-button (1).png" id="6_q13mc"]
 [ext_resource type="AudioStream" uid="uid://brh4aa6qb1j1d" path="res://Assets/Audio/gameOver.mp3" id="7_r6w46"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_30oln"]
-font_size = 80
-font_color = Color(0.866667, 0.180392, 0.180392, 1)
-outline_size = 21
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 21
-shadow_color = Color(0, 0, 0, 0.352941)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0en8m"]
 font_size = 38
@@ -116,7 +109,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.65098)
+color = Color(0, 0, 0, 0.6)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(720, 720)
@@ -132,7 +125,6 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(360, 360)
 theme_override_styles/panel = ExtResource("2_aaiut")
 
@@ -144,7 +136,7 @@ alignment = 1
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Game Over"
-label_settings = SubResource("LabelSettings_30oln")
+label_settings = ExtResource("3_0yfo8")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true

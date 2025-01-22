@@ -18,6 +18,7 @@ var _init_state: Dictionary
 func _ready():
 	_init_state = inst_to_dict(self)
 	_add_object()
+	GameManager.game_start.connect(_on_game_start)
 	randomize()
 
 func _add_object(amount = spawn_pool_size):
@@ -78,9 +79,11 @@ func _handle_pool_reset():
 	for object in pool:
 		_disable_object(object)
 
-func _notification(what):
-	match what:
-		NOTIFICATION_UNPAUSED:
-			if GameManager.is_game_over:
-				_reset()
-				_handle_pool_reset()
+func _on_game_start():
+	_reset()
+	_handle_pool_reset()
+	
+#func _notification(what):
+#	match what:
+#		NOTIFICATION_UNPAUSED:
+#			if GameManager.is_game_over:
