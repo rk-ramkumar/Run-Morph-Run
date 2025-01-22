@@ -6,6 +6,7 @@ func _ready():
 	pool = get_children()
 	init_positions = pool.map(func(obj): return obj.position)
 	GameManager.training_finish.connect(queue_free)
+	GameManager.game_start.connect(_on_game_start)
 
 func _reset():
 	for i in pool.size():

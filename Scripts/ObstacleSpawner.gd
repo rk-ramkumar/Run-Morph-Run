@@ -31,8 +31,8 @@ func _spawn_object():
 		var z_pos = randf_range(spawn_distance, spawn_distance + (20 * randi_range(-1, 1)))
 		obstacle.position = Vector3(values[i], -1, z_pos)
 		obstacle.show()
-		if obstacle.has_node("RayCast3D") and !obstacle.get_node("RayCast3D").is_colliding():
-			_disable_object(obstacle)
+#		if obstacle.has_node("RayCast3D") and !obstacle.get_node("RayCast3D").is_colliding():
+#			_disable_object(obstacle)
 
 func rand_lanes() -> Array:
 	var arr = lanes.duplicate(true)

@@ -91,13 +91,13 @@ func _physics_process(_delta):
 		await get_tree().create_timer(1, false).timeout
 		if !GameManager.is_game_over and !restart:
 			set_physics_process(true)
-			show()
+			if !keys.is_empty():
+				show()
 
 func _mark_done(event):
 	var gesture = keys.front()
 	player[event].disconnect(_mark_done.bind(event))
 	gestures[gesture].done = true
-	print(event)
 	player.actions["can_"+gesture] = false
 
 func change_actions(value = false):
