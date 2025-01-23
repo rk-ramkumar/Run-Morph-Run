@@ -4,7 +4,7 @@ extends Node3D
 @onready var player = $Player
 @onready var game_hui = $GameHUI
 @export var training_scene: PackedScene
-var rotation_speed = 0.025
+var rotation_speed = 0.010
 
 func _ready():
 	if GameManager.has_training:
