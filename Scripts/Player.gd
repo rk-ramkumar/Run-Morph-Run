@@ -20,7 +20,8 @@ const lerpSpeed = 25.0
 enum STATE {
 	RUNNING,
 	SLIDING,
-	FALLING
+	FALLING,
+	LANDING
 }
 enum SHAPE {
 	HUMAN,
@@ -35,7 +36,7 @@ var actions: Dictionary = {
 	"can_hold": true,
 }
 var animation_player: AnimationPlayer
-var speed: float = 30.0
+var speed: float = 35.0
 var max_speed_kmh: float = 100.0          # Maximum speed limit in km/h
 var speed_increase_rate: float = 0.1    # Speed increase per second (km/h)
 var direction = Vector3.ZERO
@@ -83,12 +84,13 @@ func _physics_process(delta):
 	match current_shape:
 		SHAPE.HUMAN:
 			if not is_on_floor() and (
-				current_state not in [STATE.SLIDING, STATE.FALLING]
+				current_state not in [STATE.SLIDING, STATE.FALLING, STATE.LANDING]
 				):
 				current_state = STATE.FALLING
 				animation_player.play("FallingIdle", 0.2)
 		
 			if velocity.y < -3 and current_state == STATE.FALLING:
+				current_state = STATE.LANDING
 				play_animation("JumpingDown", 1,  0.2)
 			# Enable collision when player land
 			if velocity.y < -3 and leg_hitbox.disabled:
