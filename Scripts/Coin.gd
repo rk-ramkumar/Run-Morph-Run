@@ -18,11 +18,15 @@ func _on_body_entered(_body):
 	if visible:
 		audio_stream_player.play()
 		GameManager.increase_coins()
-		var tween = create_tween()
-		tween.parallel().tween_property(mesh, "scale", Vector3.ZERO, 0.5)
-		tween.parallel().tween_property(mesh, "position", Vector3(-5, 30, 0), 0.5)
-		tween.tween_callback(func(): 
-			mesh.scale = Vector3.ONE
-			mesh.position = Vector3.ZERO
-			visible = false
-			)
+		play_coin_pick_animation()
+
+func play_coin_pick_animation():
+	var tween = create_tween()
+	tween.parallel().tween_property(mesh, "scale", Vector3.ONE * 1.5, 0.2).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(mesh, "scale", Vector3.ZERO, 0.3).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(mesh, "position", Vector3(-30, 30, 30), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(func():
+		mesh.scale = Vector3.ONE
+		mesh.position = Vector3.ZERO
+		visible = false
+	)
