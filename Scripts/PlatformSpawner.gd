@@ -91,6 +91,7 @@ func _spawn_linear():
 		return
 
 	_add_to_free()
+
 	for i in filtered_platforms.size():
 		var platform = filtered_platforms[i]
 		platform.position.x = 0
@@ -103,7 +104,7 @@ func _add_to_free(objects: Array = pool):
 		object.add_to_group("free")
 
 func _spawn_gap():
-	var filtered_platforms = _get_active_objects(platforms["empty"].pool, false)
+	var filtered_platforms = filter_by_visibility(platforms["empty"].pool, false)
 	if filtered_platforms.is_empty():
 		return
 

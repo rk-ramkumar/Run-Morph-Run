@@ -47,18 +47,18 @@ func _spawn_object():
 	pass
 
 func _move_active_object(delta):
-	for object in _get_active_objects():
+	for object in filter_by_visibility():
 		object.position.z -=  player.speed * delta
 		_recycle_object(object)
 
-func _get_active_objects(objects: Array = pool, visible: bool = true):
+func filter_by_visibility(objects: Array = pool, visible: bool = true):
 	return objects.filter(func(object): return object.visible == visible)
 
 func _get_inactive_objects(amount: int):
-	var inactive_objects = pool.filter(func(object): return !object.visible)
+	var inactive_objects = filter_by_visibility(pool, false)
 	if pool.size() < 25 and inactive_objects.size() < amount:
 		_add_object(amount - inactive_objects.size())
-		inactive_objects = pool.filter(func(object): return !object.visible)
+		inactive_objects = filter_by_visibility(pool, false)
 	return inactive_objects.slice(0, min(amount, inactive_objects.size()))
 
 func _recycle_object(object):
