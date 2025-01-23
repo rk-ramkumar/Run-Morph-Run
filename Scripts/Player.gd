@@ -20,7 +20,7 @@ const lerpSpeed = 25.0
 enum STATE {
 	RUNNING,
 	SLIDING,
-	JUMPING
+	FALLING
 }
 enum SHAPE {
 	HUMAN,
@@ -82,16 +82,19 @@ func _physics_process(delta):
 	
 	match current_shape:
 		SHAPE.HUMAN:
-			if not is_on_floor() and animation_player.current_animation != "FallingIdle":
+			if not is_on_floor() and (
+				current_state not in [STATE.SLIDING, STATE.FALLING]
+				):
+				current_state = STATE.FALLING
 				animation_player.play("FallingIdle", 0.2)
 		
-			if velocity.y < -3:
+			if velocity.y < -3 and current_state == STATE.FALLING:
 				play_animation("JumpingDown", 1,  0.2)
-
 			# Enable collision when player land
 			if velocity.y < -3 and leg_hitbox.disabled:
 				leg_hitbox.disabled = false
-				current_state = STATE.RUNNING
+				if current_state != STATE.SLIDING:
+					current_state = STATE.RUNNING
 			
 			if animation_player.current_animation != "Slide" and head_hitbox.disabled:
 #				speed += slide_speed_penalty 
@@ -108,10 +111,9 @@ func _physics_process(delta):
 					hold_detected.emit()
 					signal_emited = true
 				if !(position.y > 4):
-					velocity.y = 3.2
-
+					velocity.y = 250 * delta
+ 
 	move_and_slide()
-
 
 func _increase_speed(delta):
 	if speed < max_speed_kmh:
@@ -172,10 +174,10 @@ func _move_down():
 	if !actions.can_down:
 		return
 	move_down.emit()
+	if current_state == STATE.FALLING:
+		velocity.y -= 30.0
 	current_state = STATE.SLIDING
 	head_hitbox.disabled = true
-	if not is_on_floor():
-		velocity.y -= 10.0
 #	slide_speed_penalty = speed * 0.2
 #	speed -= slide_speed_penalty  # 20% speed reduction during slide
 	play_animation("Slide", 1.8)
@@ -184,7 +186,7 @@ func _move_up():
 	if not is_on_floor() or !actions.can_up:
 		return
 	move_up.emit()
-	current_state = STATE.JUMPING
+	current_state = STATE.FALLING
 	velocity.y = lerp(velocity.y, jumpVelocity, get_physics_process_delta_time() * lerpSpeed)
 	leg_hitbox.disabled = true
 #	play_animation("Jump", 1, 0.2)
