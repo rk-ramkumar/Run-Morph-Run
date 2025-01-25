@@ -13,6 +13,7 @@ signal move_up
 signal move_down
 signal double_tap
 signal hold_detected
+signal lane_changed(x_pos: float)
 
 const jumpVelocity = 25.0
 const lerpSpeed = 25.0
@@ -116,6 +117,8 @@ func _physics_process(delta):
 					velocity.y = 250 * delta
  
 	move_and_slide()
+#	print(Performance.get_monitor(Performance.TIME_FPS))
+
 
 func _increase_speed(delta):
 	if speed < max_speed_kmh:
@@ -164,13 +167,15 @@ func _move_right():
 	move_right.emit()
 	var new_pos = clamp(position.x - lane_offset, -lane_offset, 0)
 	position.x = new_pos
+	lane_changed.emit(new_pos)
 
 func _move_left():
 	if !actions.can_left:
 		return
 	move_left.emit()
-	var new_pos = position.x + lane_offset
-	position.x = clamp(new_pos, 0, lane_offset)
+	var new_pos = clamp(position.x + lane_offset, 0, lane_offset)
+	position.x = new_pos
+	lane_changed.emit(new_pos)
 
 func _move_down():
 	if !actions.can_down:
