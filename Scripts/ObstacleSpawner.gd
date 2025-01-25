@@ -42,7 +42,6 @@ func spawn_obstacles_by_probability(platform: Platform, random_value):
 	for i in probabilities.size():
 		cumulative += probabilities[i]
 		if random_value < cumulative:
-			prints(i, "Sd")
 			match i:
 				0: block_lanes(obstacles, platform)
 				1: place_in_line(obstacles, platform)
