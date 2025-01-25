@@ -48,22 +48,12 @@ environment = SubResource("Environment_tyf8s")
 [node name="Player" parent="." instance=ExtResource("3_ynjlx")]
 
 [node name="CameraSpring" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_aepvn")]
+process_mode = 3
 script = ExtResource("6_u1uk0")
 player = NodePath("../Player")
 
 [node name="GameHUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_okbqe")]
 player = NodePath("../Player")
-
-[node name="PlatformSpawner" type="Node" parent="." node_paths=PackedStringArray("light", "player")]
-script = ExtResource("9_h1xbr")
-light = NodePath("../DirectionalLight3D")
-current_platform = "scifi_street"
-pattern_switch_distance = 200.0
-player = NodePath("../Player")
-spawn_interval_limit = {
-"max": 100.0,
-"min": 100.0
-}
 
 [node name="CoinSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("7_u8660")
@@ -82,6 +72,19 @@ spawn_interval_limit = {
 "min": 1.0
 }
 lanes = [-3.5, 0, 3.5]
+
+[node name="PlatformSpawner" type="Node" parent="." node_paths=PackedStringArray("light", "coin_spawner", "obstacle_spawner", "player")]
+script = ExtResource("9_h1xbr")
+light = NodePath("../DirectionalLight3D")
+coin_spawner = NodePath("../CoinSpawner")
+obstacle_spawner = NodePath("../ObstacleSpawner")
+current_platform = "scifi_street"
+pattern_switch_distance = 200.0
+player = NodePath("../Player")
+spawn_interval_limit = {
+"max": 100.0,
+"min": 100.0
+}
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_5h0jg")
