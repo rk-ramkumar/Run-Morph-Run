@@ -4,14 +4,26 @@ class_name PlatformSpawner extends Spawner
 	"scifi_bridge":{
 		"scene":  preload("res://Scenes/Platform/scifi_bridge.tscn"),
 		"spawn_size": 4,
+		"spawn_interval_limit": {
+			"min": 100.0,
+			"max": 200.0
+			}
 	},
 	"scifi_street":{
 		"scene":  preload("res://Scenes/Platform/scifi_street.tscn"),
 		"spawn_size": 3,
+		"spawn_interval_limit": {
+			"min": 300.0,
+			"max": 800.0
+			}
 	},
 	"empty":{
 		"scene": preload("res://Scenes/Platform/empty.tscn"),
-		"spawn_size": 2
+		"spawn_size": 2,
+		"spawn_interval_limit": {
+			"min": 100.0,
+			"max": 200.0
+			}
 	}
 }
 @export var light: DirectionalLight3D
@@ -53,11 +65,12 @@ func set_z_position(last_platform, platform):
 func _handle_spawn(_delta):
 	if GameManager.distance - last_switch_distance > pattern_switch_distance:
 		_switch_pattern()
-		pattern_switch_distance =  randf_range(spawn_interval_limit.min, spawn_interval_limit.max)
+		var limit = platforms[current_platform].get("spawn_interval_limit", spawn_interval_limit)
+		pattern_switch_distance = randf_range(limit.min, limit.max)
 		last_switch_distance = GameManager.distance
 
 func _switch_pattern():
-	var current_pattern = 0
+	var current_pattern = randi() % PATTERN.size()
 	
 	match current_pattern:
 		PATTERN.LINEAR:
@@ -79,7 +92,7 @@ func _adjust_light():
 func _spawn_linear():
 	var keys = platforms.keys()
 	keys.erase("empty")
-	var rand_name = keys.pick_random()
+	var rand_name = "scifi_street" if current_platform == "scifi_bridge" else "scifi_bridge"
 
 	if rand_name == current_platform:
 		return
