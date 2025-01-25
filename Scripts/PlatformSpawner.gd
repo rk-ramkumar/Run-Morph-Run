@@ -27,6 +27,8 @@ class_name PlatformSpawner extends Spawner
 	}
 }
 @export var light: DirectionalLight3D
+@export var coin_spawner: CoinSpawner
+@export var obstacle_spawner: ObstacleSpawner
 @export_enum("scifi_bridge", "scifi_street", "empty") var current_platform: String = "scifi_bridge"
 
 enum PATTERN {
@@ -40,6 +42,7 @@ func _add_object(_amount = spawn_pool_size):
 	for platform_name in platforms:
 		for i in platforms[platform_name].spawn_size:
 			var platform = platforms[platform_name].scene.instantiate()
+			platform.name = platform_name + str(i)
 			add_child(platform)
 			if !platforms[platform_name].has("pool"):
 				platforms[platform_name].pool = []
@@ -56,6 +59,9 @@ func _add_object(_amount = spawn_pool_size):
 	if GameManager.has_training:
 		var platform = platforms["empty"].pool[0]
 		_add_temporary_platform(platform)
+	else:
+		coin_spawner.spawn_coins(pool[1])
+		obstacle_spawner.spawn_object(pool[1])
 
 	_adjust_light()
 
@@ -90,14 +96,7 @@ func _adjust_light():
 				tween.tween_property(light, "rotation:x", 0, 4.0)
 
 func _spawn_linear():
-	var keys = platforms.keys()
-	keys.erase("empty")
-	var rand_name = "scifi_street" if current_platform == "scifi_bridge" else "scifi_bridge"
-
-	if rand_name == current_platform:
-		return
-
-	current_platform = rand_name
+	current_platform = "scifi_street" if current_platform == "scifi_bridge" else "scifi_bridge"
 	var filtered_platforms = platforms[current_platform].pool
 
 	if filtered_platforms.is_empty():
@@ -111,6 +110,10 @@ func _spawn_linear():
 		set_z_position(pool.back(), platform)
 		platform.show()
 		pool.append(platform)
+		if i == filtered_platforms.size() or i == 0:
+			continue
+		obstacle_spawner.spawn_object(platform)
+	
 
 func _add_to_free(objects: Array = pool):
 	for object in objects:
@@ -165,3 +168,5 @@ func _recycle():
 		else:
 			set_z_position(pool.back(), recycled_platform)
 			pool.append(recycled_platform)
+			coin_spawner.spawn_coins(pool[1])
+			obstacle_spawner.spawn_object(recycled_platform)
