@@ -24,7 +24,7 @@ func _spawn_object():
 func spawn_straight_line(spawn_amount: int = 5):
 	var lane = lanes.pick_random()
 	var coins = _get_inactive_objects(spawn_amount)
-	var y_pos = randi() % 4
+	var y_pos = randi() % 4 + 1
 	for i in coins.size():
 		var coin = coins[i]
 		coin.position = Vector3(lane, y_pos, spawn_distance + i*2)
@@ -48,6 +48,6 @@ func spawn_zigzag(spawn_amount: int = 6):
 	for i in coins.size():
 		var coin = coins[i]
 		var lane = lanes[i % 3]
-		coin.position = Vector3(lane, 0, spawn_distance + i * 3)
+		coin.position = Vector3(lane, 1, spawn_distance + i * 3)
 		coin.show()
 	
