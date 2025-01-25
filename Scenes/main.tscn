@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=17 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/Textures/sky_2.png" id="2_ol28g"]
 [ext_resource type="PackedScene" uid="uid://8gf4baewu4a1" path="res://Scenes/Player.tscn" id="3_ynjlx"]
 [ext_resource type="PackedScene" uid="uid://c4q18xng0tqn7" path="res://Scenes/game_hui.tscn" id="4_okbqe"]
-[ext_resource type="PackedScene" uid="uid://dkjuo2ealalbp" path="res://Scenes/camera_spring.tscn" id="5_yh11r"]
+[ext_resource type="PackedScene" uid="uid://dkjuo2ealalbp" path="res://Scenes/camera_spring.tscn" id="5_aepvn"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="6_u1uk0"]
 [ext_resource type="Script" path="res://Scripts/CoinSpawner.gd" id="7_u8660"]
 [ext_resource type="Script" path="res://Scripts/ObstacleSpawner.gd" id="8_35k5l"]
 [ext_resource type="AudioStream" uid="uid://dl8tto4wjypk7" path="res://Assets/Audio/houl-sci-fi-ambience.mp3" id="9_5h0jg"]
@@ -46,19 +47,22 @@ environment = SubResource("Environment_tyf8s")
 
 [node name="Player" parent="." instance=ExtResource("3_ynjlx")]
 
-[node name="GameHUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_okbqe")]
+[node name="CameraSpring" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_aepvn")]
+script = ExtResource("6_u1uk0")
 player = NodePath("../Player")
 
-[node name="CameraSpring" parent="." instance=ExtResource("5_yh11r")]
+[node name="GameHUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_okbqe")]
+player = NodePath("../Player")
 
 [node name="PlatformSpawner" type="Node" parent="." node_paths=PackedStringArray("light", "player")]
 script = ExtResource("9_h1xbr")
 light = NodePath("../DirectionalLight3D")
+current_platform = "scifi_street"
 pattern_switch_distance = 200.0
 player = NodePath("../Player")
 spawn_interval_limit = {
-"max": 500.0,
-"min": 200.0
+"max": 100.0,
+"min": 100.0
 }
 
 [node name="CoinSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]
@@ -74,7 +78,7 @@ spawn_interval = 0.0
 spawn_distance = 90.0
 player = NodePath("../Player")
 spawn_interval_limit = {
-"max": 2.0,
+"max": 10.0,
 "min": 1.0
 }
 lanes = [-3.5, 0, 3.5]
