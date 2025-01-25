@@ -46,7 +46,7 @@ var swipe_start_position: Vector2 = Vector2.ZERO
 var swipe_end_position: Vector2 = Vector2.ZERO
 var min_swipe_distance: float = 50.0
 var current_state: STATE = STATE.RUNNING
-var lane_offset: float = 2.5
+var lane_offset: float = 3.5
 var slide_speed_penalty : float = 0.0
 var current_shape : SHAPE = SHAPE.HUMAN:
 	set(new_shape):

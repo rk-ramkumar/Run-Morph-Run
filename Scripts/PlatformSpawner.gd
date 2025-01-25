@@ -60,10 +60,10 @@ func _add_object(_amount = spawn_pool_size):
 		var platform = platforms["empty"].pool[0]
 		_add_temporary_platform(platform)
 	else:
-		coin_spawner.spawn_coins(pool[1])
+		coin_spawner.spawn_object(pool[1], {}, coin_spawner.PATTERNS.LINE)
 		obstacle_spawner.spawn_object(pool[1])
 
-	_adjust_light()
+#	_adjust_light()
 
 func set_z_position(last_platform, platform):
 	platform.position.z = (platform.get_size().z * 0.5 + last_platform.get_size().z * 0.5) + last_platform.position.z
@@ -84,7 +84,7 @@ func _switch_pattern():
 		PATTERN.GAP:
 			_spawn_gap()
 	
-	_adjust_light()
+#	_adjust_light()
 
 func _adjust_light():
 	match current_platform:
@@ -111,6 +111,7 @@ func _spawn_linear():
 		platform.show()
 		pool.append(platform)
 		if i == filtered_platforms.size() or i == 0:
+			coin_spawner.spawn_object(platform, {}, coin_spawner.PATTERNS.LINE)
 			continue
 		obstacle_spawner.spawn_object(platform)
 	
@@ -168,5 +169,4 @@ func _recycle():
 		else:
 			set_z_position(pool.back(), recycled_platform)
 			pool.append(recycled_platform)
-			coin_spawner.spawn_coins(pool[1])
 			obstacle_spawner.spawn_object(recycled_platform)

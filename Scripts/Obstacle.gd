@@ -2,5 +2,5 @@ extends Area3D
 
 
 func _on_body_entered(body):
-	if body is Player:
+	if body is Player and body.position.x == position.x:
 		GameManager.register_collision()

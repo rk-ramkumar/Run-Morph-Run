@@ -39,7 +39,7 @@ script = ExtResource("1_tndel")
 training_scene = ExtResource("9_ayryg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -61,8 +61,9 @@ spawn_pool_size = 30
 spawn_interval = 1.0
 player = NodePath("../Player")
 
-[node name="ObstacleSpawner" type="Node" parent="." node_paths=PackedStringArray("player")]
+[node name="ObstacleSpawner" type="Node" parent="." node_paths=PackedStringArray("coin_spawner", "player")]
 script = ExtResource("8_35k5l")
+coin_spawner = NodePath("../CoinSpawner")
 spawn_pool_size = 10
 spawn_interval = 0.0
 spawn_distance = 90.0
