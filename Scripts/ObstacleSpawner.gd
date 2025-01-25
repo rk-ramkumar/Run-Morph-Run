@@ -1,6 +1,7 @@
 class_name ObstacleSpawner extends Spawner
 
-@export var probabilities: Array = [0.3, 0.5, 0.2]  # Probabilities for each function
+@export var probabilities: Array = [0.4, 0.4]  # Probabilities for each function
+var last_line_lane: int = -1
 
 var obstacles_scene: Dictionary = {
 	"obstacle_down": preload("res://Scenes/Obstacles/obstacles_down.tscn"),
@@ -24,52 +25,64 @@ func _add_object(amount = spawn_pool_size):
 	pool.shuffle()
 
 func _spawn_object():
-	if GameManager.has_training:
+	pass
+
+func spawn_object(platform: Platform):
+	if GameManager.has_training or platform.name.contains("empty"):
 		return
 
-	spawn_obstacles_by_probability()
-#		if obstacle.has_node("RayCast3D") and !obstacle.get_node("RayCast3D").is_colliding():
-#			_disable_object(obstacle)
+	spawn_obstacles_by_probability(platform, 0.5)
+	spawn_obstacles_by_probability(platform, 0.0)
 
-func spawn_obstacles_by_probability():
-	var random_value = randf()
+func spawn_obstacles_by_probability(platform: Platform, random_value):
 	var cumulative = 0.0
 	var obstacles = _get_inactive_objects(10)
-	
+	spawn_distance = platform.position.z
+
 	for i in probabilities.size():
 		cumulative += probabilities[i]
 		if random_value < cumulative:
+			prints(i, "Sd")
 			match i:
-				0: block_lanes(obstacles)
-				1: place_in_line(obstacles)
-				2: place_rand_obstacles(obstacles)
+				0: block_lanes(obstacles, platform)
+				1: place_in_line(obstacles, platform)
+#				2: place_rand_obstacles(obstacles, platform)
 			return
 
-func place_in_line(obstacles: Array):
-	var lane = randi() % 3
-	var prev_z_pos = spawn_distance
-	for obstacle in obstacles:
-		show_obstacle(obstacle, Vector3(lanes[lane], -1, prev_z_pos))
-		prev_z_pos += 40
+func place_in_line(obstacles: Array, platform: Platform):
+	last_line_lane = randi() % lanes.size()
+	obstacles.resize(min(obstacles.size(), (randi() % 6 + 3)))
+	var limit = platform.get_size().z * 0.5
+	var prev_z_pos = spawn_distance - limit
 
-func place_rand_obstacles(obstacles: Array):
+	for obstacle in obstacles:
+		if prev_z_pos > spawn_distance + limit:
+			return
+		if prev_z_pos > spawn_distance - limit:
+			show_obstacle(obstacle, Vector3(lanes[last_line_lane], -1, prev_z_pos))
+		prev_z_pos += randi_range(20, 40)
+
+func place_rand_obstacles(obstacles: Array, platform: Platform):
 	var values = rand_lanes()
+	var limit = (platform.get_size().z * 0.5) - 10
 	for i in values.size():
 		var obstacle = obstacles[i]
-		var z_pos = randf_range(spawn_distance, spawn_distance + (randi_range(-10, 100)))
+		var z_pos = randf_range(spawn_distance, spawn_distance + (randi_range(-limit, limit)))
 		show_obstacle(obstacle, Vector3(values[i], -1, z_pos))
 
-func block_lanes(obstacles: Array):
-	var values = rand_lanes(2)
+func block_lanes(obstacles: Array, platform: Platform):
+	var values = rand_lanes(2, last_line_lane)
+	last_line_lane = -1
 	var laneSize = values.size()
 	var obs_up = filter_by_group(obstacles, "obstacle_up")
 	var obs_down = filter_by_group(obstacles, "obstacle_down")
 
 	if obs_up.size() < laneSize or obs_down.size() < laneSize:
 		return
-		
+	var limit = (platform.get_size().z * 0.5) - 10
+
 	for i in laneSize:
-		var z_pos = randf_range(spawn_distance, spawn_distance + (randi_range(-50, 100)))
+		var z_pos = randi_range(spawn_distance - limit, spawn_distance + limit)
 		for obs in [obs_down, obs_up]:
 			show_obstacle(obs[i], Vector3(values[i], -1, z_pos))
 
@@ -80,7 +93,11 @@ func show_obstacle(obstacle, position: Vector3):
 func filter_by_group(obstacles: Array = [], group_name: String = ""):
 	return  obstacles.filter(func(obstacle): return obstacle.is_in_group(group_name))
 
-func rand_lanes(end: int = 3) -> Array:
-	var arr = lanes.duplicate(true)
+func rand_lanes(end: int = 3, remove_at: int = -1 ) -> Array:
+	var arr: Array = lanes.duplicate(true)
+	if remove_at != -1:
+		arr.remove_at(remove_at)
 	arr.shuffle()
-	return range(randi_range(0, end)).map(func(i): return arr[i])
+	return range(
+		randi_range(0, min(arr.size(), end))).map(func(i): return arr[i]
+		)
