@@ -44,6 +44,7 @@ func _ready():
 	GameManager.game_start.connect(_on_game_start)
 	set_physics_process(false)
 	change_actions()
+	player.speed = 30.0
 	hide()
 	await get_tree().create_timer(0.8, false).timeout
 	show()
@@ -113,6 +114,7 @@ func _on_game_start():
 	if GameManager.has_training:
 		set_physics_process(false)
 		change_actions()
+		player.speed = 30.0
 		keys = gestures.keys()
 		complete_list = []
 		for key in gestures:
