@@ -101,4 +101,4 @@ script = ExtResource("10_hu5cn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
 shape = SubResource("BoxShape3D_2ktk2")
 
-[connection signal="body_entered" from="Boundary" to="Boundary" method="_on_body_entered"]
+[connection signal="body_entered" from="Boundary" to="Boundary" method="_on_body_entered" binds= [true]]
