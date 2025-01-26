@@ -117,7 +117,6 @@ func _physics_process(delta):
 					velocity.y = 250 * delta
  
 	move_and_slide()
-#	print(Performance.get_monitor(Performance.TIME_FPS))
 
 
 func _increase_speed(delta):
@@ -232,7 +231,7 @@ func _on_game_start():
 	set_physics_process(true)
 	set_process_input(true)
 	position = Vector3.ZERO
-	speed = 30.0
+	speed = 35.0
 	velocity.y = 0.0
 	current_state = STATE.RUNNING
 	current_shape = SHAPE.HUMAN
@@ -242,10 +241,10 @@ func _on_game_start():
 
 func _on_game_pause():
 	animation_player.play("BreathingIdle", 0.2)
-	swipe_start_position = Vector2.ZERO
-	swipe_end_position = Vector2.ZERO
 	set_physics_process(false)
 	set_process_input(false)
+	swipe_start_position = Vector2.ZERO
+	swipe_end_position = Vector2.ZERO
 
 func _on_game_resume():
 	animation_player.play("Running", 0.2)
