@@ -30,4 +30,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 120)
 
 [node name="obstacles_up_up_swipe" parent="." instance=ExtResource("2_kd26q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 160)
-monitoring = false

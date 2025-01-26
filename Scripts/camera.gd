@@ -5,6 +5,7 @@ extends Node3D
 
 func _ready():
 	GameManager.game_start.connect(_on_game_start)
+	GameManager.game_restart.connect(_on_game_start)
 	if player:
 		player.lane_changed.connect(_on_lane_changed)
 

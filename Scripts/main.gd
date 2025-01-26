@@ -7,10 +7,23 @@ extends Node3D
 var rotation_speed = 0.010
 
 func _ready():
-	if GameManager.has_training:
+	GameManager.game_start.connect(_on_game_start)
+	GameManager.request_home.connect(_on_request_home)
+	set_process(false)
+	hide()
+
+func _on_request_home():
+	set_process(false)
+	hide()
+
+func _on_game_start():
+	show()
+	if GameManager.has_training and !has_node("Training"):
 		var training = training_scene.instantiate()
+		training.name = 'Training'
 		training.player = player
 		add_child(training)
+	set_process(true)
 
 func _process(delta):
 	world_environment.environment.sky_rotation.y += rotation_speed * delta

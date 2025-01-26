@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4q18xng0tqn7"]
+[gd_scene load_steps=17 format=3 uid="uid://c4q18xng0tqn7"]
 
 [ext_resource type="Script" path="res://Scripts/Game_HUI_Control.gd" id="1_3pnah"]
 [ext_resource type="StyleBox" uid="uid://cwag0usy3g7d6" path="res://Resources/StyleBox/panel_bg.tres" id="1_cb4b2"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://7m4o0dr46vlo" path="res://Scenes/game_over_hui.tscn" id="6_m0sus"]
 [ext_resource type="Texture2D" uid="uid://oqca85ej1fyb" path="res://Assets/Images/pause-button.png" id="7_dvv3y"]
 [ext_resource type="PackedScene" uid="uid://bjvwm8r7w2pmh" path="res://Scenes/pause_control.tscn" id="9_4rx85"]
+[ext_resource type="PackedScene" uid="uid://n2i6y5om2y4r" path="res://Scenes/main_menu.tscn" id="10_wlrdh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7sjjg"]
 font_size = 38
@@ -22,7 +23,65 @@ font_size = 38
 [sub_resource type="LabelSettings" id="LabelSettings_1fjrk"]
 font_size = 24
 
-[node name="GameHUI" type="CanvasLayer"]
+[sub_resource type="Animation" id="Animation_kw7kl"]
+resource_name = "fade_in_out"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeColorRect:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FadeColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_dni3n"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeColorRect:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FadeColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_som1v"]
+_data = {
+"RESET": SubResource("Animation_dni3n"),
+"fade_in_out": SubResource("Animation_kw7kl")
+}
+
+[node name="GameHUD" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_povxx")
 
@@ -33,6 +92,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_3pnah")
 
 [node name="GameScoreContainer" type="VBoxContainer" parent="Control"]
@@ -144,5 +204,21 @@ texture_normal = ExtResource("7_dvv3y")
 [node name="PauseControl" parent="." instance=ExtResource("9_4rx85")]
 
 [node name="GameOver" parent="." instance=ExtResource("6_m0sus")]
+
+[node name="MainMenu" parent="." instance=ExtResource("10_wlrdh")]
+
+[node name="FadeColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.164706, 0.164706, 0.164706, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_som1v")
+}
 
 [connection signal="pressed" from="Control/PauseButton" to="Control" method="_on_pause_button_pressed"]

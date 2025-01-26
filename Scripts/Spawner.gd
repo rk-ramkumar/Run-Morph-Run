@@ -19,7 +19,10 @@ func _ready():
 	_init_state = inst_to_dict(self)
 	_add_object()
 	GameManager.game_start.connect(_on_game_start)
+	GameManager.game_restart.connect(_on_game_restart)
+	GameManager.request_home.connect(_on_request_home)
 	randomize()
+	set_process(false)
 
 func _add_object(amount = spawn_pool_size):
 	for _i in amount:
@@ -80,9 +83,17 @@ func _handle_pool_reset():
 		_disable_object(object)
 
 func _on_game_start():
+	set_process(true)
+
+func _on_game_restart():
 	_reset()
 	_handle_pool_reset()
-	
+
+func _on_request_home():
+	set_process(false)
+	_reset()
+	_handle_pool_reset()
+
 #func _notification(what):
 #	match what:
 #		NOTIFICATION_UNPAUSED:

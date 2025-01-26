@@ -72,8 +72,12 @@ func _ready():
 	animation_player.play("Running")
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.game_start.connect(_on_game_start)
+	GameManager.game_restart.connect(_on_game_start)
 	GameManager.game_pause.connect(_on_game_pause)
 	GameManager.game_resume.connect(_on_game_resume)
+	GameManager.request_home.connect(_on_request_home)
+	set_physics_process(false)
+	set_process_unhandled_input(false)
 
 func _physics_process(delta):
 	_increase_speed(delta)
@@ -118,12 +122,11 @@ func _physics_process(delta):
  
 	move_and_slide()
 
-
 func _increase_speed(delta):
 	if speed < max_speed_kmh:
 		speed += speed_increase_rate * delta  # Gradual increase
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventScreenTouch:
 		if actions.can_double_tap and event.double_tap:
 			double_tap.emit()
@@ -223,13 +226,13 @@ func _on_game_over():
 	position.y = 0
 	animation_player.play("Stunned")
 	set_physics_process(false)
-	set_process_input(false)
+	set_process_unhandled_input(false)
 
 func _on_game_start():
 	swipe_start_position = Vector2.ZERO
 	swipe_end_position = Vector2.ZERO
 	set_physics_process(true)
-	set_process_input(true)
+	set_process_unhandled_input(true)
 	position = Vector3.ZERO
 	speed = 35.0
 	velocity.y = 0.0
@@ -242,11 +245,15 @@ func _on_game_start():
 func _on_game_pause():
 	animation_player.play("BreathingIdle", 0.2)
 	set_physics_process(false)
-	set_process_input(false)
+	set_process_unhandled_input(false)
 	swipe_start_position = Vector2.ZERO
 	swipe_end_position = Vector2.ZERO
 
 func _on_game_resume():
 	animation_player.play("Running", 0.2)
-	set_process_input(true)
+	set_process_unhandled_input(true)
 	set_physics_process(true)
+
+func _on_request_home():
+	set_physics_process(false)
+	set_process_unhandled_input(false)

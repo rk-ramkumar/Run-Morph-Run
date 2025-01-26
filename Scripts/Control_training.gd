@@ -42,6 +42,7 @@ var restart = false
 func _ready():
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.game_start.connect(_on_game_start)
+	GameManager.game_restart.connect(_on_game_start)
 	set_physics_process(false)
 	change_actions()
 	player.speed = 30.0

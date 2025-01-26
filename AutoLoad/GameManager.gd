@@ -1,6 +1,8 @@
 extends Node
 
+var player_name: String = ""
 var coin: int = 0
+var total_coin: int = 0
 var distance: float = 0.0
 var best_distance: float = 0.0
 var is_game_over: bool = false
@@ -11,9 +13,11 @@ signal coins_changed(new_amount: int)  # Emits the updated coin amount
 signal distance_increased(new_distance: int)
 signal game_over
 signal game_start
+signal game_restart
 signal training_finish
 signal game_pause
 signal game_resume
+signal request_home
 
 func _ready():
 	var err = config.load(config_path)
@@ -23,9 +27,13 @@ func _ready():
 		config.set_value("player", "best_score", int(best_distance))
 		config.set_value("player", "coin", coin)
 		config.set_value("player", "has_training", has_training)
+		config.set_value("player", "name", player_name)
 		return
 	has_training = config.get_value("player", "has_training")
 	best_distance = config.get_value("player", "best_score")
+	total_coin = config.get_value("player", "coin")
+	player_name = config.get_value("player", "name", player_name)
+	
 
 func increase_coins(amount: int = 1):
 	coin += amount
@@ -39,15 +47,19 @@ func increase_distance(value):
 	distance += value
 	distance_increased.emit(int(distance))
 
+func set_player_name(value: String):
+	config.set_value("player", "name", value)
+	config.save(config_path)
+
 func register_collision():
 	get_tree().set_pause(true)
 	game_over.emit()
 	is_game_over = true
 	var best_score = config.get_value("player", "best_score")
-	var prev_coin = config.get_value("player", "coin")
+	total_coin = config.get_value("player", "coin")
 	if int(distance) > best_score:
 		config.set_value("player", "best_score", int(distance))
-	config.set_value("player", "coin", coin + prev_coin)
+	config.set_value("player", "coin", coin + total_coin)
 	config.save(config_path)
 
 func is_best_score():
@@ -55,12 +67,15 @@ func is_best_score():
 
 	return int(distance) > best_score
 
-func start():
+func start(type: String = "start"):
 	best_distance = config.get_value("player", "best_score")
 	distance = 0.0
 	coin = 0
 	is_game_over= false
-	game_start.emit()
+	if type == "start":
+		game_start.emit()
+	else:
+		game_restart.emit()
 	get_tree().set_pause(false)
 
 func set_training(value):

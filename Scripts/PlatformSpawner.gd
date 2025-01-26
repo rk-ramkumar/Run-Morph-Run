@@ -56,14 +56,24 @@ func _add_object(_amount = spawn_pool_size):
 
 	pool = platforms[current_platform].pool.duplicate(true)
 
+
+#	_adjust_light()
+
+func _on_game_start():
+	super._on_game_start()
+	_add_training_objects()
+
+func _on_game_restart():
+	super._on_game_restart()
+	_add_training_objects()
+
+func _add_training_objects():
 	if GameManager.has_training:
 		var platform = platforms["empty"].pool[0]
 		_add_temporary_platform(platform)
 	else:
 		coin_spawner.spawn_object(pool[1], {}, coin_spawner.PATTERNS.LINE)
 		obstacle_spawner.spawn_object(pool[1])
-
-#	_adjust_light()
 
 func set_z_position(last_platform, platform):
 	platform.position.z = (platform.get_size().z * 0.5 + last_platform.get_size().z * 0.5) + last_platform.position.z

@@ -3,13 +3,19 @@ extends Control
 @onready var distance_label = $GameScoreContainer/DistanceContainer/HBoxContainer/Label
 @onready var coin_label = $GameScoreContainer/CoinContainer/HBoxContainer/CoinLabel
 @onready var best_distance_label = $GameScoreContainer/BestContainer/HBoxContainer/Label
+@onready var pause_button = $PauseButton
 
 func _ready():
 	GameManager.distance_increased.connect(_update_distance_label)
 	GameManager.coins_changed.connect(_update_coin_label)
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.game_start.connect(_on_game_start)
+	GameManager.game_restart.connect(_on_game_start)
 	_on_game_start()
+	if GameManager.has_training:
+		pause_button.hide()
+		GameManager.training_finish.connect(pause_button.show)
+	hide()
 
 func _on_game_start():
 	_update_coin_label(GameManager.coin)

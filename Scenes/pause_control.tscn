@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjvwm8r7w2pmh"]
+[gd_scene load_steps=7 format=3 uid="uid://bjvwm8r7w2pmh"]
 
 [ext_resource type="LabelSettings" uid="uid://c356v0xwg8mtl" path="res://Resources/header_label_setting.tres" id="1_7k7ag"]
 [ext_resource type="Script" path="res://Scripts/pause_control.gd" id="1_jdfdy"]
+[ext_resource type="Texture2D" uid="uid://cu85aamrktonp" path="res://Assets/Images/comic_background.jpg" id="2_ip46u"]
 [ext_resource type="StyleBox" uid="uid://dh7i2pnui71mq" path="res://Resources/StyleBox/popup_panel.tres" id="2_nta2q"]
 [ext_resource type="StyleBox" uid="uid://imu35jes28em" path="res://Resources/StyleBox/button.tres" id="3_nrg62"]
+[ext_resource type="PackedScene" uid="uid://bkmneib06l1ek" path="res://Scenes/custom_button.tscn" id="6_jlagn"]
 
 [node name="PauseControl" type="Control"]
 process_mode = 2
@@ -15,7 +17,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jdfdy")
 
+[node name="Background" type="TextureRect" parent="."]
+self_modulate = Color(0.85, 0.44, 0.84, 0.8)
+custom_minimum_size = Vector2(1080, 1920)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1920.0
+offset_top = -960.0
+offset_bottom = 960.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(540, 960)
+texture = ExtResource("2_ip46u")
+stretch_mode = 6
+flip_v = true
+
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,7 +66,7 @@ theme_override_styles/panel = ExtResource("2_nta2q")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
@@ -56,6 +78,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Panel" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_nrg62")
@@ -72,6 +95,7 @@ flat = true
 icon_alignment = 1
 
 [node name="Panel2" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_nrg62")
@@ -86,6 +110,7 @@ text = "RESTART	"
 flat = true
 
 [node name="Panel3" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_nrg62")
@@ -98,6 +123,24 @@ theme_override_font_sizes/font_size = 38
 text = "EXIT"
 flat = true
 
+[node name="ResumeButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("6_jlagn")]
+custom_minimum_size = Vector2(512, 80)
+layout_mode = 2
+text = "continue"
+
+[node name="RestartButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("6_jlagn")]
+custom_minimum_size = Vector2(512, 80)
+layout_mode = 2
+text = "Restart"
+
+[node name="ExitButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("6_jlagn")]
+custom_minimum_size = Vector2(512, 80)
+layout_mode = 2
+text = "Exit"
+
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Panel/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Panel2/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Panel3/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
