@@ -21,6 +21,7 @@ func _on_game_start():
 	hide()
 
 func _on_game_over():
+	await get_tree().create_timer(1.5).timeout
 	show()
 	audio_stream_player.play()
 	distance_texture.texture = textures[GameManager.is_best_score()]
