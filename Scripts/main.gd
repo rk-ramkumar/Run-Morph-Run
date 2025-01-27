@@ -5,6 +5,7 @@ extends Node3D
 @onready var game_hui = $GameHUI
 @export var training_scene: PackedScene
 var rotation_speed = 0.010
+@onready var audio_stream_player = $AudioStreamPlayer3D
 
 func _ready():
 	GameManager.game_start.connect(_on_game_start)
@@ -14,10 +15,12 @@ func _ready():
 
 func _on_request_home():
 	set_process(false)
+	audio_stream_player.stop()
 	hide()
 
 func _on_game_start():
 	show()
+	audio_stream_player.play(1.0)
 	if GameManager.has_training and !has_node("Training"):
 		var training = training_scene.instantiate()
 		training.name = 'Training'

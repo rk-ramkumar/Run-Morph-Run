@@ -8,10 +8,10 @@
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="6_u1uk0"]
 [ext_resource type="Script" path="res://Scripts/CoinSpawner.gd" id="7_u8660"]
 [ext_resource type="Script" path="res://Scripts/ObstacleSpawner.gd" id="8_35k5l"]
-[ext_resource type="AudioStream" uid="uid://dl8tto4wjypk7" path="res://Assets/Audio/houl-sci-fi-ambience.mp3" id="9_5h0jg"]
 [ext_resource type="PackedScene" uid="uid://ewt3xe8jmelt" path="res://Scenes/training.tscn" id="9_ayryg"]
 [ext_resource type="Script" path="res://Scripts/PlatformSpawner.gd" id="9_h1xbr"]
 [ext_resource type="Script" path="res://Scripts/Obstacle.gd" id="10_hu5cn"]
+[ext_resource type="AudioStream" uid="uid://bg0fce8xqnp2q" path="res://Assets/Audio/action_loop.mp3" id="11_4tgaa"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
 panorama = ExtResource("2_ol28g")
@@ -88,7 +88,7 @@ spawn_interval_limit = {
 }
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_5h0jg")
+stream = ExtResource("11_4tgaa")
 
 [node name="Boundary" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)

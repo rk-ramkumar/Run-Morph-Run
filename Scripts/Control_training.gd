@@ -83,7 +83,7 @@ func _physics_process(_delta):
 		label.text = gestures[gesture].text
 		animation_player.play(gesture)
 		complete_list.append(gesture)
-		Engine.time_scale = 0.2
+		Engine.time_scale = 0.2 if gesture != "up" else 0.5
 	
 	if gestures[gesture].done:
 		keys.pop_front()

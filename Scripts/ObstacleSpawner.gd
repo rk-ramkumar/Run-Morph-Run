@@ -33,7 +33,8 @@ func spawn_object(platform: Platform):
 
 	var line_obstacles = spawn_obstacles_by_probability(platform, 0)
 	coin_spawner.spawn_object(platform, line_obstacles, coin_spawner.PATTERNS.ZIGZAG)
-	spawn_obstacles_by_probability(platform, 1)
+	if GameManager.distance > 1000:
+		spawn_obstacles_by_probability(platform, 1)
 #	coin_spawner.spawn_object(platform, block_obstacles, coin_spawner.PATTERNS.LINE)
 
 func spawn_obstacles_by_probability(platform: Platform, type: int):

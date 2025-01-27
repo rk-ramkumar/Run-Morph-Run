@@ -59,7 +59,8 @@ func register_collision():
 	total_coin = config.get_value("player", "coin")
 	if int(distance) > best_score:
 		config.set_value("player", "best_score", int(distance))
-	config.set_value("player", "coin", coin + total_coin)
+	total_coin = coin + total_coin
+	config.set_value("player", "coin", total_coin)
 	config.save(config_path)
 
 func is_best_score():
