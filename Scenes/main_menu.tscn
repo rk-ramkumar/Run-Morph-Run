@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_3gfye"]
 [ext_resource type="Texture2D" uid="uid://crxdpxd2kr8g5" path="res://Assets/Images/main.png" id="1_ebl3w"]
 [ext_resource type="Shader" path="res://Resources/Shaders/main_menu.gdshader" id="2_kkice"]
-[ext_resource type="Texture2D" uid="uid://dkdlqkeulr1su" path="res://Assets/New folder/bg.jpg" id="2_nmqxe"]
 [ext_resource type="Texture2D" uid="uid://cmtduj4gccv5o" path="res://Assets/Images/Coin_64.png" id="3_alxsg"]
 [ext_resource type="Texture2D" uid="uid://cu85aamrktonp" path="res://Assets/Images/comic_background.jpg" id="3_bfy5l"]
+[ext_resource type="Texture2D" uid="uid://dkdlqkeulr1su" path="res://Assets/Images/bg.jpg" id="3_ht1t8"]
 [ext_resource type="FontFile" uid="uid://ysw0o6sah5a" path="res://Assets/Fonts/Azonix.otf" id="4_n1gcx"]
 [ext_resource type="LabelSettings" uid="uid://c356v0xwg8mtl" path="res://Resources/header_label_setting.tres" id="4_t673f"]
 [ext_resource type="StyleBox" uid="uid://x0wb52grpyj3" path="res://Resources/StyleBox/label_bg.tres" id="6_us8he"]
@@ -165,7 +165,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_nmqxe")
+texture = ExtResource("3_ht1t8")
 
 [node name="TextureRect" type="TextureRect" parent="TextureRect"]
 self_modulate = Color(0.780392, 0.901961, 0.988235, 0.133333)

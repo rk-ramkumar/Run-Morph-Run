@@ -2,6 +2,7 @@ class_name Player extends CharacterBody3D
 
 @export var human_scene: PackedScene
 @export var paper_scene: PackedScene
+@export var jumpVelocity = 25.0
 
 @onready var leg_hitbox = $LegHitbox
 @onready var head_hitbox = $HeadHitbox
@@ -15,7 +16,6 @@ signal double_tap
 signal hold_detected
 signal lane_changed(x_pos: float)
 
-const jumpVelocity = 25.0
 const lerpSpeed = 25.0
 
 enum STATE {

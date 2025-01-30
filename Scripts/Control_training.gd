@@ -45,6 +45,7 @@ func _ready():
 	GameManager.game_restart.connect(_on_game_start)
 	set_physics_process(false)
 	change_actions()
+	player.jumpVelocity = 150.0
 	player.speed = 30.0
 	hide()
 	await get_tree().create_timer(0.8, false).timeout
@@ -59,6 +60,8 @@ func _connect_signal():
 	
 func _physics_process(_delta):
 	if keys.is_empty():
+		player.speed = 35.0
+		player.jumpVelocity = 25.0
 		GameManager.set_training(false)
 		set_physics_process(false)
 		change_actions(true)
@@ -83,7 +86,7 @@ func _physics_process(_delta):
 		label.text = gestures[gesture].text
 		animation_player.play(gesture)
 		complete_list.append(gesture)
-		Engine.time_scale = 0.2 if gesture != "up" else 0.5
+		Engine.time_scale = 0.2
 	
 	if gestures[gesture].done:
 		keys.pop_front()
@@ -108,6 +111,8 @@ func change_actions(value = false):
 
 func _on_game_over():
 	Engine.time_scale = 1.0
+	player.speed = 35.0
+	player.jumpVelocity = 25.0
 	hide()
 	set_physics_process(false)
 
@@ -116,6 +121,7 @@ func _on_game_start():
 		set_physics_process(false)
 		change_actions()
 		player.speed = 30.0
+		player.jumpVelocity = 150.0
 		keys = gestures.keys()
 		complete_list = []
 		for key in gestures:
