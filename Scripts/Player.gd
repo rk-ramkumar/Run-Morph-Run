@@ -237,6 +237,7 @@ func _on_game_start():
 	position = Vector3.ZERO
 	speed = 35.0
 	velocity.y = 0.0
+	paper_hitbox.disabled = true
 	current_state = STATE.RUNNING
 	current_shape = SHAPE.HUMAN
 	animation_player.play("Running")
