@@ -73,10 +73,7 @@ func start(type: String = "start"):
 	distance = 0.0
 	coin = 0
 	is_game_over= false
-	if type == "start":
-		game_start.emit()
-	else:
-		game_restart.emit()
+	emit_signal("game_"+type)
 	get_tree().set_pause(false)
 
 func set_training(value):

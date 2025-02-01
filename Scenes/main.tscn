@@ -91,7 +91,7 @@ spawn_interval_limit = {
 stream = ExtResource("11_4tgaa")
 
 [node name="Boundary" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
 collision_layer = 8
 collision_mask = 2
 input_ray_pickable = false
