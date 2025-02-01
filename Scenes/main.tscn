@@ -72,14 +72,12 @@ spawn_interval_limit = {
 "max": 10.0,
 "min": 1.0
 }
-lanes = [-3.5, 0, 3.5]
 
 [node name="PlatformSpawner" type="Node" parent="." node_paths=PackedStringArray("light", "coin_spawner", "obstacle_spawner", "player")]
 script = ExtResource("9_h1xbr")
 light = NodePath("../DirectionalLight3D")
 coin_spawner = NodePath("../CoinSpawner")
 obstacle_spawner = NodePath("../ObstacleSpawner")
-current_platform = "scifi_street"
 pattern_switch_distance = 200.0
 player = NodePath("../Player")
 spawn_interval_limit = {

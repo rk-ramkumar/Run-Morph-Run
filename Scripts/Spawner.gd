@@ -9,7 +9,7 @@ class_name Spawner extends Node
 	"min": 1.0,
 	"max": 5.0
 }
-@export var lanes: Array = [-2.5, 0, 2.5]
+@export var lanes: Array = [-3.5, 0, 3.5]
 
 var pool: Array = []
 var spawn_timer: float = 0.0

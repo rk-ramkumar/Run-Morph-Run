@@ -17,6 +17,14 @@ class_name PlatformSpawner extends Spawner
 			"max": 800.0
 			}
 	},
+	"road":{
+		"scene":  preload("res://Scenes/Platform/road.tscn"),
+		"spawn_size": 3,
+		"spawn_interval_limit": {
+			"min": 300.0,
+			"max": 500.0
+			}
+	},
 	"empty":{
 		"scene": preload("res://Scenes/Platform/empty.tscn"),
 		"spawn_size": 2,
@@ -29,7 +37,7 @@ class_name PlatformSpawner extends Spawner
 @export var light: DirectionalLight3D
 @export var coin_spawner: CoinSpawner
 @export var obstacle_spawner: ObstacleSpawner
-@export_enum("scifi_bridge", "scifi_street", "empty") var current_platform: String = "scifi_bridge"
+@export_enum("scifi_bridge", "scifi_street", "empty", "road") var current_platform: String = "scifi_street"
 
 enum PATTERN {
 	LINEAR,
@@ -106,7 +114,12 @@ func _adjust_light():
 				tween.tween_property(light, "rotation:x", 0, 4.0)
 
 func _spawn_linear():
-	current_platform = "scifi_street" if current_platform == "scifi_bridge" else "scifi_bridge"
+	var platforms_keys = platforms.keys()
+	platforms_keys.erase("empty")
+	var rand_platform = platforms_keys.pick_random()
+	if rand_platform == current_platform:
+		return
+	current_platform = rand_platform 
 	var filtered_platforms = platforms[current_platform].pool
 
 	if filtered_platforms.is_empty():

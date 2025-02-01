@@ -8,6 +8,7 @@ class_name Platform extends Node3D
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)
 
+
 func _on_visibility_changed():
 	if collision == null:
 		return
