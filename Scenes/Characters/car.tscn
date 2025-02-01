@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dijsf4bqgnuh"]
+[gd_scene load_steps=15 format=3 uid="uid://dijsf4bqgnuh"]
 
 [ext_resource type="Texture2D" uid="uid://e2rulh12xtpv" path="res://Assets/Models/low_poly_car_0.png" id="1_25afv"]
 [ext_resource type="Texture2D" uid="uid://bk106tow80tol" path="res://Assets/Models/low_poly_car_2.png" id="2_scfol"]
@@ -178,13 +178,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_77uqr")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vou3k"]
-size = Vector3(7.496, 3, 5.362)
-
 [node name="car" type="Node3D"]
 
 [node name="RootNode" type="Node3D" parent="."]
-transform = Transform3D(-5.68248e-10, 0, -0.013, 0, 0.013, 0, 0.013, 0, -5.68248e-10, 0, 0, 0)
+transform = Transform3D(-5.68248e-10, 0, -0.013, 0, 0.013, 0, 0.013, 0, -5.68248e-10, 0, 0, -1)
 
 [node name="Cylinder_001" type="Node3D" parent="RootNode"]
 transform = Transform3D(36.1861, 0, 0, 0, 36.1861, -5.72864e-07, 0, 1.58174e-06, 13.1056, 224.66, 26.9266, -109.756)
@@ -220,9 +217,3 @@ transform = Transform3D(24.191, -7.39704e-07, 7.30547e-06, 7.39704e-07, 24.191, 
 [node name="Plane_001__0" type="MeshInstance3D" parent="RootNode/Plane_001"]
 mesh = SubResource("ArrayMesh_gkvfb")
 skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="RootNode/Plane_001/Plane_001__0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RootNode/Plane_001/Plane_001__0/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 1.42109e-14, 1, 2.76053e-15, 0, -7.92183e-16, 1, 8.118, 1.5, 0)
-shape = SubResource("BoxShape3D_vou3k")

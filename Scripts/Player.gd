@@ -2,11 +2,13 @@ class_name Player extends CharacterBody3D
 
 @export var human_scene: PackedScene
 @export var paper_scene: PackedScene
+@export var car_scene: PackedScene
 @export var jumpVelocity = 25.0
 
 @onready var leg_hitbox = $LegHitbox
 @onready var head_hitbox = $HeadHitbox
 @onready var paper_hitbox = $PaperHitbox
+@onready var car_hitbox = $CarHitbox
 
 signal move_left
 signal move_right
@@ -26,7 +28,8 @@ enum STATE {
 }
 enum SHAPE {
 	HUMAN,
-	PAPER
+	PAPER,
+	CAR
 }
 var actions: Dictionary = {
 	"can_left": true,
@@ -36,7 +39,7 @@ var actions: Dictionary = {
 	"can_double_tap": true,
 	"can_hold": true,
 }
-var animation_player: AnimationPlayer
+var human_anim_player: AnimationPlayer
 var speed: float = 35.0
 var max_speed_kmh: float = 100.0          # Maximum speed limit in km/h
 var speed_increase_rate: float = 0.1    # Speed increase per second (km/h)
@@ -61,15 +64,8 @@ func _ready():
 		print("Human armature is empty")
 		set_physics_process(false)
 		return
-	var armature = human_scene.instantiate()
-	mesh[SHAPE.HUMAN] = armature
-	var paper = paper_scene.instantiate()
-	mesh[SHAPE.PAPER] = paper
-	add_child(armature)
-	add_child(paper)
-	paper.hide()
-	animation_player = armature.get_node("AnimationPlayer")
-	animation_player.play("Running")
+	_initialize_armatures()
+	human_anim_player.play("Running")
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.game_start.connect(_on_game_start)
 	GameManager.game_restart.connect(_on_game_start)
@@ -79,6 +75,23 @@ func _ready():
 	set_physics_process(false)
 	set_process_unhandled_input(false)
 
+func _initialize_armatures():
+	var armature = human_scene.instantiate()
+	mesh[SHAPE.HUMAN] = armature
+	human_anim_player = armature.get_node("AnimationPlayer")
+
+	var paper = paper_scene.instantiate()
+	mesh[SHAPE.PAPER] = paper
+
+	var car = car_scene.instantiate()
+	mesh[SHAPE.CAR] = car
+
+	add_child(armature)
+	add_child(paper)
+	add_child(car)
+	paper.hide()
+	car.hide()
+	
 func _physics_process(delta):
 	_increase_speed(delta)
 
@@ -92,7 +105,7 @@ func _physics_process(delta):
 				current_state not in [STATE.SLIDING, STATE.FALLING, STATE.LANDING]
 				):
 				current_state = STATE.FALLING
-				animation_player.play("FallingIdle", 0.2)
+				human_anim_player.play("FallingIdle", 0.2)
 		
 			if velocity.y < -3 and current_state == STATE.FALLING:
 				current_state = STATE.LANDING
@@ -103,7 +116,7 @@ func _physics_process(delta):
 				if current_state != STATE.SLIDING:
 					current_state = STATE.RUNNING
 			
-			if animation_player.current_animation != "Slide" and head_hitbox.disabled:
+			if human_anim_player.current_animation != "Slide" and head_hitbox.disabled:
 #				speed += slide_speed_penalty 
 				head_hitbox.disabled = false
 				current_state = STATE.RUNNING
@@ -155,13 +168,13 @@ func _handle_movement():
 		else:
 			_move_left()
 	else:
-		if current_shape == SHAPE.PAPER:
-			return
-		# Vertical swipe
-		if swipe_vector.y > 0:
-			_move_down()
-		else:
-			_move_up()
+		match current_shape:
+			SHAPE.HUMAN:
+				# Vertical swipe
+				if swipe_vector.y > 0:
+					_move_down()
+				else:
+					_move_up()
 
 func _move_right():
 	if !actions.can_right:
@@ -199,13 +212,13 @@ func _move_up():
 	velocity.y = lerp(velocity.y, jumpVelocity, get_physics_process_delta_time() * lerpSpeed)
 	leg_hitbox.disabled = true
 #	play_animation("Jump", 1, 0.2)
-	animation_player.play("JumpingUp", 0.2)
-	animation_player.queue("FallingIdle")
+	human_anim_player.play("JumpingUp", 0.2)
+	human_anim_player.queue("FallingIdle")
 
 func play_animation(anim_name, anim_speed: float = 1, blend: float = -1):
-	animation_player.play(anim_name, blend, anim_speed)
-	animation_player.clear_queue()
-	animation_player.queue("Running")
+	human_anim_player.play(anim_name, blend, anim_speed)
+	human_anim_player.clear_queue()
+	human_anim_player.queue("Running")
 
 func _change_mesh():
 	match current_shape:
@@ -213,19 +226,24 @@ func _change_mesh():
 			head_hitbox.disabled = false
 			leg_hitbox.disabled = false
 			paper_hitbox.disabled = true
+			car_hitbox.disabled = true
 			mesh[SHAPE.HUMAN].show()
 			mesh[SHAPE.PAPER].hide()
+			mesh[SHAPE.CAR].hide()
 		SHAPE.PAPER:
+			paper_hitbox.disabled = false
 			head_hitbox.disabled = true
 			leg_hitbox.disabled = true
-			paper_hitbox.disabled = false
+			car_hitbox.disabled = true
 			mesh[SHAPE.PAPER].show()
 			mesh[SHAPE.HUMAN].hide()
+			mesh[SHAPE.CAR].hide()
+
 
 func _on_game_over():
 	if current_state == STATE.FALLING:
 		position.y = 0
-	animation_player.play("Stunned")
+	human_anim_player.play("Stunned")
 	set_physics_process(false)
 	set_process_unhandled_input(false)
 
@@ -240,19 +258,19 @@ func _on_game_start():
 	paper_hitbox.disabled = true
 	current_state = STATE.RUNNING
 	current_shape = SHAPE.HUMAN
-	animation_player.play("Running")
+	human_anim_player.play("Running")
 	for action in actions:
 		actions[action] = true
 
 func _on_game_pause():
-	animation_player.play("BreathingIdle", 0.2)
+	human_anim_player.play("BreathingIdle", 0.2)
 	set_physics_process(false)
 	set_process_unhandled_input(false)
 	swipe_start_position = Vector2.ZERO
 	swipe_end_position = Vector2.ZERO
 
 func _on_game_resume():
-	animation_player.play("Running", 0.2)
+	human_anim_player.play("Running", 0.2)
 	set_process_unhandled_input(true)
 	set_physics_process(true)
 

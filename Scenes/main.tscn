@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=19 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/Textures/sky_2.png" id="2_ol28g"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://ewt3xe8jmelt" path="res://Scenes/training.tscn" id="9_ayryg"]
 [ext_resource type="Script" path="res://Scripts/PlatformSpawner.gd" id="9_h1xbr"]
 [ext_resource type="Script" path="res://Scripts/Obstacle.gd" id="10_hu5cn"]
+[ext_resource type="Script" path="res://Scripts/Powers.gd" id="10_i8tmg"]
+[ext_resource type="PackedScene" uid="uid://dxjw08u62oaur" path="res://Scenes/Coin/ScifiBox.tscn" id="11_4ic4r"]
 [ext_resource type="AudioStream" uid="uid://bg0fce8xqnp2q" path="res://Assets/Audio/action_loop.mp3" id="11_4tgaa"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
@@ -73,11 +75,18 @@ spawn_interval_limit = {
 "min": 1.0
 }
 
-[node name="PlatformSpawner" type="Node" parent="." node_paths=PackedStringArray("light", "coin_spawner", "obstacle_spawner", "player")]
+[node name="PowerBox" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
+script = ExtResource("10_i8tmg")
+
+[node name="SciFi_Box" parent="PowerBox" instance=ExtResource("11_4ic4r")]
+
+[node name="PlatformSpawner" type="Node" parent="." node_paths=PackedStringArray("light", "coin_spawner", "obstacle_spawner", "power_box", "player")]
 script = ExtResource("9_h1xbr")
 light = NodePath("../DirectionalLight3D")
 coin_spawner = NodePath("../CoinSpawner")
 obstacle_spawner = NodePath("../ObstacleSpawner")
+power_box = NodePath("../PowerBox")
 pattern_switch_distance = 200.0
 player = NodePath("../Player")
 spawn_interval_limit = {

@@ -37,6 +37,8 @@ class_name PlatformSpawner extends Spawner
 @export var light: DirectionalLight3D
 @export var coin_spawner: CoinSpawner
 @export var obstacle_spawner: ObstacleSpawner
+@export var power_box: Node3D
+
 @export_enum("scifi_bridge", "scifi_street", "empty", "road") var current_platform: String = "scifi_street"
 
 enum PATTERN {

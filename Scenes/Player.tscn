@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://8gf4baewu4a1"]
+[gd_scene load_steps=8 format=3 uid="uid://8gf4baewu4a1"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_4edoq"]
 [ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="2_3uaoa"]
 [ext_resource type="PackedScene" uid="uid://danytplqsdjgj" path="res://Scenes/Characters/paper_airplane.tscn" id="3_mdjun"]
+[ext_resource type="PackedScene" uid="uid://dijsf4bqgnuh" path="res://Scenes/Characters/car.tscn" id="4_vov4o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad2cv"]
 size = Vector3(1, 1, 0.5)
@@ -15,12 +16,13 @@ size = Vector3(1, 0.2, 1)
 [node name="Player" type="CharacterBody3D"]
 process_mode = 3
 collision_layer = 2
-collision_mask = 13
+collision_mask = 29
 input_ray_pickable = false
-platform_floor_layers = 4294967281
+platform_floor_layers = 4294967265
 script = ExtResource("1_4edoq")
 human_scene = ExtResource("2_3uaoa")
 paper_scene = ExtResource("3_mdjun")
+car_scene = ExtResource("4_vov4o")
 
 [node name="LegHitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -34,3 +36,7 @@ shape = SubResource("CapsuleShape3D_iy8b6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = SubResource("BoxShape3D_16fsr")
 disabled = true
+
+[node name="CarHitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.83306)
+shape = SubResource("BoxShape3D_ad2cv")
