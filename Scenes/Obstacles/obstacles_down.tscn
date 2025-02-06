@@ -133,11 +133,12 @@ shadow_mesh = SubResource("ArrayMesh_8lfpd")
 [sub_resource type="SphereShape3D" id="SphereShape3D_82uo0"]
 radius = 1.5
 
-[node name="obstacles_down" type="Area3D"]
+[node name="obstacles_down" type="Area3D" node_paths=PackedStringArray("mesh")]
 collision_layer = 8
 collision_mask = 2
 input_ray_pickable = false
 script = ExtResource("1_nx7ym")
+mesh = NodePath("RootNode/down_001")
 
 [node name="RootNode" type="Node3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.55, 0, 0, 0, 0.5, 0, 0, 0)

@@ -1,7 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxjw08u62oaur"]
+[gd_scene load_steps=15 format=3 uid="uid://dxjw08u62oaur"]
 
 [ext_resource type="Script" path="res://Scripts/PowerBox.gd" id="1_cp5qq"]
+[ext_resource type="Script" path="res://Resources/PowerData.gd" id="2_1ci7v"]
 [ext_resource type="Texture2D" uid="uid://d0k2x547ntvsd" path="res://Assets/Images/sport-car.png" id="3_23wge"]
+
+[sub_resource type="Resource" id="Resource_batwi"]
+script = ExtResource("2_1ci7v")
+name = "Car"
+description = ""
+active_time = 10.0
+cooldown = 30.0
+cost = 0
+type = "player"
+effect_strength = 1.0
+icon = ExtResource("3_23wge")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndj2e"]
 resource_name = "NEGRO2"
@@ -194,6 +206,7 @@ _data = {
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_cp5qq")
+power = SubResource("Resource_batwi")
 
 [node name="RootNode" type="Node3D" parent="."]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)

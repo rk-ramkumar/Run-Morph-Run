@@ -18,6 +18,8 @@ signal training_finish
 signal game_pause
 signal game_resume
 signal request_home
+signal power_activated(power: PowerData)
+signal power_finished(power: PowerData)
 
 func _ready():
 	var err = config.load(config_path)

@@ -59,6 +59,7 @@ var mesh: Dictionary
 var is_held = false
 var signal_emited: bool = false
 var current_speed: float
+var timers: Array = []
 
 func _ready():
 	if !human_scene:
@@ -73,6 +74,7 @@ func _ready():
 	GameManager.game_pause.connect(_on_game_pause)
 	GameManager.game_resume.connect(_on_game_resume)
 	GameManager.request_home.connect(_on_request_home)
+	GameManager.power_activated.connect(_on_power_activated)
 	set_physics_process(false)
 	set_process_unhandled_input(false)
 
@@ -248,7 +250,6 @@ func _change_mesh():
 			paper_hitbox.disabled = true
 			head_hitbox.disabled = true
 			leg_hitbox.disabled = true
-			current_speed = speed
 			mesh[SHAPE.CAR].show()
 			mesh[SHAPE.PAPER].hide()
 			mesh[SHAPE.HUMAN].hide()
@@ -291,3 +292,43 @@ func _on_game_resume():
 func _on_request_home():
 	set_physics_process(false)
 	set_process_unhandled_input(false)
+
+func _on_power_activated(power: PowerData):
+	activate_power.call_deferred(power)
+
+func activate_power(power: PowerData):
+	if !timers.is_empty():
+		var has_active_timer = timers.any(func(timer: Timer): 
+			if timer.get_meta("power").name == power.name:
+				timer.set_wait_time(timer.time_left + power.active_time)
+				return true
+			return false
+			)
+		if has_active_timer:
+			return
+
+	var timer = Timer.new()
+	timer.one_shot = true
+	timer.set_meta("power", power)
+	timer.timeout.connect(_on_power_timer_timeout.bind(timer, power))
+	add_child(timer)
+	timer.start(power.active_time)
+	timers.append(timer)
+	match power.name:
+		"Car":
+			current_shape = SHAPE.CAR
+			current_speed = speed
+			actions.can_double_tap = false
+
+func _on_power_finished(power: PowerData):
+	match power.name:
+		"Car":
+			current_shape = SHAPE.HUMAN
+			actions.can_double_tap = true
+			speed = current_speed
+
+func _on_power_timer_timeout(timer: Timer, power: PowerData):
+	_on_power_finished.call_deferred(power)
+	GameManager.power_finished.emit(power)
+	remove_child(timer)
+	timers.erase(timer)

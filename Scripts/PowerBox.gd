@@ -1,7 +1,7 @@
 extends Area3D
 
 @onready var animation_player = $AnimationPlayer
-
+@export var power: PowerData
 
 func _on_visibility_changed():
 	if !animation_player:
@@ -12,9 +12,5 @@ func _on_visibility_changed():
 	else:
 		animation_player.stop()
 
-
-func _on_body_entered(body):
-	change.call_deferred(body)
-
-func change(body):
-	body.current_shape = body.SHAPE.CAR
+func _on_body_entered(_body):
+	GameManager.power_activated.emit(power)

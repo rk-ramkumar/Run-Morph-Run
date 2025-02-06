@@ -1,11 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://c4q18xng0tqn7"]
+[gd_scene load_steps=18 format=3 uid="uid://c4q18xng0tqn7"]
 
 [ext_resource type="Script" path="res://Scripts/Game_HUI_Control.gd" id="1_3pnah"]
-[ext_resource type="StyleBox" uid="uid://cwag0usy3g7d6" path="res://Resources/StyleBox/panel_bg.tres" id="1_cb4b2"]
 [ext_resource type="Script" path="res://Scripts/game_hui.gd" id="1_povxx"]
 [ext_resource type="Texture2D" uid="uid://cmtduj4gccv5o" path="res://Assets/Images/Coin_64.png" id="3_agslp"]
+[ext_resource type="StyleBox" uid="uid://x0wb52grpyj3" path="res://Resources/StyleBox/label_bg.tres" id="3_byidj"]
 [ext_resource type="Texture2D" uid="uid://cvslw0y1y18rw" path="res://Assets/Images/distance.png" id="3_urup2"]
 [ext_resource type="Texture2D" uid="uid://djffvwro32swa" path="res://Assets/Images/best-score.png" id="4_hs51f"]
+[ext_resource type="FontFile" uid="uid://ysw0o6sah5a" path="res://Assets/Fonts/Azonix.otf" id="4_um2id"]
 [ext_resource type="PackedScene" uid="uid://7m4o0dr46vlo" path="res://Scenes/game_over_hui.tscn" id="6_m0sus"]
 [ext_resource type="Texture2D" uid="uid://bk11kllyd46at" path="res://Assets/Images/icons_pause_button.png" id="7_hyv3u"]
 [ext_resource type="PackedScene" uid="uid://bjvwm8r7w2pmh" path="res://Scenes/pause_control.tscn" id="9_4rx85"]
@@ -14,11 +15,15 @@
 [sub_resource type="LabelSettings" id="LabelSettings_7sjjg"]
 font_size = 38
 font_color = Color(0.223529, 1, 0.0784314, 1)
-outline_size = 14
-outline_color = Color(0, 0, 0, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.905882)
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_iu5pc"]
-font_size = 38
+font = ExtResource("4_um2id")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+outline_size = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_1fjrk"]
 font_size = 24
@@ -110,7 +115,7 @@ alignment = 1
 
 [node name="BestContainer" type="PanelContainer" parent="Control/GameScoreContainer"]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("1_cb4b2")
+theme_override_styles/panel = ExtResource("3_byidj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/GameScoreContainer/BestContainer"]
 layout_mode = 2
@@ -132,7 +137,7 @@ expand_mode = 1
 
 [node name="DistanceContainer" type="PanelContainer" parent="Control/GameScoreContainer"]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("1_cb4b2")
+theme_override_styles/panel = ExtResource("3_byidj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/GameScoreContainer/DistanceContainer"]
 layout_mode = 2
@@ -154,7 +159,7 @@ stretch_mode = 2
 
 [node name="CoinContainer" type="PanelContainer" parent="Control/GameScoreContainer"]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("1_cb4b2")
+theme_override_styles/panel = ExtResource("3_byidj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/GameScoreContainer/CoinContainer"]
 layout_mode = 2
