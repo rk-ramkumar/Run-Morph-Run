@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qmf35qk8mout"
-path.s3tc="res://.godot/imported/Coin.png-cb1b2c30e4d36e173c036341a6a6eba0.s3tc.ctex"
-path.etc2="res://.godot/imported/Coin.png-cb1b2c30e4d36e173c036341a6a6eba0.etc2.ctex"
+uid="uid://d0k2x547ntvsd"
+path.s3tc="res://.godot/imported/sport-car.png-ed6d0521f03678eb7849f84f3c825255.s3tc.ctex"
+path.etc2="res://.godot/imported/sport-car.png-ed6d0521f03678eb7849f84f3c825255.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Images/Coin.png"
-dest_files=["res://.godot/imported/Coin.png-cb1b2c30e4d36e173c036341a6a6eba0.s3tc.ctex", "res://.godot/imported/Coin.png-cb1b2c30e4d36e173c036341a6a6eba0.etc2.ctex"]
+source_file="res://Assets/Images/sport-car.png"
+dest_files=["res://.godot/imported/sport-car.png-ed6d0521f03678eb7849f84f3c825255.s3tc.ctex", "res://.godot/imported/sport-car.png-ed6d0521f03678eb7849f84f3c825255.etc2.ctex"]
 
 [params]
 

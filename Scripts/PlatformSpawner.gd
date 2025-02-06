@@ -47,6 +47,7 @@ enum PATTERN {
 }
 @export var pattern_switch_distance: float = 500.0  # Distance after which the pattern changes
 var last_switch_distance: float = 0.0
+var last_power_distance: float = 0.0
 
 func _add_object(_amount = spawn_pool_size):
 	for platform_name in platforms:
@@ -94,6 +95,17 @@ func _handle_spawn(_delta):
 		var limit = platforms[current_platform].get("spawn_interval_limit", spawn_interval_limit)
 		pattern_switch_distance = randf_range(limit.min, limit.max)
 		last_switch_distance = GameManager.distance
+	elif GameManager.distance - last_power_distance > power_box.spawn_distance:
+		last_power_distance = GameManager.distance
+		var powers = power_box.get_inactive_powers()
+		if powers.is_empty():
+			return
+		var power = powers[0]
+		power.position.x = lanes.pick_random()
+		power.position.z = 250
+		power.add_to_group("free")
+		power.show()
+		coin_spawner.pool.append(power)
 
 func _switch_pattern():
 	var current_pattern = randi() % PATTERN.size()

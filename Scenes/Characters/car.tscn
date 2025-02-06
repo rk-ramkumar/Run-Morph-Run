@@ -181,7 +181,7 @@ shadow_mesh = SubResource("ArrayMesh_77uqr")
 [node name="car" type="Node3D"]
 
 [node name="RootNode" type="Node3D" parent="."]
-transform = Transform3D(-5.68248e-10, 0, -0.013, 0, 0.013, 0, 0.013, 0, -5.68248e-10, 0, 0, -1)
+transform = Transform3D(-6.55671e-10, 0, -0.015, 0, 0.015, 0, 0.015, 0, -6.55671e-10, 0, 0, 0)
 
 [node name="Cylinder_001" type="Node3D" parent="RootNode"]
 transform = Transform3D(36.1861, 0, 0, 0, 36.1861, -5.72864e-07, 0, 1.58174e-06, 13.1056, 224.66, 26.9266, -109.756)

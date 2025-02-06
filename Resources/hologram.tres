@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://o3lql5d8l4dl"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/hologram.gdshader" id="1_77wey"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_77wey")
+shader_parameter/hologram_color = Color(0, 0.8, 1, 0.3)
+shader_parameter/scan_speed = 2.0
+shader_parameter/scan_intensity = 0.02
+shader_parameter/edge_glow_intensity = 1.5

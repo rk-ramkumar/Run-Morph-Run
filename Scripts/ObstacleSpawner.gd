@@ -27,6 +27,10 @@ func _add_object(amount = spawn_pool_size):
 func _spawn_object():
 	pass
 
+func _recycle_object(object):
+	if object.position.z < -5:
+		_disable_object(object)
+
 func spawn_object(platform: Platform):
 	if GameManager.has_training or platform.name.contains("empty"):
 		return

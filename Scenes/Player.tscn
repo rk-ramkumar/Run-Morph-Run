@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://8gf4baewu4a1"]
+[gd_scene load_steps=9 format=3 uid="uid://8gf4baewu4a1"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_4edoq"]
 [ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="2_3uaoa"]
@@ -12,6 +12,9 @@ size = Vector3(1, 1, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_16fsr"]
 size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3cpvo"]
+size = Vector3(2, 4.66289, 2)
 
 [node name="Player" type="CharacterBody3D"]
 process_mode = 3
@@ -38,5 +41,5 @@ shape = SubResource("BoxShape3D_16fsr")
 disabled = true
 
 [node name="CarHitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.83306)
-shape = SubResource("BoxShape3D_ad2cv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 2)
+shape = SubResource("BoxShape3D_3cpvo")

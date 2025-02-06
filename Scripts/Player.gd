@@ -58,6 +58,7 @@ var current_shape : SHAPE = SHAPE.HUMAN:
 var mesh: Dictionary
 var is_held = false
 var signal_emited: bool = false
+var current_speed: float
 
 func _ready():
 	if !human_scene:
@@ -96,7 +97,7 @@ func _physics_process(delta):
 	_increase_speed(delta)
 
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and current_shape != SHAPE.CAR:
 		velocity.y -= gravity * delta
 	
 	match current_shape:
@@ -132,7 +133,11 @@ func _physics_process(delta):
 					signal_emited = true
 				if !(position.y > 4):
 					velocity.y = 250 * delta
- 
+		SHAPE.CAR:
+			speed = clamp(speed - (100.0 * delta), current_speed, max_speed_kmh)
+			if is_held: # Handle Paper movement
+				speed = clamp(speed + 5, current_speed, 150)
+
 	move_and_slide()
 
 func _increase_speed(delta):
@@ -238,6 +243,15 @@ func _change_mesh():
 			mesh[SHAPE.PAPER].show()
 			mesh[SHAPE.HUMAN].hide()
 			mesh[SHAPE.CAR].hide()
+		SHAPE.CAR:
+			car_hitbox.disabled = false
+			paper_hitbox.disabled = true
+			head_hitbox.disabled = true
+			leg_hitbox.disabled = true
+			current_speed = speed
+			mesh[SHAPE.CAR].show()
+			mesh[SHAPE.PAPER].hide()
+			mesh[SHAPE.HUMAN].hide()
 
 
 func _on_game_over():

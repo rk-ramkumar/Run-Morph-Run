@@ -13,6 +13,15 @@ func _ready():
 
 func _handle_spawn(_delta):
 	pass
+	
+func _recycle_object(object):
+	if object.position.z < -5:
+		if object.is_in_group("free"):
+			_disable_object(object, object.position)
+			object.remove_from_group("free")
+			pool.erase(object)
+		else:
+			_disable_object(object)
 
 func spawn_object(platform: Platform, obstacles: Dictionary = {}, custom_pattern: int = -1):
 	var pattern = randi() % PATTERNS.size() if custom_pattern == -1 else custom_pattern

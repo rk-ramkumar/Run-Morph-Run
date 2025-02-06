@@ -14,4 +14,7 @@ func _on_visibility_changed():
 
 
 func _on_body_entered(body):
-	print(body)
+	change.call_deferred(body)
+
+func change(body):
+	body.current_shape = body.SHAPE.CAR
