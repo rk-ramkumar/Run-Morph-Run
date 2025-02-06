@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxjw08u62oaur"]
+[gd_scene load_steps=13 format=3 uid="uid://dxjw08u62oaur"]
 
 [ext_resource type="Script" path="res://Scripts/PowerBox.gd" id="1_cp5qq"]
-[ext_resource type="Material" uid="uid://o3lql5d8l4dl" path="res://Resources/hologram.tres" id="2_ijhid"]
 [ext_resource type="Texture2D" uid="uid://d0k2x547ntvsd" path="res://Assets/Images/sport-car.png" id="3_23wge"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndj2e"]
@@ -14,9 +13,11 @@ roughness = 0.272166
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0n2l"]
 resource_name = "Naranja"
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.856966, 0.49726, 0.180379, 1)
 metallic = 0.4
 roughness = 0.183152
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 3.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yksxx"]
 resource_name = "Emission"
@@ -199,7 +200,6 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
 [node name="Cube" type="MeshInstance3D" parent="RootNode"]
 transform = Transform3D(150, 0, 0, 0, -6.55671e-06, 150, 0, -150, -6.55671e-06, 0, 2.98843, -6.51069e-10)
-material_override = ExtResource("2_ijhid")
 mesh = SubResource("ArrayMesh_x01ug")
 skeleton = NodePath("")
 
