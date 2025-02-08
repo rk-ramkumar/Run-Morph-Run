@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ksxhyklch4lj"]
+[gd_scene load_steps=20 format=3 uid="uid://ksxhyklch4lj"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_tndel"]
 [ext_resource type="Texture2D" uid="uid://bao63ufxv3b68" path="res://Assets/Textures/sky_2.png" id="2_ol28g"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/ObstacleSpawner.gd" id="8_35k5l"]
 [ext_resource type="PackedScene" uid="uid://ewt3xe8jmelt" path="res://Scenes/training.tscn" id="9_ayryg"]
 [ext_resource type="Script" path="res://Scripts/PlatformSpawner.gd" id="9_h1xbr"]
+[ext_resource type="PackedScene" uid="uid://4g4xm33maam7" path="res://Scenes/Coin/scifi_coin.tscn" id="9_k38jq"]
 [ext_resource type="Script" path="res://Scripts/Obstacle.gd" id="10_hu5cn"]
 [ext_resource type="Script" path="res://Scripts/Powers.gd" id="10_i8tmg"]
 [ext_resource type="PackedScene" uid="uid://dxjw08u62oaur" path="res://Scenes/Coin/ScifiBox.tscn" id="11_4ic4r"]
@@ -62,6 +63,7 @@ script = ExtResource("7_u8660")
 spawn_pool_size = 30
 spawn_interval = 1.0
 player = NodePath("../Player")
+object_scene = ExtResource("9_k38jq")
 
 [node name="ObstacleSpawner" type="Node" parent="." node_paths=PackedStringArray("coin_spawner", "player")]
 script = ExtResource("8_35k5l")

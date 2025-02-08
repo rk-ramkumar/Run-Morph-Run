@@ -8,7 +8,8 @@ enum PATTERNS {
 var arc_pos = [1, 3, 5, 7, -5, -3, -1]
 
 func _ready():
-	object_scene = preload("res://Scenes/Coin/powerCoin.tscn")
+	if !object_scene:
+		object_scene = preload("res://Scenes/Coin/powerCoin.tscn")
 	super._ready()
 
 func _handle_spawn(_delta):

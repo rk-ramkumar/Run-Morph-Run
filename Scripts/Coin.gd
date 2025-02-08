@@ -1,6 +1,6 @@
 class_name Coin extends Area3D
 
-@onready var mesh = $Mesh
+@export var mesh: Node3D
 @onready var audio_stream_player = $AudioStreamPlayer3D
 
 var rotation_deg: float = 0.0
