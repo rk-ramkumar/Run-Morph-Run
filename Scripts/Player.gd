@@ -297,8 +297,9 @@ func activate_power(power: PowerData):
 	if !timers.is_empty():
 		var has_active_timer = timers.any(func(timer: Timer): 
 			if timer.get_meta("power").name == power.name:
-				timer.start(timer.time_left + power.active_time)
-				power_timer_indicator.add_time(timer.time_left + power.active_time)
+				timer.set_wait_time(timer.time_left + power.active_time)
+				timer.start()
+				power_timer_indicator.add_time(power.active_time)
 				return true
 			return false
 			)
