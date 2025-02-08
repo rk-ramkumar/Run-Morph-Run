@@ -1,8 +1,9 @@
 class_name ObstacleSpawner extends Spawner
 
-@export var probabilities: Array = [0.4, 0.4]  # Probabilities for each function
+@export var probabilities: Array = [0.4, 0.3, 0.1, 0.2]  # Probabilities for each function
 @export var coin_spawner: CoinSpawner
 var last_line_lane: int = -1
+var prev_obstacles
 
 var obstacles_scene: Dictionary = {
 	"obstacle_down": preload("res://Scenes/Obstacles/obstacles_down.tscn"),
@@ -35,27 +36,31 @@ func spawn_object(platform: Platform):
 	if GameManager.has_training or platform.name.contains("empty"):
 		return
 
-	var line_obstacles = spawn_obstacles_by_probability(platform, 0)
-	coin_spawner.spawn_object(platform, line_obstacles, coin_spawner.PATTERNS.ZIGZAG)
-	if GameManager.distance > 1000:
-		spawn_obstacles_by_probability(platform, 1)
-#	coin_spawner.spawn_object(platform, block_obstacles, coin_spawner.PATTERNS.LINE)
+	prev_obstacles = spawn_obstacles_by_probability(platform)
+	if GameManager.distance > 1000 and randf() > 0.7:
+		prev_obstacles = spawn_obstacles_by_probability(platform)
 
-func spawn_obstacles_by_probability(platform: Platform, type: int):
+func spawn_obstacles_by_probability(platform: Platform):
 	var obstacles = _get_inactive_objects(10)
 	spawn_distance = platform.position.z
 
-#	var cumulative = 0.0
-#	for i in probabilities.size():
-#		cumulative += probabilities[i]
-#		if type < cumulative:
-	match type:
-		0: 
-			return place_in_line(obstacles, platform)
-		1: 
-			return block_lanes(obstacles, platform)
-#		2: place_rand_obstacles(obstacles, platform)
-#			return
+	var cumulative = 0.0
+	var random_value = randf()
+	for i in probabilities.size():
+		cumulative += probabilities[i]
+		if random_value < cumulative:
+			match i:
+				0: 
+					var line_obstacles = place_in_line(obstacles, platform)
+					coin_spawner.spawn_object(platform, line_obstacles, coin_spawner.PATTERNS.ZIGZAG)
+					return line_obstacles
+				1: 
+					return block_lanes(obstacles, platform)
+				2: 
+					coin_spawner.spawn_object(platform, prev_obstacles, coin_spawner.PATTERNS.LINE)
+				3:
+					coin_spawner.spawn_object(platform, prev_obstacles, coin_spawner.PATTERNS.ZIGZAG)
+			return {}
 
 func place_in_line(obstacles: Array, platform: Platform):
 	last_line_lane = randi() % lanes.size()
