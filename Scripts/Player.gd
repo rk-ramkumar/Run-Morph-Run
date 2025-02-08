@@ -135,10 +135,6 @@ func _physics_process(delta):
 					signal_emited = true
 				if !(position.y > 4):
 					velocity.y = 250 * delta
-		SHAPE.CAR:
-			speed = clamp(speed - (100.0 * delta), current_speed, max_speed_kmh)
-			if is_held: # Handle Paper movement
-				speed = clamp(speed + 5, current_speed, 150)
 
 	move_and_slide()
 
@@ -318,6 +314,7 @@ func activate_power(power: PowerData):
 		"Car":
 			current_shape = SHAPE.CAR
 			current_speed = speed
+			speed = 150.0
 			actions.can_double_tap = false
 
 func _on_power_finished(power: PowerData):
