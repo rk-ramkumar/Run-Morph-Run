@@ -12,7 +12,7 @@ func _on_visibility_changed():
 	else:
 		animation_player.stop()
 
-func _on_body_entered(body: Player):
+func _on_body_entered(_body: Player):
 	if position.z < 30.0:
 		return
 	GameManager.power_activated.emit(power)
