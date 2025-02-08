@@ -100,7 +100,7 @@ func _physics_process(delta):
 	_increase_speed(delta)
 
 	# Add the gravity.
-	if not is_on_floor() and current_shape != SHAPE.CAR:
+	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
 	match current_shape:
@@ -330,6 +330,7 @@ func _on_power_finished(power: PowerData):
 
 func _on_power_timer_timeout(timer: Timer, power: PowerData):
 	_on_power_finished.call_deferred(power)
-	GameManager.power_finished.emit(power)
 	remove_child(timer)
 	timers.erase(timer)
+	await get_tree().create_timer(1.5).timeout
+	GameManager.power_finished.emit(power)

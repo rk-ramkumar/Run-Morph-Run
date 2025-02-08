@@ -9,9 +9,9 @@ func _ready():
 
 func start(time_sec):
 	show()
+	_update_label(int(time_sec))
 	progress_bar.max_value = time_sec
 	progress_bar.value = time_sec
-	_update_label()
 	timer.start()
 
 func stop():
@@ -27,5 +27,5 @@ func _on_timer_timeout():
 	progress_bar.value -= timer.wait_time
 	_update_label()
 
-func _update_label():
-	label.text = str(progress_bar.value) + " s"
+func _update_label(text = progress_bar.value):
+	label.text = str(text) + " s"

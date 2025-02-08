@@ -75,7 +75,7 @@ shape = SubResource("BoxShape3D_16fsr")
 disabled = true
 
 [node name="CarHitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.334, 0)
 shape = SubResource("BoxShape3D_3cpvo")
 
 [node name="PowerTimerIndicator" type="VBoxContainer" parent="."]

@@ -141,8 +141,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_4we1h")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_1f2u3"]
-radius = 1.4
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kj0q1"]
+radius = 1.1331
+height = 6.06445
 
 [sub_resource type="Animation" id="Animation_k15y7"]
 length = 0.001
@@ -226,8 +227,8 @@ alpha_antialiasing_mode = 1
 texture = ExtResource("3_23wge")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49022, 0)
-shape = SubResource("SphereShape3D_1f2u3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53015, 0)
+shape = SubResource("CapsuleShape3D_kj0q1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

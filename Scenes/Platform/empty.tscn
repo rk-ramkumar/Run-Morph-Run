@@ -1,8 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://d5l4h1vnki7j"]
+[gd_scene load_steps=5 format=3 uid="uid://d5l4h1vnki7j"]
 
-[ext_resource type="Script" path="res://Scripts/platform.gd" id="1_hser5"]
+[ext_resource type="Script" path="res://Scripts/empty_platform.gd" id="1_kwhst"]
 
-[node name="Platform" type="Node3D"]
-script = ExtResource("1_hser5")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5s2eu"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cp6bk"]
+material = SubResource("StandardMaterial3D_5s2eu")
+size = Vector2(16, 65)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5rp24"]
+points = PackedVector3Array(10, 0, 32.5, -10, 0, 32.5, 10, 0, -32.5, -10, 0, -32.5)
+
+[node name="Platform" type="Node3D" node_paths=PackedStringArray("mesh", "ground_surface")]
+script = ExtResource("1_kwhst")
+mesh = NodePath("MeshInstance3D")
+ground_surface = NodePath("MeshInstance3D")
 custom_size = Vector3(0, 0, 65)
 has_custom_size = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+mesh = SubResource("PlaneMesh_cp6bk")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_5rp24")
