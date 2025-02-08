@@ -3,8 +3,7 @@ class_name ObstacleSpawner extends Spawner
 @export var probabilities: Array = [0.4, 0.3, 0.1, 0.2]  # Probabilities for each function
 @export var coin_spawner: CoinSpawner
 var last_line_lane: int = -1
-var prev_obstacles
-
+var prev_obstacles = {}
 var obstacles_scene: Dictionary = {
 	"obstacle_down": preload("res://Scenes/Obstacles/obstacles_down.tscn"),
 	"obstacle_up": preload("res://Scenes/Obstacles/obstacles_up.tscn")
