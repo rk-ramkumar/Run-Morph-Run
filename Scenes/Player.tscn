@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://8gf4baewu4a1"]
+[gd_scene load_steps=13 format=3 uid="uid://8gf4baewu4a1"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_4edoq"]
 [ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="2_3uaoa"]
 [ext_resource type="PackedScene" uid="uid://danytplqsdjgj" path="res://Scenes/Characters/paper_airplane.tscn" id="3_mdjun"]
 [ext_resource type="PackedScene" uid="uid://dijsf4bqgnuh" path="res://Scenes/Characters/car.tscn" id="4_vov4o"]
+[ext_resource type="Script" path="res://Scripts/PowerTimerIndicator.gd" id="5_7vtjg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad2cv"]
 size = Vector3(1, 1, 0.5)
@@ -15,6 +16,39 @@ size = Vector3(1, 0.2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3cpvo"]
 size = Vector3(2, 4.66289, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cu1xl"]
+font_size = 32
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.768627)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iojo8"]
+bg_color = Color(1, 1, 1, 0.407843)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7oxgb"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [node name="Player" type="CharacterBody3D"]
 process_mode = 3
@@ -43,3 +77,35 @@ disabled = true
 [node name="CarHitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 2)
 shape = SubResource("BoxShape3D_3cpvo")
+
+[node name="PowerTimerIndicator" type="VBoxContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -22.5
+offset_right = -80.0
+offset_bottom = 22.5
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("5_7vtjg")
+
+[node name="Label" type="Label" parent="PowerTimerIndicator"]
+layout_mode = 2
+text = "2s"
+label_settings = SubResource("LabelSettings_cu1xl")
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="PowerTimerIndicator"]
+custom_minimum_size = Vector2(200, 5)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_iojo8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7oxgb")
+rounded = true
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="PowerTimerIndicator"]
+
+[connection signal="timeout" from="PowerTimerIndicator/Timer" to="PowerTimerIndicator" method="_on_timer_timeout"]

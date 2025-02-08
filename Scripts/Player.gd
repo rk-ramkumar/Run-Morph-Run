@@ -9,6 +9,7 @@ class_name Player extends CharacterBody3D
 @onready var head_hitbox = $HeadHitbox
 @onready var paper_hitbox = $PaperHitbox
 @onready var car_hitbox = $CarHitbox
+@onready var power_timer_indicator = $PowerTimerIndicator
 
 signal move_left
 signal move_right
@@ -296,7 +297,8 @@ func activate_power(power: PowerData):
 	if !timers.is_empty():
 		var has_active_timer = timers.any(func(timer: Timer): 
 			if timer.get_meta("power").name == power.name:
-				timer.set_wait_time(timer.time_left + power.active_time)
+				timer.start(timer.time_left + power.active_time)
+				power_timer_indicator.add_time(timer.time_left + power.active_time)
 				return true
 			return false
 			)
@@ -316,10 +318,12 @@ func activate_power(power: PowerData):
 			current_speed = speed
 			speed = 150.0
 			actions.can_double_tap = false
+			power_timer_indicator.start(power.active_time)
 
 func _on_power_finished(power: PowerData):
 	match power.name:
 		"Car":
+			power_timer_indicator.stop()
 			current_shape = SHAPE.HUMAN
 			actions.can_double_tap = true
 			speed = current_speed
