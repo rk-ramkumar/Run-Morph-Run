@@ -327,6 +327,7 @@ func _on_power_finished(power: PowerData):
 			power_timer_indicator.stop()
 			current_shape = SHAPE.HUMAN
 			actions.can_double_tap = true
+			position.y = 0
 			speed = current_speed
 
 func _on_power_timer_timeout(timer: Timer, power: PowerData):
