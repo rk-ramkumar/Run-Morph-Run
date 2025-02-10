@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cmmc2rxbpce52"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_r00yk"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_byvvv"]
+viewport_path = NodePath("SubViewport")
+
+[resource]
+resource_local_to_scene = true
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("ViewportTexture_r00yk")
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 6.0
+emission_texture = SubResource("ViewportTexture_byvvv")
+refraction_scale = 0.07
+texture_repeat = false
+grow_amount = 0.294

@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dijsf4bqgnuh"]
+[gd_scene load_steps=32 format=3 uid="uid://dijsf4bqgnuh"]
 
 [ext_resource type="Texture2D" uid="uid://e2rulh12xtpv" path="res://Assets/Models/low_poly_car_0.png" id="1_25afv"]
 [ext_resource type="Texture2D" uid="uid://bk106tow80tol" path="res://Assets/Models/low_poly_car_2.png" id="2_scfol"]
 [ext_resource type="Texture2D" uid="uid://csqrjje0q3hex" path="res://Assets/Models/low_poly_car_1.png" id="3_6cgvq"]
+[ext_resource type="Material" uid="uid://cmmc2rxbpce52" path="res://Resources/Materials/car.tres" id="4_mcwlb"]
+[ext_resource type="Texture2D" uid="uid://bpvluu6i2yk60" path="res://Assets/Images/Fire.png" id="4_q6abq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qs7bq"]
 resource_name = "Scene_-_Root"
@@ -178,6 +180,108 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_77uqr")
 
+[sub_resource type="QuadMesh" id="QuadMesh_ixjhm"]
+resource_local_to_scene = true
+material = ExtResource("4_mcwlb")
+size = Vector2(2, 2)
+
+[sub_resource type="QuadMesh" id="QuadMesh_km45i"]
+resource_local_to_scene = true
+material = ExtResource("4_mcwlb")
+size = Vector2(2, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epjba"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(540, 405, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sb4g"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(630, 405, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u24di"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(720, 405, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pi8k"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(810, 405, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqv31"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(180, 540, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgb3j"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(270, 540, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pib2u"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(360, 540, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1canp"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(450, 540, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ml3g"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(540, 540, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y1qy"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(630, 540, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rth3a"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(720, 540, 90, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egwy6"]
+atlas = ExtResource("4_q6abq")
+region = Rect2(810, 540, 90, 135)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qoqf8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epjba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sb4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u24di")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pi8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqv31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgb3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pib2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1canp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ml3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y1qy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rth3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egwy6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 11.0
+}]
+
 [node name="car" type="Node3D"]
 
 [node name="RootNode" type="Node3D" parent="."]
@@ -217,3 +321,40 @@ transform = Transform3D(24.191, -7.39704e-07, 7.30547e-06, 7.39704e-07, 24.191, 
 [node name="Plane_001__0" type="MeshInstance3D" parent="RootNode/Plane_001"]
 mesh = SubResource("ArrayMesh_gkvfb")
 skeleton = NodePath("")
+
+[node name="Right" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0496216, 0.0775279, 0)
+
+[node name="Sprite3D2" type="MeshInstance3D" parent="Right"]
+transform = Transform3D(-4.37114e-08, 0.866025, 0.5, 0, -0.5, 0.866025, 1, 3.78552e-08, 2.18557e-08, -0.649839, 0.825401, -2.90487)
+mesh = SubResource("QuadMesh_ixjhm")
+
+[node name="Sprite3D5" type="MeshInstance3D" parent="Right"]
+transform = Transform3D(-4.37114e-08, 0.866025, 0.5, 0, -0.5, 0.866025, 1, 3.78552e-08, 2.18557e-08, -0.342828, 0.825401, -2.90487)
+mesh = SubResource("QuadMesh_ixjhm")
+
+[node name="Left" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0247688, 0.0891397, 0)
+
+[node name="Sprite3D3" type="MeshInstance3D" parent="Left"]
+transform = Transform3D(-4.37114e-08, 0.866025, -0.5, 0, 0.5, 0.866025, 1, 3.78552e-08, -2.18557e-08, 0.631547, 0.815013, -2.94551)
+mesh = SubResource("QuadMesh_km45i")
+
+[node name="Sprite3D4" type="MeshInstance3D" parent="Left"]
+transform = Transform3D(-4.37114e-08, 0.866025, -0.5, 0, 0.5, 0.866025, 1, 3.78552e-08, -2.18557e-08, 0.37284, 0.844301, -2.94551)
+mesh = SubResource("QuadMesh_km45i")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewport"]
+position = Vector2(128, 128)
+rotation = 1.23046
+skew = 0.226893
+sprite_frames = SubResource("SpriteFrames_qoqf8")
+autoplay = "default"
+frame_progress = 0.928207
+speed_scale = 2.0
+flip_v = true
