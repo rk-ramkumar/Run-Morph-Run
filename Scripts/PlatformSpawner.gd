@@ -207,3 +207,7 @@ func _recycle():
 			set_z_position(pool.back(), recycled_platform)
 			pool.append(recycled_platform)
 			obstacle_spawner.spawn_object(recycled_platform)
+
+func _reset():
+	super._reset()
+	last_power_distance = 0.0
