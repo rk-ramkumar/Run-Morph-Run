@@ -36,7 +36,7 @@ func spawn_object(platform: Platform):
 		return
 
 	prev_obstacles = spawn_obstacles_by_probability(platform)
-	if GameManager.distance > 1000 and randf() > 0.7:
+	if GameManager.distance > 1000 and randf() < 0.7:
 		prev_obstacles = spawn_obstacles_by_probability(platform, 0.4)
 
 func spawn_obstacles_by_probability(platform: Platform, value = null):
