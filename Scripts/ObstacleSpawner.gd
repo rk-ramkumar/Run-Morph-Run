@@ -37,14 +37,14 @@ func spawn_object(platform: Platform):
 
 	prev_obstacles = spawn_obstacles_by_probability(platform)
 	if GameManager.distance > 1000 and randf() > 0.7:
-		prev_obstacles = spawn_obstacles_by_probability(platform)
+		prev_obstacles = spawn_obstacles_by_probability(platform, 0.4)
 
-func spawn_obstacles_by_probability(platform: Platform):
+func spawn_obstacles_by_probability(platform: Platform, value = null):
 	var obstacles = _get_inactive_objects(10)
 	spawn_distance = platform.position.z
 
 	var cumulative = 0.0
-	var random_value = randf()
+	var random_value = randf() if !value else value
 	for i in probabilities.size():
 		cumulative += probabilities[i]
 		if random_value < cumulative:
