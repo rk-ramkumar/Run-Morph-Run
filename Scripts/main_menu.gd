@@ -2,7 +2,7 @@ extends Control
 
 @onready var coin = $CoinPanelContainer/CoinContainer/Coin
 @onready var animation_player = $AnimationPlayer
-@onready var sprite = $Sprite
+@onready var sprite = $Sprite/InputMask
 @onready var name_panel_container = $NamePanelContainer
 @onready var line_edit = $NamePanelContainer/LineEdit
 @onready var audio_stream_player = $AudioStreamPlayer
@@ -40,3 +40,10 @@ func _input(event):
 
 func _on_line_edit_text_submitted(new_text):
 	GameManager.set_player_name(new_text)
+
+
+func _on_host_button_pressed():
+	pass
+
+func _on_join_button_pressed():
+	pass # Replace with function body.
