@@ -1,11 +1,13 @@
 extends Node
 
-var socket = WebSocketPeer.new()
-var is_host = false
-var room_id
+const URL: String = "ws://example.com"
+var socket: WebSocketPeer = WebSocketPeer.new()
+var is_host: bool = false
+var room_id: String
 
 func _ready():
-	socket.connect_to_url("ws://example.com")
+	socket.connect_to_url(URL)
+	set_process(false)
 
 func _process(_delta):
 	socket.poll()
@@ -33,3 +35,9 @@ func create_room():
 func join_room(code):
 	var data = { "type": "join_room", "room_id": code }
 	socket.put_packet(JSON.stringify(data).to_utf8_buffer())
+
+func listen():
+	set_process(true)
+
+func stop_listen():
+	set_process(false)
