@@ -1,10 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://8gf4baewu4a1"]
+[gd_scene load_steps=45 format=3 uid="uid://8gf4baewu4a1"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_4edoq"]
 [ext_resource type="PackedScene" uid="uid://d8rbr566hp6c" path="res://Scenes/Characters/attack_titan.tscn" id="2_3uaoa"]
 [ext_resource type="PackedScene" uid="uid://danytplqsdjgj" path="res://Scenes/Characters/paper_airplane.tscn" id="3_mdjun"]
 [ext_resource type="PackedScene" uid="uid://dijsf4bqgnuh" path="res://Scenes/Characters/car.tscn" id="4_vov4o"]
 [ext_resource type="Script" path="res://Scripts/PowerTimerIndicator.gd" id="5_7vtjg"]
+[ext_resource type="Script" path="res://addons/BurstParticles2D/BurstParticleGroup2D.gd" id="6_1jstx"]
+[ext_resource type="Script" path="res://addons/BurstParticles2D/BurstParticles2D.gd" id="7_6kduu"]
+[ext_resource type="Texture2D" uid="uid://d2lceccxwhwet" path="res://addons/BurstParticles2D/BurstParticles2D-demo/ring.png" id="8_n2cpx"]
+[ext_resource type="Texture2D" uid="uid://ovw18l4dc1fv" path="res://addons/BurstParticles2D/BurstParticles2D-demo/orb.png" id="9_xdyyc"]
+[ext_resource type="Script" path="res://Scripts/PlayerAudioController.gd" id="10_lrue2"]
+[ext_resource type="AudioStream" uid="uid://2ibw30bo11h5" path="res://Assets/Audio/movement-swipe-whoosh.mp3" id="11_tcov8"]
+[ext_resource type="AudioStream" uid="uid://dntksqrfp2dm0" path="res://Assets/Audio/car-acceleration-inside-car-7087.mp3" id="12_v5jju"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ad2cv"]
 size = Vector3(1, 1, 0.5)
@@ -27,6 +34,7 @@ shadow_offset = Vector2(3, 3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iojo8"]
 bg_color = Color(1, 1, 1, 0.407843)
+skew = Vector2(0.33, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -40,15 +48,121 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
-shadow_size = 2
-shadow_offset = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7oxgb"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.439216, 1, 1, 1)
+skew = Vector2(0.33, 0)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_l8c25"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lm4kl"]
+resource_local_to_scene = true
+transparency = 1
+diffuse_mode = 3
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("ViewportTexture_l8c25")
+emission = Color(0.0980392, 0.976471, 0.921569, 1)
+emission_energy_multiplier = 2.76
+
+[sub_resource type="QuadMesh" id="QuadMesh_msrrs"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_lm4kl")
+size = Vector2(15, 15)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t8062"]
+
+[sub_resource type="Gradient" id="Gradient_j0q7a"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.275618, 0.936396, 1)
+colors = PackedColorArray(0.670039, 0.470735, 0.542787, 0, 0.670722, 0.725274, 0.916422, 1, 1, 1, 1, 1, 1, 0.805494, 0.80578, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7il0h"]
+gradient = SubResource("Gradient_j0q7a")
+
+[sub_resource type="Curve" id="Curve_jfqfx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.173709, 0.527273), 3.03538, 2.28391, 1, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_4ef37"]
+max_value = 34.85
+_data = [Vector2(0, 3.485), 0.0, 3.84848, 0, 0, Vector2(0.278768, 22.1773), 32.2923, 32.2923, 0, 0, Vector2(1, 34.85), 6.70619, 6.70619, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_1ek83"]
+_data = [Vector2(0, 0.654545), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_a71g5"]
+_data = [Vector2(0, 1), 0.0, -4.45364, 0, 1, Vector2(0.187793, 0.163636), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.201471, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_k033r"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.223602, 0.47205, 0.812865, 1)
+colors = PackedColorArray(0.356863, 0.580392, 0.737255, 0, 0.87834, 0.46543, 0.362065, 0.839216, 1, 0.759812, 0.187012, 0.972359, 1, 0.930167, 0.403123, 1, 0.984314, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rbjdk"]
+gradient = SubResource("Gradient_k033r")
+
+[sub_resource type="Curve" id="Curve_m4nk2"]
+_data = [Vector2(0, 0), 0.0, 1.93319, 0, 0, Vector2(0.150413, 0.518182), 2.29167, 2.29167, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_x8ei3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.881818), 2.73369, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_5falr"]
+max_value = 2.0
+_data = [Vector2(0, 0.927273), 0.0, 0.0, 0, 0, Vector2(0.547107, 0.236364), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_4185f"]
+_data = [Vector2(0, 0.990909), 0.0, 0.0, 0, 0, Vector2(1, 0.663636), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_84m5j"]
+_data = [Vector2(0, 0.290909), 0.0, 0.0, 0, 0, Vector2(1, 0.745454), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_yma0k"]
+_data = [Vector2(0, 0), 0.0, 8.69388, 0, 1, Vector2(0.115023, 1), -0.252569, -0.252569, 0, 0, Vector2(1, 0), -1.12997, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_eq34j"]
+offsets = PackedFloat32Array(0, 0.689046, 0.805654, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.964706, 0, 0.682353, 0.721569, 0.986606, 0.657213, 0.876707, 0.85002, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a2dm0"]
+gradient = SubResource("Gradient_eq34j")
+
+[sub_resource type="Curve" id="Curve_8fi87"]
+_data = [Vector2(0, 0.309091), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_d3xy3"]
+max_value = 2.0
+_data = [Vector2(0, 0.236364), 0.0, 0.0, 0, 0, Vector2(0.115702, 0.436364), 0.0, 0.0, 0, 0, Vector2(1, 0.981818), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_jg3t4"]
+_data = [Vector2(0, 0.436364), 0.0, -2.56667, 0, 0, Vector2(0.165289, 0.0727272), 0.0, 0.0, 0, 0, Vector2(0.290909, 0), 0.0, 0.0, 0, 0, Vector2(0.642975, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_qnghy"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.579812, -0.0181818), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_8438n"]
+max_value = 2.0
+_data = [Vector2(0, 0.236364), 0.0, 0.0, 0, 0, Vector2(0.115702, 1), 0.0, 0.0, 0, 0, Vector2(0.978512, 1.56364), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Player" type="CharacterBody3D"]
 process_mode = 3
@@ -70,7 +184,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 shape = SubResource("CapsuleShape3D_iy8b6")
 
 [node name="PaperHitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_16fsr")
 disabled = true
 
@@ -107,5 +221,134 @@ rounded = true
 show_percentage = false
 
 [node name="Timer" type="Timer" parent="PowerTimerIndicator"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
+mesh = SubResource("QuadMesh_msrrs")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="BurstParticleGroup2D" type="Node2D" parent="SubViewport"]
+position = Vector2(256, 256)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("6_1jstx")
+repeat = false
+free_when_finished = false
+autostart = false
+
+[node name="Ring2" type="Node2D" parent="SubViewport/BurstParticleGroup2D"]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_t8062")
+position = Vector2(0.000427246, 0.000244141)
+rotation = 0.385718
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_6kduu")
+num_particles = 1
+lifetime = 0.75
+repeat = true
+texture = ExtResource("8_n2cpx")
+image_scale = 0.399
+gradient = SubResource("GradientTexture1D_7il0h")
+angle_degrees = -360.0
+distance = 0.0
+distance_randomness = 0.667
+global_offset = true
+percent_force_uniform = 27.778
+angle_curve = SubResource("Curve_jfqfx")
+scale_curve = SubResource("Curve_4ef37")
+y_scale_curve = SubResource("Curve_1ek83")
+color_offset_curve = SubResource("Curve_a71g5")
+
+[node name="Orbs" type="Node2D" parent="SubViewport/BurstParticleGroup2D"]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_t8062")
+position = Vector2(0.000452407, 0.000183703)
+rotation = 0.385718
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_6kduu")
+num_particles = 32
+lifetime = 0.75
+lifetime_randomness = 0.745
+preprocess_amount = 0.023
+repeat = true
+texture = ExtResource("9_xdyyc")
+image_scale = 0.173
+image_scale_randomness = 0.7
+gradient = SubResource("GradientTexture1D_rbjdk")
+direction_rotation_randomness = 1.0
+distance = 2115.85
+distance_randomness = 1.0
+offset = Vector2(0, -300)
+global_offset = true
+start_radius = 126.063
+distance_curve = SubResource("Curve_m4nk2")
+offset_curve = SubResource("Curve_x8ei3")
+scale_curve = SubResource("Curve_5falr")
+x_scale_curve = SubResource("Curve_4185f")
+y_scale_curve = SubResource("Curve_84m5j")
+color_offset_curve = SubResource("Curve_yma0k")
+
+[node name="Cross" type="Node2D" parent="SubViewport/BurstParticleGroup2D"]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_t8062")
+position = Vector2(0.000488281, 0.00012207)
+rotation = 0.385718
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_6kduu")
+num_particles = 1
+lifetime = 0.75
+repeat = true
+texture = ExtResource("9_xdyyc")
+image_scale = 11.455
+gradient = SubResource("GradientTexture1D_a2dm0")
+blend_mode = 1
+direction = Vector2(0, 1)
+distance = 0.0
+distance_randomness = 0.667
+global_offset = true
+spread_degrees = 101.455
+percent_force_uniform = 27.778
+scale_curve = SubResource("Curve_8fi87")
+x_scale_curve = SubResource("Curve_d3xy3")
+y_scale_curve = SubResource("Curve_jg3t4")
+color_offset_curve = SubResource("Curve_qnghy")
+
+[node name="Cross2" type="Node2D" parent="SubViewport/BurstParticleGroup2D"]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_t8062")
+position = Vector2(0.000427246, 0.00012207)
+rotation = 0.385718
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_6kduu")
+num_particles = 1
+lifetime = 0.75
+repeat = true
+texture = ExtResource("9_xdyyc")
+image_scale = 15.283
+gradient = SubResource("GradientTexture1D_a2dm0")
+blend_mode = 1
+distance = 0.0
+global_offset = true
+spread_degrees = 6.545
+percent_force_uniform = 27.778
+scale_curve = SubResource("Curve_8fi87")
+x_scale_curve = SubResource("Curve_8438n")
+y_scale_curve = SubResource("Curve_jg3t4")
+color_offset_curve = SubResource("Curve_qnghy")
+
+[node name="AudioController" type="Node" parent="."]
+script = ExtResource("10_lrue2")
+
+[node name="SwipeAudioStreamPlayer" type="AudioStreamPlayer3D" parent="AudioController"]
+stream = ExtResource("11_tcov8")
+bus = &"SFX"
+
+[node name="CarAudioStreamPlayer" type="AudioStreamPlayer3D" parent="AudioController"]
+stream = ExtResource("12_v5jju")
+pitch_scale = 2.04
+bus = &"SFX"
 
 [connection signal="timeout" from="PowerTimerIndicator/Timer" to="PowerTimerIndicator" method="_on_timer_timeout"]

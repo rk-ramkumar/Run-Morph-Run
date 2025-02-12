@@ -10,6 +10,9 @@ class_name Player extends CharacterBody3D
 @onready var paper_hitbox = $PaperHitbox
 @onready var car_hitbox = $CarHitbox
 @onready var power_timer_indicator = $PowerTimerIndicator
+@onready var burst_particle = $SubViewport/BurstParticleGroup2D
+@onready var audio_controller = $AudioController
+
 
 signal move_left
 signal move_right
@@ -134,7 +137,7 @@ func _physics_process(delta):
 				if !signal_emited:
 					hold_detected.emit()
 					signal_emited = true
-				if !(position.y > 4):
+				if !(position.y > 2):
 					velocity.y = 250 * delta
 
 	move_and_slide()
@@ -164,13 +167,13 @@ func _handle_movement():
 
 	if distance < min_swipe_distance:
 		return
-
 	if abs(swipe_vector.x) > abs(swipe_vector.y):
 	# Horizontal swipe
 		if swipe_vector.x > 0:
 			_move_right()
 		else:
 			_move_left()
+		audio_controller.play_swipe_sfx()
 	else:
 		match current_shape:
 			SHAPE.HUMAN:
@@ -179,6 +182,8 @@ func _handle_movement():
 					_move_down()
 				else:
 					_move_up()
+				audio_controller.play_swipe_sfx()
+				
 
 func _move_right():
 	if !actions.can_right:
@@ -225,8 +230,10 @@ func play_animation(anim_name, anim_speed: float = 1, blend: float = -1):
 	human_anim_player.queue("Running")
 
 func _change_mesh():
+	burst()
 	match current_shape:
 		SHAPE.HUMAN:
+			update_y_position.call_deferred()
 			head_hitbox.disabled = false
 			leg_hitbox.disabled = false
 			paper_hitbox.disabled = true
@@ -251,10 +258,9 @@ func _change_mesh():
 			mesh[SHAPE.PAPER].hide()
 			mesh[SHAPE.HUMAN].hide()
 
-
 func _on_game_over():
 	if current_state == STATE.FALLING:
-		position.y = 0
+		update_y_position.call_deferred()
 	human_anim_player.play("Stunned")
 	set_physics_process(false)
 	set_process_unhandled_input(false)
@@ -320,14 +326,16 @@ func activate_power(power: PowerData):
 			speed = 150.0
 			actions.can_double_tap = false
 			power_timer_indicator.start(power.active_time)
+			audio_controller.play_car_sfx()
 
 func _on_power_finished(power: PowerData):
 	match power.name:
 		"Car":
+			audio_controller.stop_car_sfx()
 			power_timer_indicator.stop()
 			current_shape = SHAPE.HUMAN
 			actions.can_double_tap = true
-			position.y = 0
+			update_y_position.call_deferred()
 			speed = current_speed
 
 func _on_power_timer_timeout(timer: Timer, power: PowerData):
@@ -336,3 +344,9 @@ func _on_power_timer_timeout(timer: Timer, power: PowerData):
 	timers.erase(timer)
 	await get_tree().create_timer(1.5).timeout
 	GameManager.power_finished.emit(power)
+
+func burst():
+	burst_particle.burst()
+
+func update_y_position(value: float = 0.0):
+	position.y = value

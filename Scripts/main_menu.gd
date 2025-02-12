@@ -6,6 +6,9 @@ extends Control
 @onready var name_panel_container = $NamePanelContainer
 @onready var line_edit = $NamePanelContainer/LineEdit
 @onready var audio_stream_player = $AudioStreamPlayer
+@onready var join_code_popup = $JoinCodePopup
+@onready var join_line_edit = $JoinCodePopup/Panel/VBoxContainer/LineEdit
+var room_id: String = ""
 
 func _ready():
 	animation_player.play("start")
@@ -41,9 +44,26 @@ func _input(event):
 func _on_line_edit_text_submitted(new_text):
 	GameManager.set_player_name(new_text)
 
-
 func _on_host_button_pressed():
-	pass
+	WebSocket.listen()
+	WebSocket.create_room()
 
 func _on_join_button_pressed():
-	pass # Replace with function body.
+	WebSocket.listen()
+	join_code_popup.show()
+
+func _on_line_edit_text_changed(new_text):
+	room_id = new_text
+
+func _on_join_confirm_button_pressed():
+	WebSocket.join_room(room_id)
+	_rest_join_popup()
+
+func _on_join_cancel_button_pressed():
+	WebSocket.stop_listen()
+	_rest_join_popup()
+
+func _rest_join_popup():
+	room_id = ""
+	join_line_edit.text = ""
+	join_code_popup.hide()

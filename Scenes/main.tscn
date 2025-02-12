@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://Scripts/Obstacle.gd" id="10_hu5cn"]
 [ext_resource type="Script" path="res://Scripts/Powers.gd" id="10_i8tmg"]
 [ext_resource type="PackedScene" uid="uid://dxjw08u62oaur" path="res://Scenes/Coin/ScifiBox.tscn" id="11_4ic4r"]
-[ext_resource type="AudioStream" uid="uid://bg0fce8xqnp2q" path="res://Assets/Audio/action_loop.mp3" id="11_4tgaa"]
+[ext_resource type="AudioStream" uid="uid://i8a65rofql1i" path="res://Assets/Audio/background-music.mp3" id="14_dcifc"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v3k3f"]
 panorama = ExtResource("2_ol28g")
@@ -98,7 +98,7 @@ spawn_interval_limit = {
 }
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_4tgaa")
+stream = ExtResource("14_dcifc")
 
 [node name="Boundary" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
