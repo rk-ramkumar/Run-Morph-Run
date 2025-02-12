@@ -31,6 +31,10 @@ window/size/viewport_height=1920
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/BurstParticles2D/plugin.cfg")
+
 [gui]
 
 theme/custom_font="res://Assets/Fonts/LuckiestGuy-Regular.ttf"
