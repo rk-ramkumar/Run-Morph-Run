@@ -33,10 +33,11 @@ func _recycle_object(object):
 
 func spawn_object(platform: Platform):
 	if GameManager.has_training or platform.name.contains("empty"):
+		coin_spawner.spawn_object(platform, prev_obstacles, coin_spawner.PATTERNS.LINE)
 		return
 
 	prev_obstacles = spawn_obstacles_by_probability(platform)
-	if GameManager.distance > 1000 and randf() < 0.7:
+	if GameManager.distance > 500:
 		prev_obstacles = spawn_obstacles_by_probability(platform, 0.4)
 
 func spawn_obstacles_by_probability(platform: Platform, value = null):

@@ -82,10 +82,10 @@ func _handle_pool_reset():
 	for object in pool:
 		_disable_object(object)
 
-func _on_game_start():
+func _on_game_start(_data):
 	set_process(true)
 
-func _on_game_restart():
+func _on_game_restart(_data):
 	_reset()
 	_handle_pool_reset()
 

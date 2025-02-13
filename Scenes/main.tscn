@@ -80,7 +80,7 @@ spawn_interval_limit = {
 [node name="PowerBox" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
 script = ExtResource("10_i8tmg")
-spawn_distance = 100
+spawn_distance = 1000
 
 [node name="SciFi_Box" parent="PowerBox" instance=ExtResource("11_4ic4r")]
 

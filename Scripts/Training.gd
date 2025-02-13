@@ -14,7 +14,7 @@ func _on_request_home():
 	_reset("hide")
 	set_process(false)
 
-func _on_game_start():
+func _on_game_start(_data):
 	set_process(true)
 	_reset()
 

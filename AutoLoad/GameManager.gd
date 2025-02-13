@@ -3,12 +3,15 @@ extends Node
 var player_name: String = ""
 var coin: int = 0
 var total_coin: int = 0
+var match_time: int = 180
+var respawn_time: int = 5
 var distance: float = 0.0
 var best_distance: float = 0.0
 var is_game_over: bool = false
 var config_path = "user://scores.cfg"
 var config = ConfigFile.new()
 var has_training: bool = true
+var is_online: bool = false
 signal coins_changed(new_amount: int)  # Emits the updated coin amount
 signal distance_increased(new_distance: int)
 signal game_over
@@ -17,6 +20,7 @@ signal game_restart
 signal training_finish
 signal game_pause
 signal game_resume
+signal game_wait
 signal request_home
 signal power_activated(power: PowerData)
 signal power_finished(power: PowerData)
@@ -55,6 +59,16 @@ func set_player_name(value: String):
 
 func register_collision():
 	get_tree().set_pause(true)
+	handle_online_game_over() if is_online else handle_game_over()
+
+func handle_online_game_over():
+	game_wait.emit()
+
+func respawn():
+	game_restart.emit({"type": "repawn"})
+	get_tree().set_pause(false)
+
+func handle_game_over():
 	game_over.emit()
 	is_game_over = true
 	var best_score = config.get_value("player", "best_score")
@@ -75,7 +89,7 @@ func start(type: String = "start"):
 	distance = 0.0
 	coin = 0
 	is_game_over= false
-	emit_signal("game_"+type)
+	emit_signal("game_"+type, {"type": type})
 	get_tree().set_pause(false)
 
 func set_training(value):

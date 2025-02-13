@@ -7,7 +7,7 @@ var training_scene = preload("res://Scenes/UI_training.tscn")
 func _ready():
 	GameManager.game_start.connect(_on_game_start)
 
-func _on_game_start():
+func _on_game_start(_data):
 	if GameManager.has_training and !has_node("Training"):
 		_add_training()
 

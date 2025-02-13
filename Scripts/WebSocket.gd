@@ -1,6 +1,6 @@
 extends Node
 
-const URL: String = "ws://example.com"
+const URL: String = "ws://localhost:8080"
 var socket: WebSocketPeer = WebSocketPeer.new()
 var is_host: bool = false
 var room_id: String

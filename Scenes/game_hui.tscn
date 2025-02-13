@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c4q18xng0tqn7"]
+[gd_scene load_steps=19 format=3 uid="uid://c4q18xng0tqn7"]
 
 [ext_resource type="Script" path="res://Scripts/Game_HUI_Control.gd" id="1_3pnah"]
 [ext_resource type="Script" path="res://Scripts/game_hui.gd" id="1_povxx"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://7m4o0dr46vlo" path="res://Scenes/game_over_hui.tscn" id="6_m0sus"]
 [ext_resource type="Texture2D" uid="uid://bk11kllyd46at" path="res://Assets/Images/icons_pause_button.png" id="7_hyv3u"]
 [ext_resource type="PackedScene" uid="uid://bjvwm8r7w2pmh" path="res://Scenes/pause_control.tscn" id="9_4rx85"]
+[ext_resource type="LabelSettings" uid="uid://c356v0xwg8mtl" path="res://Resources/header_label_setting.tres" id="9_m4f7e"]
 [ext_resource type="PackedScene" uid="uid://n2i6y5om2y4r" path="res://Scenes/main_menu.tscn" id="10_wlrdh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7sjjg"]
@@ -205,6 +206,59 @@ offset_top = 200.0
 offset_right = 148.0
 offset_bottom = 328.0
 texture_normal = ExtResource("7_hyv3u")
+
+[node name="OnlineControl" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="OnlineTimerLabel" type="Label" parent="Control/OnlineControl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 50.0
+offset_right = 96.0
+offset_bottom = 174.0
+grow_horizontal = 2
+label_settings = ExtResource("9_m4f7e")
+
+[node name="RespawnBg" type="ColorRect" parent="Control/OnlineControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.117647, 0.831373, 1, 0.411765)
+
+[node name="RespawnTimerLabel" type="Label" parent="Control/OnlineControl/RespawnBg"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -298.0
+offset_top = -131.0
+offset_right = 298.0
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 40
+theme_override_font_sizes/font_size = 128
+text = "respawn
+ 3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseControl" parent="." instance=ExtResource("9_4rx85")]
 

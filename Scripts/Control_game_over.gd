@@ -17,7 +17,7 @@ func _ready():
 	GameManager.game_start.connect(_on_game_start)
 	GameManager.game_restart.connect(_on_game_start)
 
-func _on_game_start():
+func _on_game_start(_data):
 	hide()
 
 func _on_game_over():

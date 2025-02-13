@@ -18,7 +18,7 @@ func _on_request_home():
 	audio_stream_player.stop()
 	hide()
 
-func _on_game_start():
+func _on_game_start(_data):
 	show()
 	audio_stream_player.play(1.0)
 	if GameManager.has_training and !has_node("Training"):

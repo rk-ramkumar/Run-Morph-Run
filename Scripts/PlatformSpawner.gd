@@ -70,12 +70,12 @@ func _add_object(_amount = spawn_pool_size):
 
 #	_adjust_light()
 
-func _on_game_start():
-	super._on_game_start()
+func _on_game_start(data):
+	super._on_game_start(data)
 	_add_training_objects()
 
-func _on_game_restart():
-	super._on_game_restart()
+func _on_game_restart(_data):
+	super._on_game_restart({})
 	_add_training_objects()
 
 func _add_training_objects():
@@ -97,6 +97,7 @@ func _handle_spawn(_delta):
 		last_switch_distance = GameManager.distance
 	elif GameManager.distance - last_power_distance > power_box.spawn_distance:
 		last_power_distance = GameManager.distance
+		power_box.set_spawn_distance()
 		var powers = power_box.get_inactive_powers()
 		if powers.is_empty():
 			return

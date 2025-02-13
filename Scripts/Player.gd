@@ -73,6 +73,7 @@ func _ready():
 	_initialize_armatures()
 	human_anim_player.play("Running")
 	GameManager.game_over.connect(_on_game_over)
+	GameManager.game_wait.connect(_on_game_over)
 	GameManager.game_start.connect(_on_game_start)
 	GameManager.game_restart.connect(_on_game_start)
 	GameManager.game_pause.connect(_on_game_pause)
@@ -265,7 +266,7 @@ func _on_game_over():
 	set_physics_process(false)
 	set_process_unhandled_input(false)
 
-func _on_game_start():
+func _on_game_start(_data):
 	swipe_start_position = Vector2.ZERO
 	swipe_end_position = Vector2.ZERO
 	set_physics_process(true)

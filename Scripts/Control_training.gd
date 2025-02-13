@@ -116,7 +116,7 @@ func _on_game_over():
 	hide()
 	set_physics_process(false)
 
-func _on_game_start():
+func _on_game_start(_data):
 	if GameManager.has_training:
 		set_physics_process(false)
 		change_actions()

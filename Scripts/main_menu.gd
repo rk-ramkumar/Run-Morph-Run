@@ -65,6 +65,7 @@ func _input(event):
 		if host_popup.visible:
 			return
 		if sprite.get_rect().has_point(sprite.to_local(event.position)):
+			GameManager.is_online = false
 			start()
 
 func _on_line_edit_text_submitted(new_text):
@@ -142,4 +143,5 @@ func animate(value):
 
 func _on_start_timer_timeout():
 	game_start_bg.hide()
+	GameManager.is_online = true
 	start()

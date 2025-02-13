@@ -9,3 +9,6 @@ func _ready():
 
 func get_inactive_powers():
 	return powers.filter(func(power): return !power.visible)
+
+func set_spawn_distance():
+	spawn_distance = randi_range(-200, 600) + spawn_distance

@@ -9,7 +9,7 @@ func _ready():
 	if player:
 		player.lane_changed.connect(_on_lane_changed)
 
-func _on_game_start():
+func _on_game_start(_data):
 	position.x = 0
 
 func _on_lane_changed(x_pos):
