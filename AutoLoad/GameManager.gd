@@ -8,10 +8,11 @@ var respawn_time: int = 5
 var distance: float = 0.0
 var best_distance: float = 0.0
 var is_game_over: bool = false
-var config_path = "user://scores.cfg"
+var config_path = "user://profile.cfg"
 var config = ConfigFile.new()
 var has_training: bool = true
 var is_online: bool = false
+var player_id: String = ""
 signal coins_changed(new_amount: int)  # Emits the updated coin amount
 signal distance_increased(new_distance: int)
 signal game_over
@@ -34,11 +35,14 @@ func _ready():
 		config.set_value("player", "coin", coin)
 		config.set_value("player", "has_training", has_training)
 		config.set_value("player", "name", player_name)
+		config.set_value("player", "id", generate_uuid())
+		config.save(config_path)
 		return
 	has_training = config.get_value("player", "has_training")
 	best_distance = config.get_value("player", "best_score")
 	total_coin = config.get_value("player", "coin")
 	player_name = config.get_value("player", "name", player_name)
+	player_id = config.get_value("player", "id", generate_uuid())
 	
 
 func increase_coins(amount: int = 1):
@@ -107,5 +111,9 @@ func resume():
 
 func get_profile():
 	return {
-		"name": player_name
+		"name": player_name,
+		"id": player_id
 	}
+
+func generate_uuid():
+	return "%08x%08x%08x%08x" % [randi(), randi(), randi(), randi()]

@@ -26,7 +26,8 @@ func _process(delta):
 			update_timer += delta
 			if update_timer >= 0.2: # Every 200ms
 				update_timer = 0
-				send_distance_update()
+				if abs(GameManager.distance - last_sent_distance) > 5:
+						send_distance_update()
 			while socket.get_available_packet_count() > 0:
 				var msg = JSON.parse_string(socket.get_packet().get_string_from_utf8())
 				match msg.type:
@@ -47,10 +48,9 @@ func _process(delta):
 						print('game_stated')
 
 func send_distance_update():
-	if abs(GameManager.distance - last_sent_distance) > 100:
-		last_sent_distance = GameManager.distance
-		var data = { "type": "update_leaderboard", "distance": GameManager.distance }
-		socket.put_packet(JSON.stringify(data).to_utf8_buffer())
+	last_sent_distance = GameManager.distance
+	var data = { "type": "update_leaderboard", "distance": GameManager.distance }
+	socket.put_packet(JSON.stringify(data).to_utf8_buffer())
 
 func create_room():
 	if socket.get_ready_state() != WebSocketPeer.STATE_OPEN:

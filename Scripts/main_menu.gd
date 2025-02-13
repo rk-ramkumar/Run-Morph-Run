@@ -119,7 +119,8 @@ func _on_player_joined(msg):
 	if !WebSocket.is_host:
 		host_play_button.hide()
 	update_players_panel(msg)
-	animation_player.play("hostPopup")
+	if msg.profile.id == GameManager.player_id:
+		animation_player.play("hostPopup")
 
 func update_players_panel(msg):
 	var profiles = msg.profiles
@@ -144,6 +145,7 @@ func animate(value):
 func _on_start_timer_timeout():
 	game_start_bg.hide()
 	GameManager.is_online = true
+	WebSocket.send_distance_update()
 	start()
 
 func _on_room_id_button_pressed():
