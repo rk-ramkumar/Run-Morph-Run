@@ -11,6 +11,12 @@ extends Control
 @onready var error_label = $ErrorLabel
 @onready var room_id_label = $HostPopup/RoomIDPanelContainer/RoomIdContainer/Label
 @onready var host_play_button = $HostPopup/PlayButton
+@onready var start_timer = $HostPopup/GameStartBg/StartTimer
+@onready var start_timer_label = $HostPopup/GameStartBg/StartTimerLabel
+@onready var game_start_bg = $HostPopup/GameStartBg
+@onready var host_popup = $HostPopup
+
+@export var wait_time: int = 3
 
 var room_id: String = ""
 var error_text = "[center][color=red]{message}[/color][/center]"
@@ -19,10 +25,7 @@ var players_panels: Array
 
 func _ready():
 	animation_player.play("start")
-	GameManager.request_home.connect(_on_request_home)
-	WebSocket.room_created.connect(_on_room_created)
-	WebSocket.error.connect(_on_error)
-	WebSocket.player_joined.connect(_on_player_joined)
+	_connect_signals()
 	_set_coin_label()
 	players_panels = $HostPopup/PlayersPanelContainer/MarginContainer/GridContainer.get_children()
 	audio_stream_player.play()
@@ -35,6 +38,13 @@ func _ready():
 		line_edit.text = GameManager.player_name
 		line_edit.editable = false
 
+func _connect_signals():
+	GameManager.request_home.connect(_on_request_home)
+	WebSocket.room_created.connect(_on_room_created)
+	WebSocket.error.connect(_on_error)
+	WebSocket.player_joined.connect(_on_player_joined)
+	WebSocket.game_stated.connect(_on_game_started)
+
 func _on_request_home():
 	show()
 	_set_coin_label()
@@ -44,13 +54,18 @@ func _on_request_home():
 func _set_coin_label():
 	coin.text = str(GameManager.total_coin)
 
+func start():
+	audio_stream_player.stop()
+	GameManager.start()
+	set_process_input(false)
+	hide()
+	
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
+		if host_popup.visible:
+			return
 		if sprite.get_rect().has_point(sprite.to_local(event.position)):
-			audio_stream_player.stop()
-			GameManager.start()
-			set_process_input(false)
-			hide()
+			start()
 
 func _on_line_edit_text_submitted(new_text):
 	GameManager.set_player_name(new_text)
@@ -114,4 +129,17 @@ func update_players_panel(msg):
 		name_label.show()
 
 func _on_play_button_pressed():
-	pass # Replace with function body.
+	WebSocket.start_game()
+
+func _on_game_started():
+	start_timer.start(wait_time)
+	game_start_bg.show()
+	var tween = create_tween()
+	tween.tween_method(animate, 0, wait_time, wait_time)
+
+func animate(value):
+	start_timer_label.text = "start in " + str(wait_time - value)
+
+func _on_start_timer_timeout():
+	game_start_bg.hide()
+	start()

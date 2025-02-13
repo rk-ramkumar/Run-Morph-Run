@@ -7,6 +7,7 @@ var room_id: String
 signal room_created(msg:Dictionary)
 signal error(msg:Dictionary)
 signal player_joined(msg:Dictionary)
+signal game_stated()
 
 func _ready():
 	socket.connect_to_url(URL)
@@ -33,6 +34,9 @@ func _process(_delta):
 						print(msg.room_size)
 					"leaderboard_update":
 						print(msg.leaderboard)
+					"game_stated":
+						game_stated.emit()
+						print('game_stated')
 
 func create_room():
 	if socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
@@ -48,6 +52,9 @@ func join_room(code):
 		return
 	var data = { "type": "join_room", "room_id": code , "profile": GameManager.get_profile()}
 	socket.put_packet(JSON.stringify(data).to_utf8_buffer())
+
+func start_game():
+	socket.put_packet(JSON.stringify({"type": "start_game" }).to_utf8_buffer())
 
 func listen():
 	set_process(true)
