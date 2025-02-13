@@ -199,6 +199,8 @@ func _handle_pool_reset():
 
 func _recycle():
 	var object = pool.front()
+	if !object:
+		return
 	if object.position.z < -object.get_size().z:
 		var recycled_platform = pool.pop_front()
 		if recycled_platform.is_in_group("free"):

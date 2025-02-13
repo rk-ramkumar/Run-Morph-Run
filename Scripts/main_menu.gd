@@ -145,3 +145,8 @@ func _on_start_timer_timeout():
 	game_start_bg.hide()
 	GameManager.is_online = true
 	start()
+
+func _on_room_id_button_pressed():
+	var share_text = "Join my game! Room Code: " + room_id
+	OS.shell_open("intent://send?text=" + share_text + "#Intent;action=android.intent.action.SEND;type=text/plain;end;")
+

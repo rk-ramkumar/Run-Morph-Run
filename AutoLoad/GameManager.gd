@@ -65,7 +65,7 @@ func handle_online_game_over():
 	game_wait.emit()
 
 func respawn():
-	game_restart.emit({"type": "repawn"})
+	game_restart.emit({"type": "respawn"})
 	get_tree().set_pause(false)
 
 func handle_game_over():

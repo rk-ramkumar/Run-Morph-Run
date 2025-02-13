@@ -950,4 +950,5 @@ libraries = {
 [connection signal="pressed" from="JoinCodePopup/Panel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_join_cancel_button_pressed"]
 [connection signal="pressed" from="JoinCodePopup/Panel/VBoxContainer/HBoxContainer/ConfirmButton" to="." method="_on_join_confirm_button_pressed"]
 [connection signal="pressed" from="HostPopup/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="HostPopup/RoomIDPanelContainer/RoomIdContainer/Button" to="." method="_on_room_id_button_pressed"]
 [connection signal="timeout" from="HostPopup/GameStartBg/StartTimer" to="." method="_on_start_timer_timeout"]

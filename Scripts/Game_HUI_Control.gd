@@ -27,7 +27,9 @@ func _ready():
 	hide()
 	online_control.hide()
 
-func _on_game_start(_data):
+func _on_game_start(data: Dictionary):
+	if !data.is_empty() and data.type == "respawn":
+		return
 	_update_coin_label(GameManager.coin)
 	_update_distance_label(GameManager.distance)
 	_update_best_distance_texture()
