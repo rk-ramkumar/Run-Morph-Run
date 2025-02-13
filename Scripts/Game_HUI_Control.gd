@@ -20,6 +20,7 @@ func _ready():
 	GameManager.game_start.connect(_on_game_start)
 	GameManager.game_restart.connect(_on_game_start)
 	GameManager.game_wait.connect(_on_game_wait)
+	WebSocket.leaderboard_updated.connect(_on_leaderboard_updated)
 	_on_game_start({})
 	if GameManager.has_training:
 		pause_button.hide()
@@ -82,3 +83,13 @@ func _on_game_wait():
 
 func animate(value):
 	respawn_timer_label.text = "respawn in\n" + str(GameManager.respawn_time - value)
+
+func _on_leaderboard_updated(msg):
+	var ratio = msg.place / msg.room_size
+	var colors = {
+		ratio < 1: "red",
+		ratio < 0.7: "yellow",
+		ratio < 0.3: "39ff14"
+	}
+	best_distance_label.label_settings.font_color = Color(colors[true])
+	best_distance_label.text = str(msg.place)
