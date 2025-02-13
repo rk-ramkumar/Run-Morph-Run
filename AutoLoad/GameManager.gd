@@ -90,3 +90,8 @@ func pause():
 func resume():
 	game_resume.emit()
 	get_tree().set_pause(false)
+
+func get_profile():
+	return {
+		"name": player_name
+	}
