@@ -9,9 +9,11 @@ extends Control
 @onready var online_timer_label = $OnlineControl/OnlineTimerLabel
 @onready var respawn_bg = $OnlineControl/RespawnBg
 @onready var respawn_timer_label = $OnlineControl/RespawnBg/RespawnTimerLabel
+@onready var complete = $"../Complete"
 
 const best_score_texture = preload("res://Assets/Images/best-score.png")
 const leaderboard_texture = preload("res://Assets/Images/winner.png")
+var data
 
 func _ready():
 	GameManager.distance_increased.connect(_update_distance_label)
@@ -69,7 +71,7 @@ func _update_timer_label(value):
 	online_timer_label.text = str(GameManager.match_time - value)
 
 func _on_time_over():
-	pass
+	complete.handle_complete(data.place, data.room_size)
 
 func _on_wait_time_over():
 	respawn_bg.hide()
@@ -85,6 +87,7 @@ func animate(value):
 	respawn_timer_label.text = "respawn in\n" + str(GameManager.respawn_time - value)
 
 func _on_leaderboard_updated(msg):
+	data = msg
 	var ratio = msg.place / msg.room_size
 	var colors = {
 		ratio < 1: "red",

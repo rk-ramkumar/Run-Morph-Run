@@ -15,6 +15,8 @@ extends Control
 @onready var start_timer_label = $HostPopup/GameStartBg/StartTimerLabel
 @onready var game_start_bg = $HostPopup/GameStartBg
 @onready var host_popup = $HostPopup
+@onready var host_button = $HostContainer/HostButton
+@onready var join_button = $HostContainer/JoinButton
 
 @export var wait_time: int = 3
 
@@ -24,13 +26,14 @@ var error_tween: Tween
 var players_panels: Array
 
 func _ready():
+	update_online_feature(GameManager.has_training)
 	animation_player.play("start")
 	_connect_signals()
 	_set_coin_label()
 	players_panels = $HostPopup/PlayersPanelContainer/MarginContainer/GridContainer.get_children()
 	audio_stream_player.play()
 	if GameManager.player_name.is_empty():
-		line_edit.text_submitted.connect(_on_line_edit_text_submitted)
+		line_edit.text_changed.connect(_on_line_edit_text_submitted)
 		line_edit.focus_mode = FOCUS_CLICK
 		line_edit.editable = true
 	else:
@@ -46,6 +49,7 @@ func _connect_signals():
 	WebSocket.game_stated.connect(_on_game_started)
 
 func _on_request_home():
+	update_online_feature(GameManager.has_training)
 	show()
 	_set_coin_label()
 	set_process_input(true)
@@ -152,3 +156,6 @@ func _on_room_id_button_pressed():
 	var share_text = "Join my game! Room Code: " + room_id
 	OS.shell_open("intent://send?text=" + share_text + "#Intent;action=android.intent.action.SEND;type=text/plain;end;")
 
+func update_online_feature(value = false):
+	host_button.disabled = value
+	join_button.disabled = value

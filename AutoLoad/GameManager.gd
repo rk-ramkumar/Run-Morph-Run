@@ -58,7 +58,8 @@ func increase_distance(value):
 	distance_increased.emit(int(distance))
 
 func set_player_name(value: String):
-	config.set_value("player", "name", value)
+	player_name = value
+	config.set_value("player", "name", player_name)
 	config.save(config_path)
 
 func register_collision():

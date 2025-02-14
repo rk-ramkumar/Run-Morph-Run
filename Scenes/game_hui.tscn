@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c4q18xng0tqn7"]
+[gd_scene load_steps=20 format=3 uid="uid://c4q18xng0tqn7"]
 
 [ext_resource type="Script" path="res://Scripts/Game_HUI_Control.gd" id="1_3pnah"]
 [ext_resource type="Script" path="res://Scripts/game_hui.gd" id="1_povxx"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bjvwm8r7w2pmh" path="res://Scenes/pause_control.tscn" id="9_4rx85"]
 [ext_resource type="LabelSettings" uid="uid://c356v0xwg8mtl" path="res://Resources/header_label_setting.tres" id="9_m4f7e"]
 [ext_resource type="PackedScene" uid="uid://n2i6y5om2y4r" path="res://Scenes/main_menu.tscn" id="10_wlrdh"]
+[ext_resource type="PackedScene" uid="uid://ch35no613p4uw" path="res://Scenes/complete.tscn" id="12_g67qu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7sjjg"]
 font_size = 38
@@ -264,6 +265,8 @@ vertical_alignment = 1
 [node name="PauseControl" parent="." instance=ExtResource("9_4rx85")]
 
 [node name="GameOver" parent="." instance=ExtResource("6_m0sus")]
+
+[node name="Complete" parent="." instance=ExtResource("12_g67qu")]
 
 [node name="MainMenu" parent="." instance=ExtResource("10_wlrdh")]
 
