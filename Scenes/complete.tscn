@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bkmneib06l1ek" path="res://Scenes/custom_button.tscn" id="3_dda4c"]
 
 [node name="Complete" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +64,7 @@ text = "Restart"
 [node name="HomeButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_dda4c")]
 custom_minimum_size = Vector2(512, 80)
 layout_mode = 2
-text = "continue"
+text = "Home"
 
 [node name="ExitButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_dda4c")]
 custom_minimum_size = Vector2(512, 80)

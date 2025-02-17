@@ -31,7 +31,7 @@ func _process(delta):
 			if update_timer >= 0.2: # Every 200ms
 				update_timer = 0
 				if abs(GameManager.distance - last_sent_distance) > 5:
-						send_distance_update()
+					send_distance_update()
 			while socket.get_available_packet_count() > 0:
 				var msg = JSON.parse_string(socket.get_packet().get_string_from_utf8())
 				match msg.type:
@@ -50,6 +50,12 @@ func _process(delta):
 					"game_stated":
 						game_stated.emit()
 						print('game_stated')
+		WebSocketPeer.STATE_CLOSED:
+			var code = socket.get_close_code()
+			var reason = socket.get_close_reason()
+			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+			set_process(false)
+
 
 func send_distance_update():
 	last_sent_distance = GameManager.distance
@@ -71,7 +77,8 @@ func create_room(attempt = 0):
 
 		WebSocketPeer.STATE_OPEN:
 			if room_tween:
-				room_tween.kill() 
+				room_tween.kill()
+			socket.connect_to_url(URL)
 			is_host = true
 			var data = { "type": "create_room" , "profile": GameManager.get_profile()}
 			socket.put_packet(JSON.stringify(data).to_utf8_buffer())
@@ -93,4 +100,5 @@ func listen():
 	set_process(true)
 
 func stop_listen():
+	socket.close(13, "Match finished")
 	set_process(false)

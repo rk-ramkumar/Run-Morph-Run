@@ -30,8 +30,8 @@ func _ready():
 	hide()
 	online_control.hide()
 
-func _on_game_start(data: Dictionary):
-	if !data.is_empty() and data.type == "respawn":
+func _on_game_start(gameData: Dictionary):
+	if !gameData.is_empty() and gameData.type == "respawn":
 		return
 	_update_coin_label(GameManager.coin)
 	_update_distance_label(GameManager.distance)
@@ -88,7 +88,7 @@ func animate(value):
 
 func _on_leaderboard_updated(msg):
 	data = msg
-	var ratio = msg.place / msg.room_size
+	var ratio = (msg.place - 1) / msg.room_size
 	var colors = {
 		ratio < 1: "red",
 		ratio < 0.7: "yellow",

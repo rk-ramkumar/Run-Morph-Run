@@ -51,6 +51,8 @@ func _connect_signals():
 func _on_request_home():
 	update_online_feature(GameManager.has_training)
 	show()
+	animation_player.play("start")
+	host_popup.hide()
 	_set_coin_label()
 	set_process_input(true)
 	audio_stream_player.play()
@@ -91,7 +93,6 @@ func _on_join_confirm_button_pressed():
 	_rest_join_popup()
 
 func _on_join_cancel_button_pressed():
-	WebSocket.stop_listen()
 	_rest_join_popup()
 
 func _rest_join_popup():

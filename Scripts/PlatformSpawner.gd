@@ -213,4 +213,3 @@ func _recycle():
 
 func _reset():
 	super._reset()
-	last_power_distance = 0.0
